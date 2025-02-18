@@ -1,10 +1,9 @@
-SRCS = pipex.c pipex_utils.c  \
-	 ft_split.c ft_strncmp.c \
+SRCS = pipex.c pipex_utils.c minishell.c ft_split.c ft_strncmp.c \
 	ft_strnstr.c ft_strjoin.c pipex_utils1.c
 
 OBJS = ${SRCS:.c=.o}
 OBJSB = ${SRCSB:.c=.o}
-NAME = pipex
+NAME = minishell
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:21:27 by sodahani          #+#    #+#             */
-/*   Updated: 2025/02/16 14:56:25 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:25:44 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	process_regular_files(int argc, char **argv, char **envp)
 	execute(argv[argc - 2], envp);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	pipex(int argc, char **argv, char **envp)
 {
 	if (argc >= 5)
 	{

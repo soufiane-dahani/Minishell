@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 10:17:13 by sodahani          #+#    #+#             */
-/*   Updated: 2025/02/16 14:56:48 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:27:19 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ char	**ft_split(char const *s, char c)
 {
 	char			**s2;
 	unsigned int	num_words;
-	int				i;
 
-	i = -1;
 	if (!(*s))
 	{
 		free((char *)s);

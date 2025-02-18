@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 12:24:58 by sodahani          #+#    #+#             */
-/*   Updated: 2025/02/16 14:55:53 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:25:57 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ size_t	ft_strlen(const char *str);
 char	*removecharta(char *str, char *c);
 char	*check_command_in_paths(char *cmd, char **paths);
 char	*ft_strchr(const char *s, int c);
+int		pipex(int argc, char **argv, char **envp);
 #endif
