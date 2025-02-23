@@ -6,7 +6,7 @@
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/23 09:37:44 by yaait-am          #+#    #+#              #
-#    Updated: 2025/02/23 10:56:26 by yaait-am         ###   ########.fr        #
+#    Updated: 2025/02/23 18:14:52 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -rf $(TARGET)
 
 re: fclean all
 

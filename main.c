@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:32:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/23 11:09:24 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:30:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 void	parsing(char *s)
 {
+	int	i;
+
+	i = 0;
 	if (s == NULL || !ft_strncmp(s, "exit", 5))
 	{
 		printf("exit\n");
+		while (i != 199999991)
+			i++;
 		free(s);
 		exit(0);
 	}
