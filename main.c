@@ -6,48 +6,65 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:32:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/23 18:30:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:58:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parsing(char *s)
+int	is_valid(t_cmd *data)
 {
 	int	i;
 
 	i = 0;
-	if (s == NULL || !ft_strncmp(s, "exit", 5))
+	data->cmd = ft_split(data->s, '|');
+	while (data->cmd[i])
+	{
+		data->all = ft_split(data->cmd[i], ' ');
+		i++;
+	}
+	return (0);
+}
+
+void	parsing(t_cmd *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->s == NULL || !ft_strncmp(data->s, "exit", 5))
 	{
 		printf("exit\n");
 		while (i != 199999991)
 			i++;
-		free(s);
+		free(data);
 		exit(0);
 	}
-	else if (s[0] != 0)
+	if (is_valid(data))
+		return ;
+	else if (data->s[0] != 0)
 	{
-		add_history(s);
-		printf("bash: %s: command not found\n", s);
+		add_history(data->s);
+		printf("bash: %s: command not found\n", data->s);
 	}
 }
 
 int	main(int ac, char **av)
 {
-	char	*s;
+	t_cmd	*data;
 
 	(void)av;
+	data = malloc(sizeof(t_cmd));
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	if (ac != 1)
 	{
 		printf("\n [ ==> Usage: ./minishell <== ]\n\n");
+		free(data);
 		return (1);
 	}
 	while (1)
 	{
-		s = readline("minishell$> ");
-		parsing(s);
-		free(s);
+		data->s = readline("minishell$> ");
+		parsing(data);
 	}
 }
