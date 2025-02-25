@@ -6,11 +6,31 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:27:59 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 09:38:37 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:53:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_valid_args(t_cmd *data)
+{
+	if (!strcmp(data->all[0], "cd") && (!data->all[1] || data->all[2]))
+	{
+		printf("cd: wrong number of arguments\n");
+		return (0);
+	}
+	if (!strcmp(data->all[0], "export") && !data->all[1])
+	{
+		printf("export: missing argument\n");
+		return (0);
+	}
+	if (!strcmp(data->all[0], "unset") && !data->all[1])
+	{
+		printf("unset: missing argument\n");
+		return (0);
+	}
+	return (1);
+}
 
 int	check_is_valid(t_cmd *data)
 {
@@ -60,6 +80,7 @@ int	is_built(t_cmd *data)
 		if (!strcmp(data->all[0], builtins[i]))
 		{
 			printf("\n[ ==> valid comond (built) <== ]\n\n");
+			is_valid_args(data);
 			return (1);
 		}
 		i++;

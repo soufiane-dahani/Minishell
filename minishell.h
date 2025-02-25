@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:30:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 09:33:02 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:46:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ char			*ft_strjoin(char *s1, char *s2);
 int				ft_strlen(char *str);
 int				check_is_valid(t_cmd *data);
 int				is_built(t_cmd *data);
+int				is_valid_args(t_cmd *data);
+
 
 #endif
