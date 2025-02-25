@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:32:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/24 15:58:04 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:28:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	is_valid(t_cmd *data)
 	while (data->cmd[i])
 	{
 		data->all = ft_split(data->cmd[i], ' ');
+		if (check_is_valid(data))
+			return (1);
 		i++;
 	}
 	return (0);

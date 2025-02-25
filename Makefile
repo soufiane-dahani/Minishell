@@ -6,7 +6,7 @@
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/23 09:37:44 by yaait-am          #+#    #+#              #
-#    Updated: 2025/02/23 18:14:52 by yaait-am         ###   ########.fr        #
+#    Updated: 2025/02/25 09:28:52 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 TARGET = minishell
-SRC = main.c helper_function.c handle_signal.c ft_split.c
+SRC = main.c helper_function.c handle_signal.c ft_split.c ft_strjoin.c is_valid.c
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET)

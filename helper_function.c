@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:49:16 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/23 09:50:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:35:05 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	else
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
