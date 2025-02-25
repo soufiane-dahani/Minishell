@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:51:54 by sodahani          #+#    #+#             */
-/*   Updated: 2025/02/16 14:56:41 by sodahani         ###   ########.fr       */
+/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+/*   Updated: 2025/02/23 11:13:11 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+#include "minishell.h"
+
+void print_error(char * message)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while ((i < n) && (s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
-		i++;
-	}
-	return (0);
+    int i = 0;
+    write(2, ANSI_COLOR_RED, 5);
+    while (message[i])
+        i++;
+    write(2, message, i);
+    write(2, ANSI_RESET_ALL, 4);
 }

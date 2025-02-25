@@ -1,28 +1,35 @@
-SRCS = pipex.c pipex_utils.c minishell.c ft_split.c ft_strncmp.c \
-	ft_strnstr.c ft_strjoin.c pipex_utils1.c
-
+SRCS = minishell.c error.c 
 OBJS = ${SRCS:.c=.o}
-OBJSB = ${SRCSB:.c=.o}
 NAME = minishell
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
+LIBFT_DIR = Libft
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-${NAME}: ${OBJS}
-	$(CC) $(CFLAGS) ${OBJS} -o ${NAME}
+LDFLAGS = -L$(LIBFT_DIR) -lft
 
-bonus: ${OBJSB}
-	$(CC) $(CFLAGS) ${OBJSB} -o ${NAME}
- 
-all: ${NAME}
+$(LIBFT_LIB):
+	cd $(LIBFT_DIR) && make
+
+$(NAME): $(OBJS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+
+
+all: $(NAME)
 
 clean:
-	${RM} ${OBJS} ${OBJSB}
+	$(RM) $(OBJS)
+	cd $(LIBFT_DIR) && make clean
+
 
 fclean: clean
-	${RM} ${NAME}
+	$(RM) $(NAME)
+	cd $(LIBFT_DIR) && make fclean
+
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+
+.PHONY: all clean fclean re
 .SECONDARY:
