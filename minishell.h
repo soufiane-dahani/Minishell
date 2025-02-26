@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:30:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 14:46:55 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:08:06 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <unistd.h>
+# include <ctype.h>
+
+# define INITIAL_SIZE 10
 
 typedef struct s_col
 {
@@ -45,6 +48,8 @@ int				ft_strlen(char *str);
 int				check_is_valid(t_cmd *data);
 int				is_built(t_cmd *data);
 int				is_valid_args(t_cmd *data);
-
+char			**handle_quote(char *input);
+int				is_space(char c);
+int				is_quote(int i, char *input, char *token, int len);
 
 #endif

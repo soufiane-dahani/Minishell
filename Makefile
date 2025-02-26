@@ -6,7 +6,7 @@
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/23 09:37:44 by yaait-am          #+#    #+#              #
-#    Updated: 2025/02/25 16:10:09 by yaait-am         ###   ########.fr        #
+#    Updated: 2025/02/26 15:17:32 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 TARGET = minishell
-SRC = main.c helper_function.c handle_signal.c ft_split.c ft_strjoin.c is_valid.c
+SRC = main.c helper_function.c handle_signal.c ft_split.c ft_strjoin.c is_valid.c handle_quote.c is.c
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET) banner
@@ -55,4 +55,4 @@ bye :
 	@echo "\033[31m | |   | || (   ) |  | | \   || |   | |(_)  | |   ) || |   | || | \   |      | |     | |      | (      | (   ) | \ \_/ / | (       \033[0m"
 	@echo "\033[31m | (___) || )   ( |  | )  \  || (___) | _   | (__/  )| (___) || )  \  |      | |     | (____/\| (____/\| )   ( |  \   /  | (____/\ \033[0m"
 	@echo "\033[31m (_______)|/     \|  |/    )_)(_______)(_)  (______/ (_______)|/    )_)      )_(     (_______/(_______/|/     \|   \_/   (_______/ \033[0m"
-	@echo "\033[32m                                                            See you next time!                          \033[0m"
+	@echo "\033[32m                                                           See you next time!                          \033[0m"

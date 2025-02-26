@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:27:59 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 14:53:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:08:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	check_is_valid(t_cmd *data)
 		if (access(cmd_path, X_OK) == 0)
 		{
 			printf("\n[ ==> valid command (found in PATH) <== ]\n\n");
-			free(cmd_path);
-			return (1);
+			return (free(cmd_path), 1);
 		}
 		free(cmd_path);
 		i++;
 	}
-	return (0);
+	printf("bash: %s: command not found\n", data->all[0]);
+	return (free(paths), 0);
 }
 
 int	is_built(t_cmd *data)

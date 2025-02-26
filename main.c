@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 09:32:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 15:29:28 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:36:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,10 @@ int	is_valid(t_cmd *data)
 	data->cmd = ft_split(data->s, '|');
 	while (data->cmd[i])
 	{
-		data->all = ft_split(data->cmd[i], ' ');
+		data->all = handle_quote(data->cmd[i]);
 		if (check_is_valid(data))
 			a = 1;
-		else
-		{
-			add_history(data->s);
-			printf("bash: %s: command not found\n", data->s);
-		}
+		add_history(data->s);
 		i++;
 	}
 	return (a);
