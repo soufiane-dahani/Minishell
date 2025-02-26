@@ -45,3 +45,40 @@ int main(void) {
 
 	ft_malloc(0, FT_CLEAR);
 }
+
+// // () "" '' < > << >> || && | word
+// typedef enum e_type
+// {
+// 	TYP_WORD,
+// 	TYP_PIPE,
+// 	TYP_DQUOTE,
+// 	TYP_SQOUTE,
+// 	TYP_REDIN,
+// 	TYP_REDOUT,
+// 	TYP_REDHERE,
+// 	TYP_REDAPP,
+// 	TYP_LPAR,
+// 	TYP_RPAR,
+// 	TYP_AND,
+// 	TYP_OR
+// } t_type;
+
+// // general state, quote state
+// typedef struct s_token
+// {
+// 	t_type	type;
+// 	char	*start;
+// 	int		len;
+// 	bool    env_expantion;
+// 	bool	wildcard_expantion;
+// 	bool	is_quoted;
+// 	bool	cat_with_next;
+// };
+
+// void	handle_general_state()
+// {
+
+// }
+// int main(void) {
+
+// }
