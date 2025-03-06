@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/02/23 12:32:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/02/25 13:39:26 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 
 
 typedef enum {
-    SIMPLE_CMD,   // For simple commands like "ls", "echo"
-    PIPE,         // For piping between commands
-    REDIRECT_IN,  // For input redirection ("<")
-    REDIRECT_OUT, // For output redirection (">")
-    APPEND_OUT,   // For output append redirection (">>")
-    AND,          // For "&&"
-    OR            // For "||"
+    SIMPLE_CMD,
+    PIPE,         
+    REDIRECT_IN,
+    REDIRECT_OUT,
+    APPEND_OUT,  
+    AND,          
+    OR            
 } t_ast_node_type;
 
 typedef struct s_ast_node {
@@ -52,22 +52,22 @@ typedef struct s_ast_node {
 
 
 typedef struct s_process {
-    pid_t pid;            // Process ID of the child process
-    int status;           // The status of the process (exit status)
-    int pipe_fd[2];       // For pipe redirection, store pipe file descriptors
-    int input_fd;         // File descriptor for input redirection
-    int output_fd;        // File descriptor for output redirection
+    pid_t pid;         
+    int status;   
+    int pipe_fd[2];  
+    int input_fd;       
+    int output_fd;       
 } t_process;
 
 typedef struct s_exec_env {
-    char **envp;           // Environment variables
-    int exit_status;       // Exit status of the last executed command
+    char **envp;          
+    int exit_status; 
 } t_exec_env;
 
 
 typedef struct s_redirect {
     int type;         // Type of redirection (e.g., input, output, append)
-    char *file;       // File to redirect to/from
+    char *file;     
 } t_redirect;
 
 
@@ -78,6 +78,9 @@ typedef struct s_parser {
 
 
 void print_error(char * message);
-
+void execute_cd(char *path);
+void execute_pwd();
+void execute_exit();
+void execute_unset(char ***envp, char *var_name);
 
 #endif

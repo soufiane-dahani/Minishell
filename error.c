@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-void print_error(char * message)
+void	print_error(char *message)
 {
-    int i = 0;
-    write(2, ANSI_COLOR_RED, 5);
-    while (message[i])
-        i++;
-    write(2, message, i);
-    write(2, ANSI_RESET_ALL, 4);
+	int	i;
+
+	i = 0;
+	write(2, ANSI_COLOR_RED, 5);
+	while (message[i])
+		i++;
+	write(2, message, i);
+	write(2, ANSI_RESET_ALL, 4);
 }
