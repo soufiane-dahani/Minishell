@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:56:49 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/06 16:04:31 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:12:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
 
 #endif
