@@ -1,4 +1,4 @@
-SRCS = minishell.c error.c 
+SRCS = minishell.c error.c execute_simple_command.c builtins.c
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
 CC = cc
@@ -7,29 +7,25 @@ CFLAGS = #-Wall -Wextra -Werror
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-LDFLAGS = -L$(LIBFT_DIR) -lft
-
-$(LIBFT_LIB):
-	cd $(LIBFT_DIR) && make
-
-$(NAME): $(OBJS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
-
+LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline
 
 all: $(NAME)
 
+$(NAME): $(LIBFT_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME) 
+
+$(LIBFT_LIB):
+	$(MAKE) -C $(LIBFT_DIR)
+
 clean:
 	$(RM) $(OBJS)
-	cd $(LIBFT_DIR) && make clean
-
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	cd $(LIBFT_DIR) && make fclean
-
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
-
 
 .PHONY: all clean fclean re
 .SECONDARY:
