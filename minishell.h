@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/06 17:49:22 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:08:53 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ char		*find_path(char *cmd, char **envp);
 char		*check_command_in_paths(char *cmd, char **paths);
 void		execute_export(char **envp);
 void		error(void);
+void		execute_pipe(t_ast_node *node, char **envp);
 
 #endif
