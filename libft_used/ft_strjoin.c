@@ -5,20 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 09:21:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 09:23:55 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/30 09:59:38 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/10 14:42:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-static char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char const *src)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (!dest || !src)
-		return (NULL);
 	while (src[i])
 	{
 		dest[i] = src[i];
@@ -28,17 +26,17 @@ static char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-static char	*ft_strcat(char *dest, char *src)
+static char	*ft_strcat(char *dest, char const *src)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
-	if (!dest || !src)
-		return (NULL);
 	while (dest[i])
+	{
 		i++;
+	}
 	while (src[j])
 	{
 		dest[i + j] = src[j];
@@ -48,32 +46,10 @@ static char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strdup(char *src)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*yas;
-	int		i;
-	int		j;
-
-	if (!src)
-		return (NULL);
-	i = ft_strlen(src);
-	yas = malloc(i + 1);
-	if (!yas)
-		return (NULL);
-	j = 0;
-	while (j < i)
-	{
-		yas[j] = src[j];
-		j++;
-	}
-	yas[i] = '\0';
-	return (yas);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	*yas;
 
 	if (!s1 && !s2)
@@ -84,11 +60,30 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s1));
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
-	yas = malloc(j + i + 1);
+	yas = ft_malloc(((j + i + 1) * sizeof(char)), FT_ALLOC);
 	if (!yas)
-		return (free(s1), s1 = NULL, NULL);
+		return (NULL);
 	ft_strcpy(yas, s1);
 	ft_strcat(yas, s2);
-	free (s1);
+	return (yas);
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*yas;
+	size_t	i;
+	size_t	j;
+
+	i = ft_strlen(src);
+	yas = ft_malloc((i + 1), FT_ALLOC);
+	if (!yas)
+		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		yas[j] = src[j];
+		j++;
+	}
+	yas[i] = '\0';
 	return (yas);
 }

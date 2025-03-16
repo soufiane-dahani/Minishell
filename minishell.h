@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 09:30:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/26 16:08:06 by yaait-am         ###   ########.fr       */
+/*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/11 11:23:11 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,102 @@
 # include <ctype.h>
 
 # define INITIAL_SIZE 10
+# define FT_ALLOC 1
+# define FT_CLEAR 0
+# ifndef G_EXT
+#  define G_EXT
 
-typedef struct s_col
+typedef enum e_type
 {
-	char	**cmd;
-}				t_col;
+	TYP_WORD,
+	TYP_PIPE,
+	TYP_DQUOTE,
+	TYP_SQOUTE,
+	TYP_REDIN,
+	TYP_REDOUT,
+	TYP_REDHERE,
+	TYP_REDAPP,
+	TYP_LPAR,
+	TYP_RPAR,
+	TYP_AND,
+	TYP_OR,
+	TYP_OAND
+}		t_type;
+
+typedef struct s_ast
+{
+	char			*value;
+	t_type			flag;
+	struct s_ast	*r;
+	struct s_ast	*l;
+}				t_ast;
+
+extern t_ast	*g_ast;
+
+# endif
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
+typedef struct s_token
+{
+	char			*value;
+	t_type			type;
+	struct s_token	*next;
+}				t_token;
 
 typedef struct s_cmd
 {
 	int				fd;
 	char			*s;
 	char			**cmd;
+	int				flag;
 	char			**all;
-	t_col			*col;
+	int				*falgs;
 	struct t_cmd	*r;
 	struct t_cmd	*l;
 }				t_cmd;
 
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
-void			handler(int sig);
-char			**ft_split(char const *s, char c);
-char			*ft_strjoin(char *s1, char *s2);
-int				ft_strlen(char *str);
-int				check_is_valid(t_cmd *data);
-int				is_built(t_cmd *data);
-int				is_valid_args(t_cmd *data);
-char			**handle_quote(char *input);
-int				is_space(char c);
-int				is_quote(int i, char *input, char *token, int len);
+typedef struct s_spl
+{
+	int		i;
+	int		token_count;
+	char	*start;
+	int		len;
+	int		offset;
+}				t_spl;
+
+void		handler(int sig);
+void		*ft_malloc(size_t size, short option);
+t_list		*mem_alloc(size_t size);
+size_t		ft_strlen(const char *c);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		**ft_split(char const *s, char c);
+char		*ft_strdup(const char *src);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+t_list		*ft_lstnew(void *content);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		more_parsing(t_cmd *data);
+int			is_space(char c);
+char		*ft_strndup(const char *s, size_t n);
+int			handle_quote(t_cmd *data, int i);
+void		valid_pipe(t_cmd *data);
+int			handle_token(t_cmd *data, t_spl *spl);
+int			is_special_char(char c);
+int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
+t_ast		*new_ast_node(char *value);
+void		is_cmd_valid(char **cmd);
+int			check_the_first(char **cmd);
+int			is_newline(char **cmd);
+int			is_error_near(char **cmd);
+int			is_dnear_error(char **cmd);
+int			is_root(char *cmd);
+char		*ft_strcpy(char *dest, char const *src);
+void		*ft_memset(void *s, int c, size_t n);
+t_token		*tokenize(char **cmd);
 
 #endif

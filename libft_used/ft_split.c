@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:55:31 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/23 10:56:02 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/26 15:21:06 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/03 12:25:37 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static size_t	ft_count(char const *s, char c)
 {
@@ -45,7 +45,7 @@ static char	*ft_cpy(char const *s, char c)
 	sir = s;
 	while (s[i] && s[i] != c)
 		i++;
-	word = (char *)malloc ((i + 1) * sizeof(char));
+	word = (char *)ft_malloc ((i + 1) * sizeof(char), FT_ALLOC);
 	if (!word)
 		return (NULL);
 	while (j < i)
@@ -78,7 +78,7 @@ static char	**ft_null(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words = ft_count(s, c);
-	yas = (char **) malloc ((words + 1) * sizeof(char *));
+	yas = (char **) ft_malloc ((words + 1) * sizeof(char *), FT_ALLOC);
 	if (!yas)
 		return (NULL);
 	return (yas);

@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_function.c                                  :+:      :+:    :+:   */
+/*   first_worderr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 09:49:16 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/02/25 09:35:05 by yaait-am         ###   ########.fr       */
+/*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/10 22:48:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	is_root(char *cmd)
 {
-	size_t	i;
+	int		i;
+	char	*cd;
 
-	if (n == 0)
+	if (!cmd)
 		return (0);
-	i = 0;
-	while (s1[i] == s2[i] && (s1[i] && s2[i]) && i < n)
-		i++;
-	if (i == n)
-		return (0);
-	else
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	i = ft_strlen(cmd);
+	if (cmd[0] == '/' || cmd[0] == '-')
+	{
+		printf("bash: %s: command not found\n", cmd);
+		return (1);
+	}
+	if (cmd[0] == '\\')
+	{
+		if (i % 2)
+			return (1);
+		cd = malloc((i / 2) + 1);
+		if (!cd)
+			return (1);
+		ft_memset(cd, '\\', i / 2);
+		cd[i / 2] = '\0';
+		printf("bash: %s: command not found\n", cd);
+		free(cd);
+		return (1);
+	}
+	return (0);
 }

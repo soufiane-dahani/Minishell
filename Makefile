@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/02/23 09:37:44 by yaait-am          #+#    #+#              #
-#    Updated: 2025/02/26 15:17:32 by yaait-am         ###   ########.fr        #
+#    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
+#    Updated: 2025/03/11 11:26:49 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,21 +14,23 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 TARGET = minishell
-SRC = main.c helper_function.c handle_signal.c ft_split.c ft_strjoin.c is_valid.c handle_quote.c is.c
+SRC = main.c handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
+	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c malloc.c libft_used/ft_strncmp.c \
+	parsing.c is.c parse_pipe.c t_ast.c is_the_cmd_valid.c first_worderr.c to_linked.c
 OBJ = $(SRC:.c=.o)
 
-all: $(TARGET) banner
+all: $(TARGET) # banner
 
 $(TARGET): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ)
 
-fclean: clean bye
+fclean: clean # bye
 	@rm -rf $(TARGET)
 
 re: fclean all

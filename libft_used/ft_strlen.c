@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:03 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/22 08:15:40 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/10 15:09:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	handler(int sig)
+size_t	ft_strlen(const char *c)
 {
-	if (sig == SIGINT)
+	size_t	i;
+
+	i = 0;
+	while (c[i])
+		i++;
+	return (i);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t			i;
+	unsigned char	*y;
+
+	i = 0;
+	y = s;
+	while (i < n)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		y[i] = c;
+		i++;
 	}
+	return (y);
 }

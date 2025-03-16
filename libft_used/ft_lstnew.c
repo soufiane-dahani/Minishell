@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:03 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/27 14:56:48 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/05 10:28:49 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	handler(int sig)
+t_list	*ft_lstnew(void *content)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	t_list	*yas;
+
+	yas = malloc(sizeof(t_list));
+	if (!yas)
+		return (NULL);
+	yas->content = content;
+	yas->next = NULL;
+	return (yas);
 }

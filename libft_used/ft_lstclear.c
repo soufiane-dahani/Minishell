@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:03 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/28 10:29:54 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/03 12:10:03 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	handler(int sig)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	if (sig == SIGINT)
+	t_list	*one;
+	t_list	*two;
+
+	if (!lst || !del)
+		return ;
+	one = *lst;
+	while (one != NULL)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		two = one->next;
+		del(one->content);
+		free(one);
+		one = two;
 	}
+	*lst = NULL;
 }

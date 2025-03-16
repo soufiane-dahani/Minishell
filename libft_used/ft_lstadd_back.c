@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:03 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/28 09:57:50 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/03/03 12:30:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	handler(int sig)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (sig == SIGINT)
+	t_list	*yas;
+
+	if (!lst || !new)
+		return ;
+	if (*lst == NULL)
+		*lst = new;
+	else
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		yas = *lst;
+		while (yas->next != NULL)
+			yas = yas->next;
+		yas->next = new;
 	}
 }
