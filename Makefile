@@ -1,4 +1,4 @@
-SRCS = minishell.c error.c execute_simple_command.c builtins.c
+SRCS = minishell.c error.c execute_simple_command.c builtins.c execute_pipe.c 
 OBJS = ${SRCS:.c=.o}
 NAME = minishell
 CC = cc

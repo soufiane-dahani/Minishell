@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/08 14:11:17 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:47:59 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,53 @@ void execute_ast(t_ast_node *node, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    // Simulate a simple command (normally, this would come from the parser)
-    t_ast_node test_cmd;
-    char *cmd[] = {"ls", "-l", NULL}; // Replace with any command to test
-
-    // Fill the AST node manually
-    test_cmd.type = SIMPLE_CMD;
-    test_cmd.cmd = cmd;
-    test_cmd.file = NULL;
-    test_cmd.left = NULL;
-    test_cmd.right = NULL;
-
-    // Execute the test command
-    execute_ast(&test_cmd, envp);
-
+    // Create AST for: ls | grep .c | wc -l
+    // Note: The proper way to structure it depends on how your parser builds the AST
+    
+    // Method 1: Right-linked list (if your parser works this way)
+    t_ast_node cmd1, cmd2, cmd3, pipe1, pipe2;
+    
+    // Command 1: ls
+    char *cmd_ls[] = {"ls", NULL};
+    cmd1.type = SIMPLE_CMD;
+    cmd1.cmd = cmd_ls;
+    cmd1.left = NULL;
+    cmd1.right = NULL;
+    
+    // Command 2: grep .c
+    char *cmd_grep[] = {"grep", "j", NULL};
+    cmd2.type = SIMPLE_CMD;
+    cmd2.cmd = cmd_grep;
+    cmd2.left = NULL;
+    cmd2.right = NULL;
+    
+    // Command 3: wc -l
+    char *cmd_wc[] = {"wc", "-l", NULL};
+    cmd3.type = SIMPLE_CMD;
+    cmd3.cmd = cmd_wc;
+    cmd3.left = NULL;
+    cmd3.right = NULL;
+    
+    // This is the structure your execute_pipe expects:
+    //     PIPE (pipe1)
+    //    /    \
+    //  cmd1    PIPE (pipe2)
+    //         /    \
+    //      cmd2     cmd3
+    
+    pipe2.type = PIPE;
+    pipe2.left = &cmd2;
+    pipe2.right = &cmd3;
+    
+    pipe1.type = PIPE;
+    pipe1.left = &cmd1;
+    pipe1.right = &pipe2;
+    
+    // Print debugging info about the AST structure
+    
+    // Execute the pipeline
+    execute_pipe(&pipe1, envp);
+    
     return 0;
 }
+
