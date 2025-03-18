@@ -6,13 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/11 11:23:41 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:18:48 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	more_parsing(t_cmd *data)
+void	split_the_cmd(t_cmd *data)
 {
 	t_spl	spl;
 
@@ -101,11 +101,7 @@ int	handle_quote(t_cmd *data, int i)
 	start = i;
 	quote = data->s[i++];
 	while (data->s[i] && data->s[i] != quote)
-	{
-		if (data->s[i] == '\\' && data->s[i + 1] && quote == '"')
-			i++;
 		i++;
-	}
 	if (data->s[i] == quote)
 		i++;
 	return (i - start);

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:11:44 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 10:49:07 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:25:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_space(char c)
 {
-	return (c == ' ');
+	return (c == ' ' || c == '\n' || c == '\t');
 }
 
 int	is_special_char(char c)

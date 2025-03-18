@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/11 11:23:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:28:20 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-void		more_parsing(t_cmd *data);
+void		split_the_cmd(t_cmd *data);
 int			is_space(char c);
 char		*ft_strndup(const char *s, size_t n);
 int			handle_quote(t_cmd *data, int i);

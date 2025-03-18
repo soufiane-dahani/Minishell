@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/11 11:25:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:30:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parsing(t_cmd *data)
 {
-	int	i;
+	int		i;
 	t_token	*tk;
 
 	i = 0;
@@ -24,9 +24,10 @@ void	parsing(t_cmd *data)
 		while (i != 199999991)
 			i++;
 		ft_malloc(0, FT_CLEAR);
+		free(data->s);
 		exit(0);
 	}
-	more_parsing(data);
+	split_the_cmd(data);
 	i = 0;
 	while (data->cmd[i])
 	{

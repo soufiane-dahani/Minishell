@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/14 15:48:51 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:33:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static t_token	*create_token(char *value, t_type type)
 {
 	t_token	*new_token;
 
-	new_token = (t_token *)malloc(sizeof(t_token));
+	new_token = ft_malloc(sizeof(t_token), FT_ALLOC);
 	if (!new_token)
 		return (NULL);
-	new_token->value = strdup(value);
+	new_token->value = ft_strdup(value);
 	new_token->type = type;
 	new_token->next = NULL;
 	return (new_token);
@@ -46,19 +46,19 @@ static void	add_token(t_token **head, char *value, t_type type)
 
 static t_type	get_token_type(char *str)
 {
-	if (strcmp(str, "|") == 0)
+	if (ft_strncmp(str, "|", 2) == 0)
 		return (TYP_PIPE);
-	else if (strcmp(str, "&&") == 0)
+	else if (ft_strncmp(str, "&&", 3) == 0)
 		return (TYP_AND);
-	else if (strcmp(str, "||") == 0)
+	else if (ft_strncmp(str, "||", 3) == 0)
 		return (TYP_OR);
-	else if (strcmp(str, "<") == 0)
+	else if (ft_strncmp(str, "<", 2) == 0)
 		return (TYP_REDIN);
-	else if (strcmp(str, ">") == 0)
+	else if (ft_strncmp(str, ">", 2) == 0)
 		return (TYP_REDOUT);
-	else if (strcmp(str, "<<") == 0)
+	else if (ft_strncmp(str, "<<", 3) == 0)
 		return (TYP_REDHERE);
-	else if (strcmp(str, ">>") == 0)
+	else if (ft_strncmp(str, ">>", 3) == 0)
 		return (TYP_REDAPP);
 	else if (str[0] == '(')
 		return (TYP_LPAR);
@@ -86,6 +86,5 @@ t_token	*tokenize(char **cmd)
 		add_token(&head, cmd[i], type);
 		i++;
 	}
-	print_tokens(head);
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/10 22:48:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:27:07 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_root(char *cmd)
 	{
 		if (i % 2)
 			return (1);
-		cd = malloc((i / 2) + 1);
+		cd = ft_malloc((i / 2) + 1, FT_ALLOC);
 		if (!cd)
 			return (1);
 		ft_memset(cd, '\\', i / 2);
