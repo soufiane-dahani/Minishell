@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/17 17:47:59 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/03/18 01:13:22 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int main(int argc, char **argv, char **envp)
     cmd1.right = NULL;
     
     // Command 2: grep .c
-    char *cmd_grep[] = {"grep", "j", NULL};
+    char *cmd_grep[] = {"grep", "daha", NULL};
     cmd2.type = SIMPLE_CMD;
     cmd2.cmd = cmd_grep;
     cmd2.left = NULL;
