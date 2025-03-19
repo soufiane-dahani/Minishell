@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/18 14:18:48 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:02:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	split_the_cmd(t_cmd *data)
 
 	spl.i = 0;
 	spl.token_count = 0;
-	data->cmd = ft_malloc(100 * sizeof(char *), FT_ALLOC);
+	data->cmd = ft_malloc(nb_tok(data->s) * sizeof(char *), FT_ALLOC);
 	while (data->s[spl.i])
 	{
 		while (is_space(data->s[spl.i]))

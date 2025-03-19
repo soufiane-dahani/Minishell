@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/18 14:28:20 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:01:51 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ int			is_root(char *cmd);
 char		*ft_strcpy(char *dest, char const *src);
 void		*ft_memset(void *s, int c, size_t n);
 t_token		*tokenize(char **cmd);
+int			nb_tok(char	*str);
 
 #endif
