@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/08 16:08:53 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:53:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,12 @@ void		execute_unset(char ***envp, char *var_name);
 void		execute_simple_command(char **cmd, char **envp);
 char		*find_path(char *cmd, char **envp);
 char		*check_command_in_paths(char *cmd, char **paths);
-void		execute_export(char **envp);
+void		execute_export(char ***envp, char **cmd);
+void		execute_env(char **envp);
 void		error(void);
 void		execute_pipe(t_ast_node *node, char **envp);
-
+void 		execute_ast(t_ast_node *node, char **envp);
+void		print_export(char **envp);
+int			is_valid_identifier(const char *var);
+void		add_to_env(char ***envp, const char *new_var);
 #endif
