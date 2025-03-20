@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/19 14:01:51 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:26:02 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_type			type;
+	int				is_exp;
 	struct s_token	*next;
 }				t_token;
 
@@ -106,20 +107,18 @@ void		split_the_cmd(t_cmd *data);
 int			is_space(char c);
 char		*ft_strndup(const char *s, size_t n);
 int			handle_quote(t_cmd *data, int i);
-void		valid_pipe(t_cmd *data);
 int			handle_token(t_cmd *data, t_spl *spl);
 int			is_special_char(char c);
 int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
 t_ast		*new_ast_node(char *value);
-void		is_cmd_valid(char **cmd);
-int			check_the_first(char **cmd);
-int			is_newline(char **cmd);
-int			is_error_near(char **cmd);
-int			is_dnear_error(char **cmd);
+int			check_the_first(t_token *tk);
+void		is_cmd_valid(t_token *tk);
 int			is_root(char *cmd);
 char		*ft_strcpy(char *dest, char const *src);
 void		*ft_memset(void *s, int c, size_t n);
 t_token		*tokenize(char **cmd);
 int			nb_tok(char	*str);
+void		check_the_exp(t_token *tk);
+int			invalid_syntax(t_token *tk);
 
 #endif

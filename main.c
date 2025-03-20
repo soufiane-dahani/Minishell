@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/18 14:30:54 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:45:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	parsing(t_cmd *data)
 		exit(0);
 	}
 	split_the_cmd(data);
-	i = 0;
-	while (data->cmd[i])
-	{
-		printf("Token %d: %s\n", i, data->cmd[i]);
-		i++;
-	}
 	tk = tokenize(data->cmd);
-	(void)tk;
+	check_the_exp(tk);
+	while (tk)
+	{
+		printf("tk : %s ---> typ : %u ----> exp :% d\n", tk->value,
+			tk->type, tk->is_exp);
+		tk = tk->next;
+	}
 }
 
 int	main(int ac, char **av)
