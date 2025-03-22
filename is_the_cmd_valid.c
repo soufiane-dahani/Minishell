@@ -6,21 +6,21 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/20 14:25:55 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:57:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	is_cmd_valid(t_token *tk)
+int	is_cmd_valid(t_token *tk)
 {
 	t_token	*s;
 
 	s = tk;
 	if (!check_the_first(tk))
-		return ;
-	while (s)
-	{
-		s = s->next;
-	}
+		return (0);
+	g_ast = build_the_tree(tk);
+	if (g_ast)
+		return (0);
+	return (1);
 }

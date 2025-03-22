@@ -6,13 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/20 14:11:54 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:25:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_the_exp(t_token *tk)
+int	check_the_exp(t_token *tk)
 {
 	int		i;
 	t_token	*s;
@@ -33,5 +33,7 @@ void	check_the_exp(t_token *tk)
 		}
 		s = s->next;
 	}
-	is_cmd_valid(tk);
+	if (is_cmd_valid(tk))
+		return (0);
+	return (1);
 }

@@ -6,11 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/20 14:45:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:57:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_ast *g_ast = NULL;
 
 void	parsing(t_cmd *data)
 {
@@ -29,13 +31,14 @@ void	parsing(t_cmd *data)
 	}
 	split_the_cmd(data);
 	tk = tokenize(data->cmd);
-	check_the_exp(tk);
-	while (tk)
-	{
-		printf("tk : %s ---> typ : %u ----> exp :% d\n", tk->value,
-			tk->type, tk->is_exp);
-		tk = tk->next;
-	}
+	if (check_the_exp(tk))
+		return ;
+	// while (tk)
+	// {
+	// 	printf("tk : %s ---> typ : %u ----> exp :% d\n", tk->value,
+	// 		tk->type, tk->is_exp);
+	// 	tk = tk->next;
+	// }
 }
 
 int	main(int ac, char **av)

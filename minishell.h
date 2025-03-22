@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/20 14:26:02 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:35:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # define INITIAL_SIZE 10
 # define FT_ALLOC 1
 # define FT_CLEAR 0
-# ifndef G_EXT
-#  define G_EXT
 
 typedef enum e_type
 {
@@ -47,15 +45,14 @@ typedef enum e_type
 
 typedef struct s_ast
 {
-	char			*value;
-	t_type			flag;
+	char			**cmd;
+	t_type			type;
+	int				exp;
 	struct s_ast	*r;
 	struct s_ast	*l;
 }				t_ast;
 
 extern t_ast	*g_ast;
-
-# endif
 
 typedef struct s_list
 {
@@ -79,8 +76,8 @@ typedef struct s_cmd
 	int				flag;
 	char			**all;
 	int				*falgs;
-	struct t_cmd	*r;
-	struct t_cmd	*l;
+	struct s_cmd	*r;
+	struct s_cmd	*l;
 }				t_cmd;
 
 typedef struct s_spl
@@ -110,15 +107,16 @@ int			handle_quote(t_cmd *data, int i);
 int			handle_token(t_cmd *data, t_spl *spl);
 int			is_special_char(char c);
 int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
-t_ast		*new_ast_node(char *value);
 int			check_the_first(t_token *tk);
-void		is_cmd_valid(t_token *tk);
+int			is_cmd_valid(t_token *tk);
 int			is_root(char *cmd);
 char		*ft_strcpy(char *dest, char const *src);
 void		*ft_memset(void *s, int c, size_t n);
 t_token		*tokenize(char **cmd);
 int			nb_tok(char	*str);
-void		check_the_exp(t_token *tk);
+int			check_the_exp(t_token *tk);
 int			invalid_syntax(t_token *tk);
+t_ast		*build_the_tree(t_token *tk);
+t_ast 		*new_ast_node(t_type type, char *cmd, char *per, int exp);
 
 #endif
