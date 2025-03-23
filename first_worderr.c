@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/22 13:31:14 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/23 14:26:30 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	invalid_syntax(t_token *tk)
 	}
 	while (tk->next)
 		tk = tk->next;
-	if (tk->type != TYP_WORD)
+	if (tk->type != TYP_WORD && tk->type != TYP_DQUOTE
+		&& tk->type != TYP_SQOUTE && tk->type != TYP_RPAR)
 	{
 		printf("invalid syntax near '%s'\n", tk->value);
 		return (1);
