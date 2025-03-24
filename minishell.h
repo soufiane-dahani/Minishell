@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/23 12:13:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:47:06 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_ast
 	int				exp;
 	struct s_ast	*r;
 	struct s_ast	*l;
+	struct s_ast	*next;
 }				t_ast;
 
 extern t_ast	*g_ast;
