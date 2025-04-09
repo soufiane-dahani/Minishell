@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 15:32:09 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:33:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_ast	*creat_nor_cmd(t_token *tk)
 		cur = cur->next;
 	}
 	if (!cur && a)
-		return (printf("invalid syntax near '('\n"), NULL);
+		return (printf("invalid syntax near'('\n"), NULL);
 	return (head);
 }
 
