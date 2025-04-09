@@ -6,13 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/24 15:31:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 07:10:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast *g_ast = NULL;
+t_ast	*g_ast;
 
 void	parsing(t_cmd *data)
 {
@@ -26,6 +26,7 @@ void	parsing(t_cmd *data)
 		while (i != 199999991)
 			i++;
 		ft_malloc(0, FT_CLEAR);
+		rl_clear_history();
 		free(data->s);
 		exit(0);
 	}

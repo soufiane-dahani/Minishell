@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/24 16:14:45 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 07:23:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_ast	*creat_node(char *cmd, int exp, t_type type)
 	node->r = NULL;
 	return (node);
 }
+
 t_ast	*creat_nor_cmd(t_token *tk)
 {
 	t_ast	*head;
@@ -44,7 +45,7 @@ t_ast	*creat_nor_cmd(t_token *tk)
 
 	head = NULL;
 	cur = tk;
-	while(cur)
+	while (cur)
 	{
 		cur_node = creat_node(cur->value, cur->is_exp, cur->type);
 		if (!cur_node)
@@ -63,7 +64,7 @@ t_ast	*creat_nor_cmd(t_token *tk)
 	return (head);
 }
 
-t_ast *build_the_tree(t_token *tk)
+t_ast	*build_the_tree(t_token *tk)
 {
 	t_ast	*node;
 	t_token	*op;
@@ -74,7 +75,8 @@ t_ast *build_the_tree(t_token *tk)
 	op = NULL;
 	while (prev)
 	{
-		if (prev->type == TYP_AND || prev->type == TYP_PIPE || prev->type == TYP_OR)
+		if (prev->type == TYP_AND || prev->type == TYP_PIPE
+			|| prev->type == TYP_OR)
 			op = prev;
 		prev = prev->next;
 	}
@@ -83,15 +85,17 @@ t_ast *build_the_tree(t_token *tk)
 	return (NULL);
 }
 
-t_ast *new_ast_node(t_type type, char **cmd, int exp)
+t_ast	*new_ast_node(t_type type, char **cmd, int exp)
 {
-	t_ast *node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+	t_ast	*node;
+
+	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
 	if (!node)
-		return NULL;
+		return (NULL);
 	node->type = type;
 	node->cmd = cmd;
 	node->exp = exp;
 	node->l = NULL;
 	node->r = NULL;
-	return node;
+	return (node);
 }

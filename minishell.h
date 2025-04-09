@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/24 12:47:06 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 07:43:28 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int			nb_tok(char	*str);
 int			check_the_exp(t_token *tk);
 int			invalid_syntax(t_token *tk);
 t_ast		*build_the_tree(t_token *tk);
-t_ast 		*new_ast_node(t_type type, char **cmd, int exp);
+t_ast		*new_ast_node(t_type type, char **cmd, int exp);
+int			dup_the_token(t_cmd *data, t_spl *spl);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/19 14:02:14 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 07:42:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,21 @@ void	split_the_cmd(t_cmd *data)
 
 int	handle_token(t_cmd *data, t_spl *spl)
 {
-	int (i), (start);
+	int (i), (start), (a);
 	i = spl->i;
 	if (data->s[i] == '|' && data->s[i + 1] == '|')
 	{
 		data->cmd[spl->token_count++] = ft_strndup("||", 2);
 		return (2);
 	}
-	else if (data->s[i] == '|')
-	{
-		data->cmd[spl->token_count++] = ft_strndup("|", 1);
-		return (1);
-	}
 	else if (data->s[i] == '>' && data->s[i + 1] == '>')
 	{
 		data->cmd[spl->token_count++] = ft_strndup(">>", 2);
 		return (2);
 	}
+	a = dup_the_token(data, spl);
+	if (a)
+		return (a);
 	start = ft_handle_token(data, spl, &i);
 	if (start > 0)
 		return (start);
@@ -64,6 +62,29 @@ int	handle_token(t_cmd *data, t_spl *spl)
 	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i]))
 		i++;
 	return (i - start);
+}
+
+int	dup_the_token(t_cmd *data, t_spl *spl)
+{
+	int	i;
+
+	i = spl->i;
+	if (data->s[i] == '(')
+	{
+		data->cmd[spl->token_count++] = ft_strndup("(", 1);
+		return (1);
+	}
+	else if (data->s[i] == ')')
+	{
+		data->cmd[spl->token_count++] = ft_strndup(")", 1);
+		return (1);
+	}
+	else if (data->s[i] == '|')
+	{
+		data->cmd[spl->token_count++] = ft_strndup("|", 1);
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_handle_token(t_cmd *data, t_spl *spl, int *i)

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/23 14:26:30 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/09 07:45:09 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_the_first(t_token *tk)
 
 int	invalid_syntax(t_token *tk)
 {
-	if (tk->type == TYP_OR || tk->type == TYP_LPAR
+	if (tk->type == TYP_OR || tk->type == TYP_RPAR
 		|| tk->type == TYP_AND || tk->type == TYP_PIPE)
 	{
 		printf("invalid syntax near '%s'\n", tk->value);
