@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 15:33:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:00:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,27 @@ void	ft_node(t_ast **head, t_ast **cur_node, t_token *cur)
 t_ast	*build_the_tree(t_token *tk)
 {
 	t_ast	*node;
+	t_token	*npar;
 	t_token	*op;
 	t_token	*prev;
 
 	node = NULL;
+	npar = NULL;
 	prev = tk;
 	op = NULL;
 	while (prev)
 	{
-		if (prev->type == TYP_AND || prev->type == TYP_PIPE
-			|| prev->type == TYP_OR)
+		if (prev->type == TYP_LPAR)
+			npar = prev;
+		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
+				|| prev->type == TYP_OR) && !npar)
 			op = prev;
+		if (prev->type == TYP_RPAR)
+			npar = NULL;
 		prev = prev->next;
 	}
+	if (npar)
+		return (printf("invalid syntax near'(\n"), NULL);
 	if (!op)
 		return (creat_nor_cmd(tk));
 	return (NULL);
