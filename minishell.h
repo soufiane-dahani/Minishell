@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/10 16:14:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:39:53 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,14 @@ t_ast		*build_the_tree(t_token *tk);
 t_ast		*new_ast_node(t_type type, char **cmd, int exp);
 int			dup_the_token(t_cmd *data, t_spl *spl);
 void		ft_node(t_ast **head, t_ast **cur_node, t_token *cur);
+t_ast		*creat_nor_cmd(t_token *tk);
+t_ast		*start_for_ast(t_token *tk, t_token *op);
+t_ast		*ft_par_cmd(t_token *tk);
+t_token		*creat_new(t_token *tk, t_token **op);
+void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
+t_token		*find_the_head(t_token *tk);
+t_token		*skip_the_par(t_token *tk, t_token **op);
+void		add_token(t_token **head, char *value, t_type type);
+t_token		*create_token(char *value, t_type type);
 
 #endif

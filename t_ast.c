@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/11 10:00:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:45:47 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,12 @@ t_ast	*creat_nor_cmd(t_token *tk)
 	t_ast	*head;
 	t_ast	*cur_node;
 	t_token	*cur;
-	int		a;
 
 	if (!tk)
 		return (NULL);
 	head = NULL;
-	a = 0;
 	if (tk->type == TYP_LPAR)
-	{
-		a++;
 		tk = tk->next;
-	}
 	cur = tk;
 	while (cur)
 	{
@@ -60,8 +55,6 @@ t_ast	*creat_nor_cmd(t_token *tk)
 		ft_node(&head, &cur_node, cur);
 		cur = cur->next;
 	}
-	if (!cur && a)
-		return (printf("invalid syntax near'('\n"), NULL);
 	return (head);
 }
 
@@ -89,30 +82,29 @@ void	ft_node(t_ast **head, t_ast **cur_node, t_token *cur)
 t_ast	*build_the_tree(t_token *tk)
 {
 	t_ast	*node;
-	t_token	*npar;
+	int		npar;
 	t_token	*op;
 	t_token	*prev;
 
 	node = NULL;
-	npar = NULL;
+	npar = 0;
 	prev = tk;
 	op = NULL;
 	while (prev)
 	{
 		if (prev->type == TYP_LPAR)
-			npar = prev;
-		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
-				|| prev->type == TYP_OR) && !npar)
-			op = prev;
+			npar++;
 		if (prev->type == TYP_RPAR)
-			npar = NULL;
+			npar--;
+		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
+				|| prev->type == TYP_OR) && npar == 0)
+			op = prev;
 		prev = prev->next;
 	}
-	if (npar)
-		return (printf("invalid syntax near'(\n"), NULL);
-	if (!op)
-		return (creat_nor_cmd(tk));
-	return (NULL);
+	if (npar != 0)
+		return (printf("invalid syntax\n"), NULL);
+	node = start_for_ast(tk, op);
+	return (node);
 }
 
 t_ast	*new_ast_node(t_type type, char **cmd, int exp)

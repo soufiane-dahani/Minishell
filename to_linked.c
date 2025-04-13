@@ -6,13 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 07:43:12 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:39:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	*create_token(char *value, t_type type)
+t_token	*create_token(char *value, t_type type)
 {
 	t_token	*new_token;
 
@@ -25,7 +25,7 @@ static t_token	*create_token(char *value, t_type type)
 	return (new_token);
 }
 
-static void	add_token(t_token **head, char *value, t_type type)
+void	add_token(t_token **head, char *value, t_type type)
 {
 	t_token	*new_token;
 	t_token	*temp;

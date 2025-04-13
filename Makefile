@@ -6,7 +6,7 @@
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/03/22 14:48:31 by yaait-am         ###   ########.fr        #
+#    Updated: 2025/04/13 12:35:09 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LDFLAGS = -lreadline
 TARGET = minishell
 SRC = main.c handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
 	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c malloc.c libft_used/ft_strncmp.c \
-	parsing.c is.c parse_pipe.c t_ast.c is_the_cmd_valid.c first_worderr.c to_linked.c check_the.c
+	parsing.c is.c t_ast.c is_the_cmd_valid.c first_worderr.c to_linked.c check_the.c pars_cmd.c creat_new_node.c 
 OBJ = $(SRC:.c=.o)
 
 all: $(TARGET) # banner
