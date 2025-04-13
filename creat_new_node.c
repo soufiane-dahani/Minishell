@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:21:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 12:41:31 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/13 14:59:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,4 @@ void	ft_new_node(t_token **head, t_token **cur_node, t_token *cur)
 			tmp = tmp->next;
 		tmp->next = *cur_node;
 	}
-	printf("done\n");
 }

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 12:39:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:11:20 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ t_token		*find_the_head(t_token *tk);
 t_token		*skip_the_par(t_token *tk, t_token **op);
 void		add_token(t_token **head, char *value, t_type type);
 t_token		*create_token(char *value, t_type type);
+t_ast		*the_ast(t_token *tk, t_token *old);
 
 #endif
