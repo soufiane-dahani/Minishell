@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 15:18:31 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:15:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_ast
 	t_type			type;
 	int				nor;
 	int				exp;
+	int				suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
 	struct s_ast	*next;

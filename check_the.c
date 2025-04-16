@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 15:17:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:31:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ static char	**tokens_to_cmd_array(t_token *tk)
 		count++;
 		tmp = tmp->next;
 	}
-	cmd = malloc(sizeof(char *) * (count + 1));
+	cmd = ft_malloc(sizeof(char *) * (count + 1), FT_ALLOC);
 	if (!cmd)
 		return (NULL);
 	tmp = tk;
 	i = 0;
 	while (tmp)
 	{
-		cmd[i++] = strdup(tmp->value);
+		cmd[i++] = ft_strdup(tmp->value);
 		tmp = tmp->next;
 	}
 	cmd[i] = NULL;
