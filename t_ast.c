@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 11:45:47 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:46:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_ast	*build_the_tree(t_token *tk)
 	}
 	if (npar != 0)
 		return (printf("invalid syntax\n"), NULL);
-	node = start_for_ast(tk, op);
+	node = start_for_ast(tk);
 	return (node);
 }
 

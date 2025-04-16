@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 15:11:20 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:18:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_type			type;
+	int				head;
 	int				is_exp;
 	struct s_token	*next;
 }				t_token;
@@ -123,14 +124,16 @@ t_ast		*new_ast_node(t_type type, char **cmd, int exp);
 int			dup_the_token(t_cmd *data, t_spl *spl);
 void		ft_node(t_ast **head, t_ast **cur_node, t_token *cur);
 t_ast		*creat_nor_cmd(t_token *tk);
-t_ast		*start_for_ast(t_token *tk, t_token *op);
+t_ast		*start_for_ast(t_token *tk);
 t_ast		*ft_par_cmd(t_token *tk);
 t_token		*creat_new(t_token *tk, t_token **op);
 void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
 t_token		*find_the_head(t_token *tk);
-t_token		*skip_the_par(t_token *tk, t_token **op);
 void		add_token(t_token **head, char *value, t_type type);
 t_token		*create_token(char *value, t_type type);
 t_ast		*the_ast(t_token *tk, t_token *old);
+void		the_best_sep(t_token *tk, t_token **op);
+int			lowest(t_token *tk, t_type h, t_token **op);
+void		help_start(t_token *op, t_token *tk, t_ast **node);
 
 #endif

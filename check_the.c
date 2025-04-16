@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 17:56:05 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:17:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,51 +55,57 @@ int	is_nor(t_token *tk)
 	return (a);
 }
 
-t_ast	*start_for_ast(t_token *tk, t_token *op)
+static char	**tokens_to_cmd_array(t_token *tk)
 {
-	t_ast	*head;
+	int		count;
+	t_token	*tmp;
+	char	**cmd;
+	int		i;
 
-	head = NULL;
-	if (is_nor(tk))
-		return (creat_nor_cmd(tk));
-	if (!op)
-		tk = skip_the_par(tk, &op);
-	if (tk == NULL || tk == op)
+	count = 0;
+	tmp = tk;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	cmd = malloc(sizeof(char *) * (count + 1));
+	if (!cmd)
 		return (NULL);
-	head = the_ast(tk, op);
-	return (head);
+	tmp = tk;
+	i = 0;
+	while (tmp)
+	{
+		cmd[i++] = strdup(tmp->value);
+		tmp = tmp->next;
+	}
+	cmd[i] = NULL;
+	return (cmd);
 }
 
-t_token	*skip_the_par(t_token *tk, t_token **op)
-{
-	tk = creat_new(tk, op);
-	return (tk);
-}
-
-t_ast	*the_ast(t_token *tk, t_token *old)
+t_ast	*start_for_ast(t_token *tk)
 {
 	t_ast	*node;
-	int		npar;
 	t_token	*op;
-	t_token	*prev;
 
-	node = NULL;
-	npar = 0;
-	prev = tk;
+	if (!tk)
+		return (NULL);
 	op = NULL;
-	while (prev && prev != old)
+	the_best_sep(tk, &op);
+	if (op)
 	{
-		if (prev->type == TYP_LPAR)
-			npar++;
-		if (prev->type == TYP_RPAR)
-			npar--;
-		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
-				|| prev->type == TYP_OR) && npar == 0)
-			op = prev;
-		prev = prev->next;
+		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+		if (!node)
+			return (NULL);
+		node->cmd = ft_malloc(sizeof(char *) * 2, FT_ALLOC);
+		help_start(op, tk, &node);
+		return (node);
 	}
-	if (npar != 0)
-		return (printf("invalid syntax\n"), NULL);
-	node = start_for_ast(tk, op);
+	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+	if (!node)
+		return (NULL);
+	node->l = NULL;
+	node->r = NULL;
+	node->cmd = tokens_to_cmd_array(tk);
 	return (node);
 }

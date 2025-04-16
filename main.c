@@ -6,13 +6,32 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 10:59:03 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:56:05 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_ast	*g_ast;
+
+void print_indent(int level)
+{
+	for (int i = 0; i < level; i++)
+		printf("  ");
+}
+
+void print_ast(t_ast *node, int level)
+{
+	if (!node)
+		return;
+	print_ast(node->r, level + 8);
+	print_indent(level);
+	if (node->cmd && node->cmd[0])
+		printf(" [ ==> %s - %d - %d <== ]\n", node->cmd[0], node->exp, node->type);
+	else
+		printf("(NULL CMD)\n");
+	print_ast(node->l, level + 8);
+}
 
 void	parsing(t_cmd *data)
 {
@@ -40,12 +59,7 @@ void	parsing(t_cmd *data)
 			tk->type, tk->is_exp);
 		tk = tk->next;
 	}
-	while (g_ast)
-	{
-		printf("g_ast : %s ---> typ : %u ----> exp :% d\n", g_ast->cmd[0],
-			g_ast->type, g_ast->exp);
-		g_ast = g_ast->next;
-	}
+	print_ast(g_ast, 5);
 }
 
 int	main(int ac, char **av)
@@ -55,7 +69,7 @@ int	main(int ac, char **av)
 	(void)av;
 	data = malloc(sizeof(t_cmd));
 	signal(SIGINT, handler);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	if (ac != 1)
 	{
 		printf("\n [ ==> Usage: ./minishell <== ]\n\n");
