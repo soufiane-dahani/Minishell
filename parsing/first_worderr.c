@@ -6,11 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 07:45:09 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	check_the_first(t_token *tk)
 {

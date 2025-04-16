@@ -6,11 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 15:27:32 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_ast	*creat_node(char *cmd, int exp, t_type type)
 {

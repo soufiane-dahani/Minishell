@@ -6,11 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/13 12:39:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_token	*create_token(char *value, t_type type)
 {

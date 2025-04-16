@@ -6,11 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 15:15:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:10:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	the_best_sep(t_token *tk, t_token **op)
 {
@@ -19,6 +19,16 @@ void	the_best_sep(t_token *tk, t_token **op)
 	else if (lowest(tk, TYP_AND, op))
 		return ;
 	else if (lowest(tk, TYP_PIPE, op))
+		return ;
+	else if (lowest(tk, TYP_REDAPP, op))
+		return ;
+	else if (lowest(tk, TYP_REDHERE, op))
+		return ;
+	else if (lowest(tk, TYP_REDIN, op))
+		return ;
+	else if (lowest(tk, TYP_REDOUT, op))
+		return ;
+	else if (lowest(tk, TYP_LPAR, op))
 		return ;
 }
 

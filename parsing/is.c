@@ -6,11 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:11:44 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 07:33:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_space(char c)
 {

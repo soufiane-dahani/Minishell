@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*   pars_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:03 by yaait-am         ###   ########.fr       */
+/*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	handler(int sig)
+t_ast	*ft_par_cmd(t_token *tk)
 {
-	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	(void)tk;
+	return (NULL);
 }

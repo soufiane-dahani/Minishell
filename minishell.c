@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_the_cmd_valid.c                                 :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/09 15:37:15 by yaait-am         ###   ########.fr       */
+/*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/04/16 17:58:28 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_cmd_valid(t_token *tk)
-{
-	t_token	*s;
+t_ast	*g_ast;
 
-	s = tk;
-	if (!check_the_first(tk))
-		return (0);
-	g_ast = build_the_tree(tk);
-	if (!g_ast)
-		return (0);
-	return (1);
+int	main(int ac, char **av)
+{
+	t_cmd	*data;
+
+	(void)av;
+	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
+	signal(SIGINT, handler);
+	// signal(SIGQUIT, SIG_IGN);
+	if (ac != 1)
+	{
+		printf("\n [ ==> Usage: ./minishell <== ]\n\n");
+		free(data);
+		return (1);
+	}
+	while (1)
+	{
+		data->s = readline("minishell$> ");
+		add_history(data->s);
+		parsing(data);
+		free(data->s);
+	}
 }
