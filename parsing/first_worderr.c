@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:13:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	is_root(char *cmd)
 		ft_memset(cd, '\\', i / 2);
 		cd[i / 2] = '\0';
 		printf("bash: %s: command not found\n", cd);
-		free(cd);
 		return (1);
 	}
 	return (0);

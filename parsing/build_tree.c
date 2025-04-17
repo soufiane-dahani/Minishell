@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 19:10:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:43:21 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	the_best_sep(t_token *tk, t_token **op)
 {
-	if (lowest(tk, TYP_OR, op))
+	if (lowest(&tk, TYP_OR, op))
 		return ;
-	else if (lowest(tk, TYP_AND, op))
+	else if (lowest(&tk, TYP_AND, op))
 		return ;
-	else if (lowest(tk, TYP_PIPE, op))
+	else if (lowest(&tk, TYP_PIPE, op))
 		return ;
-	else if (lowest(tk, TYP_REDAPP, op))
+	else if (lowest(&tk, TYP_LPAR, op))
 		return ;
-	else if (lowest(tk, TYP_REDHERE, op))
+	else if (lowest(&tk, TYP_REDAPP, op))
 		return ;
-	else if (lowest(tk, TYP_REDIN, op))
+	else if (lowest(&tk, TYP_REDHERE, op))
 		return ;
-	else if (lowest(tk, TYP_REDOUT, op))
+	else if (lowest(&tk, TYP_REDIN, op))
 		return ;
-	else if (lowest(tk, TYP_LPAR, op))
+	else if (lowest(&tk, TYP_REDOUT, op))
 		return ;
 }
 
@@ -73,13 +73,22 @@ void	help_start(t_token *op, t_token *tk, t_ast **node)
 	(*node)->type = tk->type;
 }
 
-int	lowest(t_token *tk, t_type h, t_token **op)
+int	lowest(t_token **tk, t_type h, t_token **op)
 {
 	t_token	*prev;
+	int		count_par;
 
-	prev = tk;
+	prev = *tk;
+	count_par = 0;
 	while (prev)
 	{
+		if (prev->type == TYP_LPAR)
+			count_par++;
+		if (prev->type == TYP_RPAR)
+			count_par--;
+		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
+				|| prev->type == TYP_OR) && count_par != 0)
+			prev = prev->next;
 		if (prev->type == h)
 		{
 			*op = prev;

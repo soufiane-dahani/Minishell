@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 18:17:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:56:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef enum e_type
 	TYP_RPAR,
 	TYP_AND,
 	TYP_OR,
-	TYP_OAND
+	TYP_OAND,
+	TYP_PAR_BLOCK
 }		t_type;
 
 typedef struct s_ast
@@ -132,9 +133,10 @@ void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
 t_token		*find_the_head(t_token *tk);
 void		add_token(t_token **head, char *value, t_type type);
 t_token		*create_token(char *value, t_type type);
-t_ast		*the_ast(t_token *tk, t_token *old);
 void		the_best_sep(t_token *tk, t_token **op);
-int			lowest(t_token *tk, t_type h, t_token **op);
+int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
-void		parsing(t_cmd *data);
+int			parsing(t_cmd *data);
+int			for_par(t_token **tk, t_token **op);
+
 #endif

@@ -6,13 +6,19 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:58:28 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:26:35 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_ast	*g_ast;
+
+void	ft_clear_work(t_cmd *data)
+{
+	if (!parsing(data))
+		return ;
+}
 
 int	main(int ac, char **av)
 {
@@ -32,7 +38,7 @@ int	main(int ac, char **av)
 	{
 		data->s = readline("minishell$> ");
 		add_history(data->s);
-		parsing(data);
+		ft_clear_work(data);
 		free(data->s);
 	}
 }
