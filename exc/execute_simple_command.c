@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 11:37:59 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:37:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_split(char **arr)
 {
@@ -103,9 +103,9 @@ int	execute_simple_command(char **cmd, char **envp)
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			return WEXITSTATUS(status);
+		return WEXITSTATUS(status);
 		else
-			return 1;
+		return 1;
 	}
 }
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 15:11:23 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:12:41 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_ast	**resize_commands(t_ast **commands, size_t cmd_count)
 {
@@ -253,7 +253,7 @@ int execute_pipe(t_ast *node, char **envp)
     int         num_pipes;
     int         j, i;
     int         status = 0;  // Initialize status
-    int         last_cmd_status = 0;  // Specifically track the last command's status
+    // int         last_cmd_status = 0;  // Specifically track the last command's status
 
     cmd_count = 0;
     commands = NULL;
@@ -264,10 +264,10 @@ int execute_pipe(t_ast *node, char **envp)
         print_error("Pipe creation failed\n");
         return 1; // Return error if pipes creation fails
     }
-    
+
     // Call execute_commands but capture its return value
     status = execute_commands(cmd_count, commands, pipes, pids, envp);
-    
+
     num_pipes = cmd_count - 1;
     j = 0;
     while (j < num_pipes)
@@ -276,7 +276,7 @@ int execute_pipe(t_ast *node, char **envp)
         close(pipes[j][1]);
         j++;
     }
-    
+
     // This section is now redundant since execute_commands already waits for children
     /*
     j = 0;
@@ -286,7 +286,7 @@ int execute_pipe(t_ast *node, char **envp)
         j++;
     }
     */
-    
+
     i = 0;
     while (i < num_pipes)
     {
@@ -296,7 +296,7 @@ int execute_pipe(t_ast *node, char **envp)
     free(pipes);
     free(commands);
     free(pids);
-    
+
     return status;  // Return the status from execute_commands
 }
 

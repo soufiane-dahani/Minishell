@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 11:42:06 by sodahani         ###   ########.fr       */
+/*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
+/*   Updated: 2025/04/17 19:22:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
+# include <unistd.h>
+# include <ctype.h>
 # include "Libft/libft.h"
 # include <dirent.h>
 # include <readline/readline.h>
@@ -33,6 +41,9 @@
 
 # define ANSI_COLOR_RED "\x1b[33m"
 # define ANSI_RESET_ALL "\x1b[0m"
+# define INITIAL_SIZE 10
+# define FT_ALLOC 1
+# define FT_CLEAR 0
 
 typedef enum e_type
 {
@@ -48,9 +59,9 @@ typedef enum e_type
 	TYP_RPAR,
 	TYP_AND,
 	TYP_OR,
-	TYP_OAND
+	TYP_OAND,
+	TYP_PAR_BLOCK
 }		t_type;
-#define PIPE TYP_PIPE
 
 typedef struct s_ast
 {
@@ -58,7 +69,7 @@ typedef struct s_ast
 	t_type			type;
 	int				nor;
 	int				exp;
-	int				suc;
+	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
 	struct s_ast	*next;
@@ -66,6 +77,80 @@ typedef struct s_ast
 
 extern t_ast	*g_ast;
 
+typedef struct s_token
+{
+	char			*value;
+	t_type			type;
+	int				head;
+	int				is_exp;
+	struct s_token	*next;
+}				t_token;
+
+typedef struct s_cmd
+{
+	int				fd;
+	char			*s;
+	char			**cmd;
+	int				flag;
+	char			**all;
+	int				*falgs;
+	struct s_cmd	*r;
+	struct s_cmd	*l;
+}				t_cmd;
+
+typedef struct s_spl
+{
+	int		i;
+	int		token_count;
+	char	*start;
+	int		len;
+	int		offset;
+}				t_spl;
+
+void		handler(int sig);
+void		*ft_malloc(size_t size, short option);
+t_list		*mem_alloc(size_t size);
+size_t		ft_strlen(const char *c);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		**ft_split(char const *s, char c);
+char		*ft_strdup(const char *src);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+t_list		*ft_lstnew(void *content);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		split_the_cmd(t_cmd *data);
+int			is_space(char c);
+char		*ft_strndup(const char *s, size_t n);
+int			handle_quote(t_cmd *data, int i);
+int			handle_token(t_cmd *data, t_spl *spl);
+int			is_special_char(char c);
+int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
+int			check_the_first(t_token *tk);
+int			is_cmd_valid(t_token *tk);
+int			is_root(char *cmd);
+char		*ft_strcpy(char *dest, char const *src);
+void		*ft_memset(void *s, int c, size_t n);
+t_token		*tokenize(char **cmd);
+int			nb_tok(char	*str);
+int			check_the_exp(t_token *tk);
+int			invalid_syntax(t_token *tk);
+t_ast		*build_the_tree(t_token *tk);
+t_ast		*new_ast_node(t_type type, char **cmd, int exp);
+int			dup_the_token(t_cmd *data, t_spl *spl);
+void		ft_node(t_ast **head, t_ast **cur_node, t_token *cur);
+t_ast		*creat_nor_cmd(t_token *tk);
+t_ast		*start_for_ast(t_token *tk);
+t_ast		*ft_par_cmd(t_token *tk);
+t_token		*creat_new(t_token *tk, t_token **op);
+void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
+t_token		*find_the_head(t_token *tk);
+void		add_token(t_token **head, char *value, t_type type);
+t_token		*create_token(char *value, t_type type);
+void		the_best_sep(t_token *tk, t_token **op);
+int			lowest(t_token **tk, t_type h, t_token **op);
+void		help_start(t_token *op, t_token *tk, t_ast **node);
+int			parsing(t_cmd *data);
+int			for_par(t_token **tk, t_token **op);
 void		print_error(char *message);
 int			execute_cd(char *path);
 int execute_pwd(void);
@@ -78,13 +163,9 @@ int execute_export(char ***envp, char **cmd);
 int execute_env(char **envp);
 void		error(void);
 int	execute_pipe(t_ast *node, char **envp);
-void		execute_ast(t_ast *node, char ***envp_ptr, int *exit_status);
+void		execute_ast(char ***envp_ptr);
 int print_export(char **envp);
 int is_valid_identifier(const char *var);
 int add_to_env(char ***envp, const char *new_var);
-
-
 void	free_split(char **arr);
-
-
 #endif
