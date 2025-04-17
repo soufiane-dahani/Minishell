@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 11:42:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:11:23 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,119 +143,161 @@ int	**create_pipes_and_pids(int cmd_count, t_ast **commands, pid_t **pids)
 	return (pipes);
 }
 
-int	execute_commands(int cmd_count, t_ast **commands, int **pipes, pid_t *pids, char **envp)
+int execute_commands(int cmd_count, t_ast **commands, int **pipes, pid_t *pids, char **envp)
 {
-	int		num_pipes;
-	int		i;
-	int		j;
-	char	**argv;
-	char	*path;
+    int num_pipes;
+    int i;
+    int j;
+    char **argv;
+    char *path;
+    int status = 0;  // Default status is 0 for success
+    int child_status = 0;  // Track child process exit status
 
-	num_pipes = cmd_count - 1;
-	i = 0;
-	while (i < cmd_count)
-	{
-		pids[i] = fork();
-		if (pids[i] == -1)
-		{
-			perror("fork failed");
-			j = 0;
-			while (j < num_pipes)
-				free(pipes[j++]);
-			free(pipes);
-			free(commands);
-			free(pids);
-			exit(EXIT_FAILURE);
-		}
-		if (pids[i] == 0)
-		{
-			if (i > 0 && dup2(pipes[i - 1][0], STDIN_FILENO) == -1)
-			{
-				perror("dup2 failed for stdin");
-				exit(EXIT_FAILURE);
-			}
-			if (i < num_pipes && dup2(pipes[i][1], STDOUT_FILENO) == -1)
-			{
-				perror("dup2 failed for stdout");
-				exit(EXIT_FAILURE);
-			}
-			j = 0;
-			while (j < num_pipes)
-			{
-				close(pipes[j][0]);
-				close(pipes[j][1]);
-				j++;
-			}
-			argv = commands[i]->cmd;
-			if (!argv || !argv[0])
-			{
-				write(2, "error: command not found\n", 25);
-				exit(127);
-			}
-			if (strchr(argv[0], '/'))
-				path = argv[0];
-			else
-				path = find_path(argv[0], envp);
-			if (!path)
-			{
-				//write(2, "error: command not found\n", 25);
-				exit(127);
-			}
-			execve(path, argv, envp);
-			perror("execve failed");
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	return 0; // Ensure the function returns an integer value
+    num_pipes = cmd_count - 1;
+    i = 0;
+    while (i < cmd_count)
+    {
+        pids[i] = fork();
+        if (pids[i] == -1)
+        {
+            perror("fork failed");
+            j = 0;
+            while (j < num_pipes)
+                free(pipes[j++]);
+            free(pipes);
+            free(commands);
+            free(pids);
+            exit(EXIT_FAILURE);
+        }
+        if (pids[i] == 0)  // Child process
+        {
+            if (i > 0 && dup2(pipes[i - 1][0], STDIN_FILENO) == -1)
+            {
+                perror("dup2 failed for stdin");
+                exit(EXIT_FAILURE);
+            }
+            if (i < num_pipes && dup2(pipes[i][1], STDOUT_FILENO) == -1)
+            {
+                perror("dup2 failed for stdout");
+                exit(EXIT_FAILURE);
+            }
+
+            // Close all pipes
+            j = 0;
+            while (j < num_pipes)
+            {
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+                j++;
+            }
+
+            argv = commands[i]->cmd;
+            if (!argv || !argv[0])
+            {
+                write(2, "error: command not found\n", 25);
+                exit(127);  // Exit with 127 if command is not found
+            }
+
+            if (strchr(argv[0], '/'))
+                path = argv[0];
+            else
+                path = find_path(argv[0], envp);  // Find the command's path
+
+            if (!path)
+            {
+                write(2, "error: command not found\n", 25);  // Print error if path is NULL
+                exit(127);  // Exit with 127 if command is not found in PATH
+            }
+
+            execve(path, argv, envp);  // Execute the command
+            perror("execve failed");
+            exit(EXIT_FAILURE);
+        }
+        i++;
+    }
+
+    // Parent process: wait for all child processes
+    i = 0;
+    while (i < cmd_count)
+    {
+        waitpid(pids[i], &status, 0);  // Wait for the child process
+        if (WIFEXITED(status))
+        {
+            child_status = WEXITSTATUS(status);  // Get the exit status of the child
+            if (child_status != 0)  // If the child exited with a non-zero status
+            {
+                status = child_status;  // Propagate that non-zero status to the parent
+            }
+        }
+        else if (WIFSIGNALED(status))
+        {
+            // If the child process was terminated by a signal, set status to that signal
+            status = 128 + WTERMSIG(status);
+        }
+        i++;
+    }
+
+    return status;
 }
 
-// Main function to execute the pipeline
-int	execute_pipe(t_ast *node, char **envp)
-{
-	int			cmd_count;
-	t_ast	**commands;
-	pid_t		*pids;
-	int			**pipes;
-	int			num_pipes;
-	int			j;
-	int			status;
-	int			i;
 
-	cmd_count = 0;
-	commands = NULL;
-	process_commands(node, &commands, &cmd_count);
-	pipes = create_pipes_and_pids(cmd_count, commands, &pids);
-	if (!pipes)
-	{
-		print_error("Pipe creation failed\n");
-		return 1; // Return error if pipes creation fails
-	}
-	execute_commands(cmd_count, commands, pipes, pids, envp);
-	num_pipes = cmd_count - 1;
-	j = 0;
-	while (j < num_pipes)
-	{
-		close(pipes[j][0]);
-		close(pipes[j][1]);
-		j++;
-	}
-	j = 0;
-	while (j < cmd_count)
-	{
-		waitpid(pids[j], &status, 0);
-		j++;
-	}
-	i = 0;
-	while (i < num_pipes)
-	{
-		free(pipes[i]);
-		i++;
-	}
-	free(pipes);
-	free(commands);
-	free(pids);
-	return 0; // Return 0 for success
+
+
+// Main function to execute the pipeline
+int execute_pipe(t_ast *node, char **envp)
+{
+    int         cmd_count;
+    t_ast     **commands;
+    pid_t       *pids;
+    int         **pipes;
+    int         num_pipes;
+    int         j, i;
+    int         status = 0;  // Initialize status
+    int         last_cmd_status = 0;  // Specifically track the last command's status
+
+    cmd_count = 0;
+    commands = NULL;
+    process_commands(node, &commands, &cmd_count);
+    pipes = create_pipes_and_pids(cmd_count, commands, &pids);
+    if (!pipes)
+    {
+        print_error("Pipe creation failed\n");
+        return 1; // Return error if pipes creation fails
+    }
+    
+    // Call execute_commands but capture its return value
+    status = execute_commands(cmd_count, commands, pipes, pids, envp);
+    
+    num_pipes = cmd_count - 1;
+    j = 0;
+    while (j < num_pipes)
+    {
+        close(pipes[j][0]);
+        close(pipes[j][1]);
+        j++;
+    }
+    
+    // This section is now redundant since execute_commands already waits for children
+    /*
+    j = 0;
+    while (j < cmd_count)
+    {
+        waitpid(pids[j], &status, 0);
+        j++;
+    }
+    */
+    
+    i = 0;
+    while (i < num_pipes)
+    {
+        free(pipes[i]);
+        i++;
+    }
+    free(pipes);
+    free(commands);
+    free(pids);
+    
+    return status;  // Return the status from execute_commands
 }
 
 void	error(void)
