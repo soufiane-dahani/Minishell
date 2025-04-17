@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   helper_fun.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 22:46:56 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:59:36 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../minishell.h"
 
-void	print_error(char *message)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	i;
+	int	i = 0;
 
-	i = 0;
-	write(2, ANSI_COLOR_RED, 5);
-	while (message[i])
+	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
-	write(2, message, i);
-	write(2, ANSI_RESET_ALL, 4);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
