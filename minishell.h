@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 11:07:27 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:42:06 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_type
 	TYP_OR,
 	TYP_OAND
 }		t_type;
+#define PIPE TYP_PIPE
 
 typedef struct s_ast
 {
@@ -66,20 +67,24 @@ typedef struct s_ast
 extern t_ast	*g_ast;
 
 void		print_error(char *message);
-void		execute_cd(char *path);
-void		execute_pwd(void);
-void		execute_exit(void);
-void		execute_unset(char ***envp, char *var_name);
-void		execute_simple_command(char **cmd, char **envp);
+int			execute_cd(char *path);
+int execute_pwd(void);
+int execute_exit(void);
+int execute_unset(char ***envp, char *var_name);
+int	execute_simple_command(char **cmd, char **envp);
 char		*find_path(char *cmd, char **envp);
 char		*check_command_in_paths(char *cmd, char **paths);
-void		execute_export(char ***envp, char **cmd);
-void		execute_env(char **envp);
+int execute_export(char ***envp, char **cmd);
+int execute_env(char **envp);
 void		error(void);
-void		execute_pipe(t_ast *node, char **envp);
+int	execute_pipe(t_ast *node, char **envp);
 void		execute_ast(t_ast *node, char ***envp_ptr, int *exit_status);
-void		print_export(char **envp);
-int			is_valid_identifier(const char *var);
-void		add_to_env(char ***envp, const char *new_var);
+int print_export(char **envp);
+int is_valid_identifier(const char *var);
+int add_to_env(char ***envp, const char *new_var);
+
+
+void	free_split(char **arr);
+
 
 #endif

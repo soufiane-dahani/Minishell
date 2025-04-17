@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 11:09:19 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:34:35 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ void	execute_ast(t_ast *node, char ***envp_ptr, int *exit_status)
 
 int main(int argc, char **argv, char **envp)
 {
-    
+    (void)argc;
+    (void)argv;
+    (void)envp;
 }

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/16 16:58:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:42:42 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@ t_ast	**resize_commands(t_ast **commands, size_t cmd_count)
 	return (new_temp);
 }
 
-void	process_commands(t_ast *current, t_ast ***commands,
-		int *cmd_count)
+void	process_commands(t_ast *current, t_ast ***commands, int *cmd_count)
 {
 	t_ast	**temp;
 
 	while (current)
 	{
-		if (current->type == PIPE)
+		if (current->type == TYP_PIPE)  // Corrected for TYP_PIPE
 		{
-			if (current->left && current->left->type == SIMPLE_CMD)
+			if (current->l && current->l->type == TYP_WORD)  // Check with TYP_WORD (or SIMPLE_CMD if that’s what you want to use)
 			{
 				temp = resize_commands(*commands, *cmd_count);
 				if (!temp)
@@ -43,11 +42,11 @@ void	process_commands(t_ast *current, t_ast ***commands,
 					exit(EXIT_FAILURE);
 				}
 				*commands = temp;
-				(*commands)[(*cmd_count)++] = current->left;
+				(*commands)[(*cmd_count)++] = current->l;  // Corrected for 'l' and 'r'
 			}
-			if (current->right)
+			if (current->r)  // Use 'r' here as well
 			{
-				if (current->right->type == SIMPLE_CMD)
+				if (current->r->type == TYP_WORD)  // Check with TYP_WORD (or SIMPLE_CMD if needed)
 				{
 					temp = resize_commands(*commands, *cmd_count);
 					if (!temp)
@@ -57,17 +56,17 @@ void	process_commands(t_ast *current, t_ast ***commands,
 						exit(EXIT_FAILURE);
 					}
 					*commands = temp;
-					(*commands)[(*cmd_count)++] = current->right;
+					(*commands)[(*cmd_count)++] = current->r;  // Corrected for 'r' and 'l'
 					break ;
 				}
-				current = current->right;
+				current = current->r;  // Corrected for 'r' and 'l'
 			}
 			else
 			{
 				break ;
 			}
 		}
-		else if (current->type == SIMPLE_CMD)
+		else if (current->type == TYP_WORD)  // Check with TYP_WORD (or SIMPLE_CMD if needed)
 		{
 			temp = resize_commands(*commands, 1);
 			if (!temp)
@@ -144,8 +143,7 @@ int	**create_pipes_and_pids(int cmd_count, t_ast **commands, pid_t **pids)
 	return (pipes);
 }
 
-void	execute_commands(int cmd_count, t_ast **commands, int **pipes,
-		pid_t *pids, char **envp)
+int	execute_commands(int cmd_count, t_ast **commands, int **pipes, pid_t *pids, char **envp)
 {
 	int		num_pipes;
 	int		i;
@@ -209,10 +207,11 @@ void	execute_commands(int cmd_count, t_ast **commands, int **pipes,
 		}
 		i++;
 	}
+	return 0; // Ensure the function returns an integer value
 }
 
 // Main function to execute the pipeline
-void	execute_pipe(t_ast *node, char **envp)
+int	execute_pipe(t_ast *node, char **envp)
 {
 	int			cmd_count;
 	t_ast	**commands;
@@ -230,7 +229,7 @@ void	execute_pipe(t_ast *node, char **envp)
 	if (!pipes)
 	{
 		print_error("Pipe creation failed\n");
-		return ;
+		return 1; // Return error if pipes creation fails
 	}
 	execute_commands(cmd_count, commands, pipes, pids, envp);
 	num_pipes = cmd_count - 1;
@@ -256,6 +255,7 @@ void	execute_pipe(t_ast *node, char **envp)
 	free(pipes);
 	free(commands);
 	free(pids);
+	return 0; // Return 0 for success
 }
 
 void	error(void)
@@ -263,3 +263,4 @@ void	error(void)
 	perror("Error");
 	exit(126);
 }
+
