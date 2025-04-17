@@ -6,28 +6,28 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/19 17:53:08 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:58:29 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast_node	**resize_commands(t_ast_node **commands, size_t cmd_count)
+t_ast	**resize_commands(t_ast **commands, size_t cmd_count)
 {
-	t_ast_node	**new_temp;
+	t_ast	**new_temp;
 
-	new_temp = ft_calloc(cmd_count + 1, sizeof(t_ast_node *));
+	new_temp = ft_calloc(cmd_count + 1, sizeof(t_ast *));
 	if (!new_temp)
 		return (NULL);
-	ft_memcpy(new_temp, commands, cmd_count * sizeof(t_ast_node *));
+	ft_memcpy(new_temp, commands, cmd_count * sizeof(t_ast *));
 	free(commands);
 	return (new_temp);
 }
 
-void	process_commands(t_ast_node *current, t_ast_node ***commands,
+void	process_commands(t_ast *current, t_ast ***commands,
 		int *cmd_count)
 {
-	t_ast_node	**temp;
+	t_ast	**temp;
 
 	while (current)
 	{
@@ -87,7 +87,7 @@ void	process_commands(t_ast_node *current, t_ast_node ***commands,
 	}
 }
 
-int	**create_pipes_and_pids(int cmd_count, t_ast_node **commands, pid_t **pids)
+int	**create_pipes_and_pids(int cmd_count, t_ast **commands, pid_t **pids)
 {
 	int	num_pipes;
 	int	**pipes;
@@ -144,7 +144,7 @@ int	**create_pipes_and_pids(int cmd_count, t_ast_node **commands, pid_t **pids)
 	return (pipes);
 }
 
-void	execute_commands(int cmd_count, t_ast_node **commands, int **pipes,
+void	execute_commands(int cmd_count, t_ast **commands, int **pipes,
 		pid_t *pids, char **envp)
 {
 	int		num_pipes;
@@ -212,10 +212,10 @@ void	execute_commands(int cmd_count, t_ast_node **commands, int **pipes,
 }
 
 // Main function to execute the pipeline
-void	execute_pipe(t_ast_node *node, char **envp)
+void	execute_pipe(t_ast *node, char **envp)
 {
 	int			cmd_count;
-	t_ast_node	**commands;
+	t_ast	**commands;
 	pid_t		*pids;
 	int			**pipes;
 	int			num_pipes;

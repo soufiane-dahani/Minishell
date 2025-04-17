@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:04:53 by sodahani          #+#    #+#             */
-/*   Updated: 2025/03/19 17:53:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:07:27 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,56 +26,44 @@
 # include <termcap.h>
 # include <termios.h>
 # include <unistd.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdio.h>
 
 # define ANSI_COLOR_RED "\x1b[33m"
 # define ANSI_RESET_ALL "\x1b[0m"
 
-typedef enum
+typedef enum e_type
 {
-	SIMPLE_CMD,
-	PIPE,
-	REDIRECT_IN,
-	REDIRECT_OUT,
-	APPEND_OUT,
-	AND,
-	OR
-}			t_ast_node_type;
+	TYP_WORD,
+	TYP_PIPE,
+	TYP_DQUOTE,
+	TYP_SQOUTE,
+	TYP_REDIN,
+	TYP_REDOUT,
+	TYP_REDHERE,
+	TYP_REDAPP,
+	TYP_LPAR,
+	TYP_RPAR,
+	TYP_AND,
+	TYP_OR,
+	TYP_OAND
+}		t_type;
 
-typedef struct s_ast_node
+typedef struct s_ast
 {
-	t_ast_node_type type;     // The type of the node (e.g., SIMPLE_CMD, PIPE,etc.)
-	char **cmd;               // Command arguments (e.g., ["ls", "-l"])
-	char *file;               // File for redirection, if applicable
-	struct s_ast_node *left;  // Left child (used for piping, AND, OR, etc.)
-	struct s_ast_node *right; // Right child (used for piping, AND, OR, etc.)
-}			t_ast_node;
+	char			**cmd;
+	t_type			type;
+	int				nor;
+	int				exp;
+	int				suc;
+	struct s_ast	*r;
+	struct s_ast	*l;
+	struct s_ast	*next;
+}				t_ast;
 
-typedef struct s_process
-{
-	pid_t	pid;
-	int		status;
-	int		pipe_fd[2];
-	int		input_fd;
-	int		output_fd;
-}			t_process;
-
-typedef struct s_exec_env
-{
-	char	**envp;
-	int		exit_status;
-}			t_exec_env;
-
-typedef struct s_redirect
-{
-	int type; // Type of redirection (e.g., input, output, append)
-	char	*file;
-}			t_redirect;
-
-typedef struct s_parser
-{
-	char *input;     // Raw input from the user
-	t_ast_node *ast; // Root of the AST generated from input
-}			t_parser;
+extern t_ast	*g_ast;
 
 void		print_error(char *message);
 void		execute_cd(char *path);
@@ -88,9 +76,10 @@ char		*check_command_in_paths(char *cmd, char **paths);
 void		execute_export(char ***envp, char **cmd);
 void		execute_env(char **envp);
 void		error(void);
-void		execute_pipe(t_ast_node *node, char **envp);
-void 		execute_ast(t_ast_node *node, char **envp);
+void		execute_pipe(t_ast *node, char **envp);
+void		execute_ast(t_ast *node, char ***envp_ptr, int *exit_status);
 void		print_export(char **envp);
 int			is_valid_identifier(const char *var);
 void		add_to_env(char ***envp, const char *new_var);
+
 #endif
