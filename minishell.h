@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/17 14:56:23 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:00:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ typedef struct s_ast
 	t_type			type;
 	int				nor;
 	int				exp;
-	int				suc;
+	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
-	struct s_ast	*next;
 }				t_ast;
 
 extern t_ast	*g_ast;
@@ -122,10 +121,7 @@ int			nb_tok(char	*str);
 int			check_the_exp(t_token *tk);
 int			invalid_syntax(t_token *tk);
 t_ast		*build_the_tree(t_token *tk);
-t_ast		*new_ast_node(t_type type, char **cmd, int exp);
 int			dup_the_token(t_cmd *data, t_spl *spl);
-void		ft_node(t_ast **head, t_ast **cur_node, t_token *cur);
-t_ast		*creat_nor_cmd(t_token *tk);
 t_ast		*start_for_ast(t_token *tk);
 t_ast		*ft_par_cmd(t_token *tk);
 t_token		*creat_new(t_token *tk, t_token **op);
@@ -137,6 +133,6 @@ void		the_best_sep(t_token *tk, t_token **op);
 int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
-int			for_par(t_token **tk, t_token **op);
+int			check_ast_is_valid(void);
 
 #endif
