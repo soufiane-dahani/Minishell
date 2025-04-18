@@ -6,7 +6,7 @@
 #    By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/04/18 15:44:53 by sodahani         ###   ########.fr        #
+#    Updated: 2025/04/18 20:08:42 by sodahani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ TARGET = minishell
 SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
 	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c parsing/malloc.c libft_used/ft_strncmp.c \
 	parsing/parsing.c parsing/is.c parsing/t_ast.c parsing/is_the_cmd_valid.c parsing/first_worderr.c parsing/to_linked.c parsing/check_the.c parsing/pars_cmd.c parsing/creat_new_node.c \
-	parsing/build_tree.c \
+	parsing/build_tree.c parsing/check_ast_v.c\
 	exc/execute_simple_command.c exc/execute_pipe.c exc/exc.c exc/error.c exc/builtins_cd.c exc/helper_fun.c \
-	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c
+	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c exc/builtins_unset.c
 OBJ = $(SRC:.c=.o)
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 16:08:38 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 20:08:09 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
 int			for_par(t_token **tk, t_token **op);
-
+int			check_ast_is_valid(void);
 
 
 void		print_error(char *message);
