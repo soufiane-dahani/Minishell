@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 20:12:51 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 21:51:13 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 	return (my_env(node->cmd, *envp_ptr));
 
 
-	// if (!ft_strcmp(node->cmd[0], "export"))
-	// 	return (my_export(node->cmd, envp_ptr));
+	if (!ft_strcmp(node->cmd[0], "export"))
+		return (my_export(node->cmd, envp_ptr));
 
 	if (!ft_strcmp(node->cmd[0], "unset"))
 		return (my_unset(node->cmd, envp_ptr));

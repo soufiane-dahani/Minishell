@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 20:08:09 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 22:17:53 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,16 +166,22 @@ void		execute_ast(char ***envp_ptr);
 
 
 
-int	is_builtin(char **cmd);
-int	ft_strcmp(const char *s1, const char *s2);
-int	my_cd(char **cmd, char ***envp);
-int	my_pwd(void);
-int	my_echo(char **cmd);
-int	my_env(char **cmd, char **envp);
-int	my_export(char **cmd, char ***envp_ptr);
-int	my_unset(char **cmd, char ***envp_ptr);
-int	my_exit(char **cmd);
+int		is_builtin(char **cmd);
+int		ft_strcmp(const char *s1, const char *s2);
+int		my_cd(char **cmd, char ***envp);
+int		my_pwd(void);
+int		my_echo(char **cmd);
+int		my_env(char **cmd, char **envp);
+int		my_export(char **cmd, char ***envp_ptr);
+int		my_unset(char **cmd, char ***envp_ptr);
+int		my_exit(char **cmd);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
 char	**copy_env(char **env);
-int handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp);
+int 	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp);
+int		is_valid_identifier(char *name);
+int		is_valid_env_assignment(char *arg);
+char	*ft_strdup_custom(const char *s);
+int		print_sorted_env(char **envp);
+int		env_var_index(char *name, char **env);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 19:50:24 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 21:57:28 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,25 @@ int	is_valid_env_assignment(char *arg)
 {
 	int	i;
 
-	if (!arg)
+	if (!arg || !arg[0])
 		return (0);
+
+	// The first character must be a letter or underscore
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+		return (0);
+
 	i = 1;
 	while (arg[i] && arg[i] != '=')
 	{
+		// Characters before '=' must be alphanumeric or underscore
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+			return (0);
 		i++;
 	}
+
 	return (arg[i] == '=');
 }
+
 
 char	**copy_and_extend_env(char **envp, char **cmd)
 {
