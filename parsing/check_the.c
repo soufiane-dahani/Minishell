@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_the.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:13:00 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_the_exp(t_token *tk)
 	while (s)
 	{
 		i = 0;
-		tk->is_exp = 0;
+		s->is_exp = 0;
 		while (s->value[i])
 		{
 			if (s->value[i] == '$' && s->type != TYP_SQOUTE)
@@ -107,5 +107,7 @@ t_ast	*start_for_ast(t_token *tk)
 	node->l = NULL;
 	node->r = NULL;
 	node->cmd = tokens_to_cmd_array(tk);
+	node->exp = tk->is_exp;
+	node->type = tk->type;
 	return (node);
 }

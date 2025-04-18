@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 11:41:41 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:57:28 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	int		count;
 	char	*new_entry;
 	char	**new_env;
+	char	**old_env;
 
 	count = 0;
 	while ((*envp)[count])
@@ -112,18 +113,40 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	i = 0;
 	while (i < count)
 	{
-		new_env[i] = (*envp)[i];
+		new_env[i] = ft_strdup((*envp)[i]);
+		if (!new_env[i])
+		{
+			while (--i >= 0)
+				free(new_env[i]);
+			free(new_env);
+			return (0);
+		}
 		i++;
 	}
 	new_entry = ft_strjoin3(key, "=", value);
 	if (!new_entry)
 	{
+		i = 0;
+		while (i < count)
+			free(new_env[i++]);
 		free(new_env);
 		return (0);
 	}
 	new_env[count] = new_entry;
 	new_env[count + 1] = NULL;
+	
+	// Store old environment to free it properly
+	old_env = *envp;
+	
+	// Update environment pointer
 	*envp = new_env;
+	
+	// Free old environment
+	i = 0;
+	while (old_env[i])
+		free(old_env[i++]);
+	free(old_env);
+	
 	return (1);
 }
 
@@ -214,9 +237,9 @@ int	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp)
  */
 char	**copy_env(char **env)
 {
-	int		i;
-	int		count;
-	char	**new_env;
+	int i;
+	int count;
+	char **new_env;
 
 	if (!env)
 		return (NULL);

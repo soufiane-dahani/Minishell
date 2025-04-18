@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 10:26:49 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:18:05 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ int	main(int ac, char **av, char **env)
 		data->s = readline("minishell$> ");
 		add_history(data->s);
 		ft_clear_work(data, &env_copy);
-		free(data->s);
 	}
 }
