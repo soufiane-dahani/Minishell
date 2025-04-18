@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/17 15:30:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:34:17 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	print_ast(t_ast *node, int level)
 	{
 		printf("%s - %d - %d", node->cmd[0],
 			node->exp, node->type);
-		if (node->cmd[1])
-			printf(" --> %s", node->cmd[1]);
+		for (int i =1; node->cmd[i]; i++)
+			printf(" --> %s", node->cmd[i]);
 		printf("\n");
 	}
 	else

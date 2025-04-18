@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/17 23:05:44 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:48:50 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,22 +155,9 @@ int			for_par(t_token **tk, t_token **op);
 
 
 void		print_error(char *message);
-int			execute_cd(char *path);
-int execute_pwd(void);
-int execute_exit(void);
-int execute_unset(char ***envp, char *var_name);
-int	execute_simple_command(char **cmd, char **envp);
-char		*find_path(char *cmd, char **envp);
-char		*check_command_in_paths(char *cmd, char **paths);
-int execute_export(char ***envp, char **cmd);
-int execute_env(char **envp);
-void		error(void);
-int	execute_pipe(t_ast *node, char **envp);
+
 void		execute_ast(char ***envp_ptr);
-int print_export(char **envp);
-int is_valid_identifier(const char *var);
-int add_to_env(char ***envp, const char *new_var);
-void	free_split(char **arr);
+
 
 
 
@@ -184,5 +171,6 @@ int	my_env(char **envp);
 int	my_export(char **cmd, char ***envp_ptr);
 int	my_unset(char **cmd, char ***envp_ptr);
 int	my_exit(char **cmd);
+char	*ft_strjoin3(char *s1, char *s2, char *s3);
 
 #endif

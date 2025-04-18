@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/17 23:05:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/18 09:49:53 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 		return (1);
 
 	if (!ft_strcmp(node->cmd[0], "cd"))
-		return (execute_cd(node->cmd, *envp_ptr));
+		return (my_cd(node->cmd, *envp_ptr));
 
 	if (!ft_strcmp(node->cmd[0], "pwd"))
 		return (my_pwd());
