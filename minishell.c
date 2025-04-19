@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 10:00:43 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/19 12:26:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ int	main(int ac, char **av, char **env)
 		data->s = readline("minishell$> ");
 		add_history(data->s);
 		ft_clear_work(data, &env);
-		free(data->s);
 	}
 }

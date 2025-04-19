@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 17:00:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/19 14:41:02 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <ctype.h>
+# include <sys/stat.h>
 
 # define INITIAL_SIZE 10
 # define FT_ALLOC 1
