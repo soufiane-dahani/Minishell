@@ -1,0 +1,10 @@
+exc
+fle.supp
+Libft
+libft_used
+Makefile
+minishell
+minishell.c
+minishell.h
+parsing
+t.txt

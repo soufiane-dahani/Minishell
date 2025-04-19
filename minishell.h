@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/19 17:10:12 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 20:19:32 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_ast
 	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
-	//struct s_ast	*next;
 }				t_ast;
 
 extern t_ast	*g_ast;
@@ -186,5 +185,7 @@ int		env_var_index(char *name, char **env);
 int 	exec_external(t_ast *node, char **envp);
 int		exec_pipe(t_ast *node, char ***env);
 int		exec_builtin(t_ast *node, char ***envp_ptr);
+int		exec_redirection(t_ast *node, char ***envp);
+int		open_file(char *argv, int i);
 
 #endif
