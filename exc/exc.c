@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 12:37:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:06:23 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	execute_ast(t_ast *node, char ***envp)
 	{
 		if (is_builtin(node->cmd))
 			return exec_builtin(node, envp);
-		// else
-		// 	return exec_external(node, *envp);
+		else
+			return exec_external(node, *envp);
 	}
 	// else if (node->type == TYP_PIPE)
 	// 	return exec_pipe(node, envp);
