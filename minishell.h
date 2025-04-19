@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/18 22:17:53 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 12:40:24 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_ast
 	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
-	struct s_ast	*next;
+	//struct s_ast	*next;
 }				t_ast;
 
 extern t_ast	*g_ast;
@@ -160,7 +160,7 @@ int			check_ast_is_valid(void);
 
 void		print_error(char *message);
 
-void		execute_ast(char ***envp_ptr);
+int			execute_ast(t_ast *node, char ***envp);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 22:13:04 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 11:38:57 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	sort_env(char **env)
 	}
 }
 
-// This is the main function you're asking for:
 int	print_sorted_env(char **envp)
 {
 	int		i = 0;

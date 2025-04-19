@@ -6,20 +6,34 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 22:17:16 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 10:27:43 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Find index of variable in envp
-
-
-// Replace existing env var
 void	update_env_var(int idx, char *new_var, char ***envp_ptr)
 {
 	(*envp_ptr)[idx] = ft_strdup_custom(new_var);
 }
+
+int	env_var_index(char *arg, char **env)
+{
+	int		i = 0;
+	int		len = 0;
+
+	while (arg[len] && arg[len] != '=')
+		len++;
+
+	while (env[i])
+	{
+		if (!ft_strncmp(env[i], arg, len) && env[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 
 // Add new env var
 void	append_env_var(char *new_var, char ***envp_ptr)
@@ -60,7 +74,7 @@ int	my_export(char **args, char ***envp_ptr)
 {
 	int	i = 1;
 
-	if (!args[1]) // No args: print sorted env
+	if (!args[1])
 		return (print_sorted_env(*envp_ptr));
 
 	while (args[i])

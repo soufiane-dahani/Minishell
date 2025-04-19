@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 20:26:22 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 10:23:58 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,7 @@ int	is_valid_identifier(char *name)
 	return (1);
 }
 
-int	env_var_index(char *name, char **env)
-{
-	int	i = 0;
-	int	len = ft_strlen(name);
 
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], name, len) && env[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 void	remove_env_var(int idx, char ***envp_ptr)
 {

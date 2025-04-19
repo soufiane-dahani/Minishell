@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 21:51:13 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 12:37:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,31 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 }
 
 
-void	execute_ast(char ***envp_ptr)
+int	execute_ast(t_ast *node, char ***envp)
 {
-	t_ast	*node = g_ast;
+	if (!node)
+		return (1);
 
-	while (node)
+	if (node->type == TYP_WORD)
 	{
-		if (!node->cmd)
-		{
-			printf("Null cmd at node: %p\n", (void *)node);
-			break;
-		}
-
-		printf("Running command: %s\n", node->cmd[0]);
-
 		if (is_builtin(node->cmd))
-			exec_builtin(node, envp_ptr);
-
-		node = node->next;
+			return exec_builtin(node, envp);
+		// else
+		// 	return exec_external(node, *envp);
 	}
+	// else if (node->type == TYP_PIPE)
+	// 	return exec_pipe(node, envp);
+	// else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP ||
+	// 		 node->type == TYP_REDIN || node->type == TYP_REDHERE)
+	// 	return exec_redirection(node, envp);
+	// else if (node->type == TYP_AND)
+	// 	return exec_and(node, envp);
+	// else if (node->type == TYP_OR)
+	// 	return exec_or(node, envp);
+	// else if (node->type == TYP_PAR_BLOCK)
+	// 	return exec_subshell(node, envp);
+	
+	return (1);
 }
 
 
