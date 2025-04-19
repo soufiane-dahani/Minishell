@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/19 13:46:26 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:10:12 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,7 @@ char	*ft_strdup_custom(const char *s);
 int		print_sorted_env(char **envp);
 int		env_var_index(char *name, char **env);
 int 	exec_external(t_ast *node, char **envp);
+int		exec_pipe(t_ast *node, char ***env);
+int		exec_builtin(t_ast *node, char ***envp_ptr);
+
 #endif
