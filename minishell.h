@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 20:31:24 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:39:16 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,4 +191,6 @@ int		typ_redin_fun(t_ast *node, char ***envp);
 int		typ_redapp_fun(t_ast *node, char ***envp);
 int		typ_redhere_fun(t_ast *node, char ***envp);
 int		exec_and(t_ast *node, char ***envp);
+int		exec_or(t_ast *node, char ***envp);
+
 #endif
