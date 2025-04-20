@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 17:03:37 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:44:23 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,70 +109,89 @@ int	typ_redapp_fun(t_ast *node, char ***envp)
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
+
 int	get_next_line(char **line)
 {
 	char	*buffer;
+	char	c;
 	int		i;
 	int		r;
-	char	c;
 
-	i = 0;
-	buffer = ft_malloc(10000, FT_ALLOC);
+	buffer = malloc(10000);
 	if (!buffer)
 		return (-1);
-	r = read(0, &c, 1);
-	while (r && c != '\n' && c != '\0')
+
+	i = 0;
+	while ((r = read(0, &c, 1)) > 0)
 	{
-		if (c != '\n' && c != '\0')
-			buffer[i] = c;
-		i++;
-		r = read(0, &c, 1);
+		if (c == '\n')
+			break;
+		buffer[i++] = c;
 	}
 	buffer[i] = '\0';
 	*line = buffer;
 	return (r);
 }
 
-void	write_to_pipe(int fd[2], char *limiter)
-{
-	char	*line;
-
-	close(fd[0]);
-	while (get_next_line(&line))
-	{
-		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
-			&& ft_strlen(line) == ft_strlen(limiter))
-		{
-			free(line);
-			exit(EXIT_SUCCESS);
-		}
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 1);
-		free(line);
-	}
-}
 
 
-int	typ_redhere_fun(t_ast *node, char ***envp)
+int typ_redhere_fun(t_ast *node, char ***envp)
 {
 	pid_t	pid;
-	int		fd[2];
 	int		status;
-	
+	int		fd[2];
+	int		original_stdin;
+	char	*line;
+
 	if (pipe(fd) == -1)
-		perror("pipe");
+		return (perror("pipe"), 1);
+
 	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
+
 	if (pid == 0)
 	{
-		write_to_pipe(fd, node->r->cmd[0]);
-		execute_ast(node->l, envp);
-		exit(1);
+		close(fd[0]);
+		while (1)
+		{
+			write(1, "> ", 2);
+			if (get_next_line(&line) <= 0)
+				break;
+
+			if (ft_strncmp(line, node->r->cmd[0], ft_strlen(node->r->cmd[0])) == 0
+				&& ft_strlen(line) == ft_strlen(node->r->cmd[0]))
+			{
+				free(line);
+				break;
+			}
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 1);
+			free(line);
+		}
+		close(fd[1]);
+		exit(0);
 	}
+
+	// 🛠️ Save original stdin
+	original_stdin = dup(STDIN_FILENO);
+
 	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
+	dup2(fd[0], STDIN_FILENO); // heredoc input becomes stdin
+	close(fd[0]);
+
 	waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
+
+	int ret = execute_ast(node->l, envp);
+
+	// 🔁 Restore original stdin
+	dup2(1, STDIN_FILENO);
+	close(original_stdin);
+
+	return ret;
 }
+
+
 
 int	exec_redirection(t_ast *node, char ***envp)
 {
