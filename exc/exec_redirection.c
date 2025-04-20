@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 15:59:48 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:18:06 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 {
 	pid_t	pid;
 	int		status;
-	int		out_fd;
+	int		in_fd;
 
 	pid = fork();
 	if (pid == -1)
@@ -67,14 +67,14 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 
 	if (pid == 0)
 	{
-		out_fd = open_file(node->r->cmd[0], 2);
-		if (out_fd == -1)
+		in_fd = open_file(node->r->cmd[0], 2);
+		if (in_fd == -1)
 		{
 			perror("open");
 			exit(1);
 		}
-		dup2(out_fd, STDOUT_FILENO);
-		close(out_fd);
+		dup2(in_fd, STDIN_FILENO);
+		close(in_fd);
 
 		execute_ast(node->l, envp);
 		exit(1);
