@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/19 14:41:02 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:09:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct s_ast
 {
 	char			**cmd;
 	t_type			type;
-	int				nor;
+	int				work;
 	int				exp;
-	int				*suc;
+	int				suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
 }				t_ast;

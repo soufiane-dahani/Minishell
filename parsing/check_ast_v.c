@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 10:43:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/20 11:44:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	is_builtins(char *cmd)
 		|| !ft_strncmp(cmd, "export", 7)
 		|| !ft_strncmp(cmd, "unset", 6)
 		|| !ft_strncmp(cmd, "env", 4)
-		|| !ft_strncmp(cmd, "exit", 5));
+		|| !ft_strncmp(cmd, "exit", 5)
+		|| !ft_strncmp(cmd, "(", 2));
 }
 
 static int	comond_not_found(char *cmd)
@@ -51,7 +52,7 @@ static int	comond_not_found(char *cmd)
 	return (1);
 }
 
-static int	check_ast_is_valid_rec(t_ast *node)
+static int	check_ast_is_valid_rec(t_ast *node, int is_or_branch)
 {
 	if (!node)
 		return (1);
@@ -62,11 +63,14 @@ static int	check_ast_is_valid_rec(t_ast *node)
 			node->cmd[0]);
 		return (0);
 	}
-	if (!check_ast_is_valid_rec(node->l))
+	int	is_or_right = 0;
+	if (node->type == TYP_OR)
+		is_or_right = 1;
+	if (!check_ast_is_valid_rec(node->l, 0))
 		return (0);
-	if (!check_ast_is_valid_rec(node->r))
+	if (!check_ast_is_valid_rec(node->r, is_or_right))
 		return (0);
-	if (!node->l && !node->r && comond_not_found(node->cmd[0]))
+	if (!node->l && !node->r && !is_or_branch && comond_not_found(node->cmd[0]))
 	{
 		printf("command not found: %s\n", node->cmd[0]);
 		return (0);
@@ -76,5 +80,5 @@ static int	check_ast_is_valid_rec(t_ast *node)
 
 int	check_ast_is_valid(void)
 {
-	return (check_ast_is_valid_rec(g_ast));
+	return (check_ast_is_valid_rec(g_ast, 0));
 }
