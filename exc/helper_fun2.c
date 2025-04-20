@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 11:38:57 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:13:50 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ int	print_sorted_env(char **envp)
 		i++;
 	}
 	return (0);
+}
+int	open_file(char *filename, int mode)
+{
+	int	fd;
+
+	if (mode == 0)
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (mode == 1)
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (mode == 2)
+		fd = open(filename, O_RDONLY);
+	else
+		return (-1);
+	return (fd);
 }
