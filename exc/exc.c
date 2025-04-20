@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 19:55:04 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:21:57 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int	execute_ast(t_ast *node, char ***envp)
 	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP ||
 			 node->type == TYP_REDIN || node->type == TYP_REDHERE)
 		return exec_redirection(node, envp);
-	// else if (node->type == TYP_AND)
-	// 	return exec_and(node, envp);
+	else if (node->type == TYP_AND)
+		return exec_and(node, envp);
 	// else if (node->type == TYP_OR)
 	// 	return exec_or(node, envp);
 	// else if (node->type == TYP_PAR_BLOCK)
