@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 20:58:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 15:59:48 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,33 @@ int	typ_redout_fun(t_ast *node, char ***envp)
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
+int	typ_redin_fun(t_ast *node, char ***envp)
+{
+	pid_t	pid;
+	int		status;
+	int		out_fd;
 
+	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
+
+	if (pid == 0)
+	{
+		out_fd = open_file(node->r->cmd[0], 2);
+		if (out_fd == -1)
+		{
+			perror("open");
+			exit(1);
+		}
+		dup2(out_fd, STDOUT_FILENO);
+		close(out_fd);
+
+		execute_ast(node->l, envp);
+		exit(1);
+	}
+	waitpid(pid, &status, 0);
+	return (WEXITSTATUS(status));
+}
 
 
 int	exec_redirection(t_ast *node, char ***envp)
@@ -66,7 +92,8 @@ int	exec_redirection(t_ast *node, char ***envp)
 
 	if (node->type == TYP_REDOUT)
 		return typ_redout_fun(node, envp);
-
+	if (node->type == TYP_REDIN)
+		return typ_redin_fun(node, envp);
 	// You can later add:
 	// if (node->type == TYP_REDAPP) ...
 	// if (node->type == TYP_REDIN) ...
