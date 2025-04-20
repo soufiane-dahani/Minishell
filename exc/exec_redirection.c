@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 19:44:23 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:00:04 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ int typ_redhere_fun(t_ast *node, char ***envp)
 
 	// 🛠️ Save original stdin
 	original_stdin = dup(STDIN_FILENO);
-
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO); // heredoc input becomes stdin
 	close(fd[0]);
@@ -185,7 +184,7 @@ int typ_redhere_fun(t_ast *node, char ***envp)
 	int ret = execute_ast(node->l, envp);
 
 	// 🔁 Restore original stdin
-	dup2(1, STDIN_FILENO);
+	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 
 	return ret;
