@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 15:41:47 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:23:38 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ int		exec_builtin(t_ast *node, char ***envp_ptr);
 int		exec_redirection(t_ast *node, char ***envp);
 int		open_file(char *argv, int i);
 int		typ_redin_fun(t_ast *node, char ***envp);
+int		typ_redapp_fun(t_ast *node, char ***envp);
 
 #endif
