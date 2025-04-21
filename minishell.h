@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 11:09:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:09:41 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_ast
 	int				work;
 	int				exp;
 	int				suc;
+	int				ret;
 	struct s_ast	*r;
 	struct s_ast	*l;
 }				t_ast;
@@ -135,5 +136,6 @@ int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
 int			check_ast_is_valid(void);
+t_token		*fix_the_case(t_token *tk);
 
 #endif

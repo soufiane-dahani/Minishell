@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/19 15:07:23 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:44:21 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static char	**tokens_to_cmd_array(t_token *tk)
 	i = 0;
 	while (tmp)
 	{
-		cmd[i++] = ft_strdup(tmp->value);
+		if (tmp->type != TYP_RPAR)
+			cmd[i++] = ft_strdup(tmp->value);
 		tmp = tmp->next;
 	}
 	cmd[i] = NULL;

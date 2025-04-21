@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 11:44:54 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:11:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int	comond_not_found(char *cmd)
 
 static int	check_ast_is_valid_rec(t_ast *node, int is_or_branch)
 {
+	int	is_or_right;
+
 	if (!node)
 		return (1);
 	if ((node->type == TYP_AND || node->type == TYP_OR
@@ -63,7 +65,7 @@ static int	check_ast_is_valid_rec(t_ast *node, int is_or_branch)
 			node->cmd[0]);
 		return (0);
 	}
-	int	is_or_right = 0;
+	is_or_right = 0;
 	if (node->type == TYP_OR)
 		is_or_right = 1;
 	if (!check_ast_is_valid_rec(node->l, 0))
@@ -73,7 +75,7 @@ static int	check_ast_is_valid_rec(t_ast *node, int is_or_branch)
 	if (!node->l && !node->r && !is_or_branch && comond_not_found(node->cmd[0]))
 	{
 		printf("command not found: %s\n", node->cmd[0]);
-		return (0);
+		// return (0);
 	}
 	return (1);
 }

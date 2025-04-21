@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/19 15:43:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/20 16:58:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	parsing(t_cmd *data)
 	}
 	split_the_cmd(data);
 	tk = tokenize(data->cmd);
+	tk = fix_the_case(tk);
 	if (check_the_exp(tk))
 		return (0);
 	if (!check_ast_is_valid())
