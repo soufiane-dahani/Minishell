@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:29:54 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:19:29 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,15 @@ char	*ft_strdup_custom(const char *s)
 	ft_memcpy(copy, s, len);
 	copy[len] = '\0';
 	return (copy);
+}
+int ft_strchr2(char *cmd , char c)
+{
+	int i = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] == c)
+			return 0;
+		i++;
+	}
+	return 1;
 }

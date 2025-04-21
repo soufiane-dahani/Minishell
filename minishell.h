@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 16:28:47 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:16:33 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <termcap.h>
 #include <termios.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 
 # define ANSI_COLOR_RED "\x1b[33m"
@@ -189,6 +190,18 @@ int		update_existing_env(char *key, char *value, char ***envp);
 int		count_env_entries(char ***envp);
 void	free_old_env(char **old_env);
 int		create_and_copy_env(char ***envp, char ***new_env, int count);
-int		my_echo(char **cmd);
+char	*expand_wildcard(const char *pattern);
+int		ft_strchr2(char *cmd , char c);
 
+
+
+
+
+
+
+
+
+
+
+int		my_echo(char **cmd);
 #endif
