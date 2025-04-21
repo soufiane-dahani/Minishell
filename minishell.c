@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 11:54:54 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:48:58 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ t_ast	*g_ast;
 
 void	ft_clear_work(t_cmd *data, char ***env)
 {
+	int i;
 	if (!parsing(data))
 		return ;
-	execute_ast(g_ast, env);
+	i = execute_ast(g_ast, env);
 }
 
 int	main(int ac, char **av, char **env)

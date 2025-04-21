@@ -58,8 +58,8 @@ int	nb_tok(char *str)
 		{
 			count++;
 			while (str[i] && !is_space(str[i]) && !is_special_char(str[i])
-				&& str[i] != '(' && str[i] != ')'
-				&& str[i] != '"' && str[i] != '\'')
+				&& str[i] != '(' && str[i] != ')' && str[i] != '"'
+				&& str[i] != '\'')
 				i++;
 		}
 	}
@@ -68,6 +68,6 @@ int	nb_tok(char *str)
 
 int	is_special_char(char c)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>'
-		|| c == '(' || c == ')');
+	return (c == '|' || c == '&' || c == '<' || c == '>' || c == '('
+		|| c == ')');
 }

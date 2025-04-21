@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 13:23:05 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:28:47 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
 int			for_par(t_token **tk, t_token **op);
 int			check_ast_is_valid(void);
-
+t_token	*fix_the_case(t_token *tk);
 
 void		print_error(char *message);
 
@@ -185,9 +185,10 @@ int		exec_subshell(t_ast *node, char ***envp);
 char	*get_env_value(char **envp, const char *name);
 int		find_env_index(char **envp, const char *name);
 char	*expand_tilde(char *path, char **envp);
-int	update_existing_env(char *key, char *value, char ***envp);
-int	count_env_entries(char ***envp);
+int		update_existing_env(char *key, char *value, char ***envp);
+int		count_env_entries(char ***envp);
 void	free_old_env(char **old_env);
-int	create_and_copy_env(char ***envp, char ***new_env, int count);
+int		create_and_copy_env(char ***envp, char ***new_env, int count);
+int		my_echo(char **cmd);
 
 #endif

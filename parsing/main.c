@@ -26,9 +26,8 @@ static void	print_ast(t_ast *node, int level)
 	print_indent(level);
 	if (node->cmd && node->cmd[0])
 	{
-		printf("%s - %d - %d", node->cmd[0],
-			node->exp, node->type);
-		for (int i = 1;node->cmd[i]; i++)
+		printf("%s - %d - %d", node->cmd[0], node->exp, node->type);
+		for (int i = 1; node->cmd[i]; i++)
 			printf(" --> %s", node->cmd[i]);
 		printf("\n");
 	}
