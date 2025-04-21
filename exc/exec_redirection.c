@@ -21,7 +21,6 @@ int	typ_redout_fun(t_ast *node, char ***envp)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
-
 	if (pid == 0)
 	{
 		out_fd = open_file(node->r->cmd[0], 1);
@@ -32,7 +31,6 @@ int	typ_redout_fun(t_ast *node, char ***envp)
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
-
 		execute_ast(node->l, envp);
 		exit(1);
 	}
@@ -48,7 +46,6 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
-
 	if (pid == 0)
 	{
 		in_fd = open_file(node->r->cmd[0], 2);
@@ -59,7 +56,6 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 		}
 		dup2(in_fd, STDIN_FILENO);
 		close(in_fd);
-
 		execute_ast(node->l, envp);
 		exit(1);
 	}
@@ -75,7 +71,6 @@ int	typ_redapp_fun(t_ast *node, char ***envp)
 	pid = fork();
 	if (pid == -1)
 		return (perror("fork"), 1);
-
 	if (pid == 0)
 	{
 		out_fd = open_file(node->r->cmd[0], 0);
@@ -86,7 +81,6 @@ int	typ_redapp_fun(t_ast *node, char ***envp)
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
-
 		execute_ast(node->l, envp);
 		exit(1);
 	}
@@ -94,21 +88,18 @@ int	typ_redapp_fun(t_ast *node, char ***envp)
 	return (WEXITSTATUS(status));
 }
 
-
 int	exec_redirection(t_ast *node, char ***envp)
 {
-	if (!node || !(node->type == TYP_REDOUT || node->type == TYP_REDAPP ||
-		node->type == TYP_REDIN || node->type == TYP_REDHERE))
+	if (!node || !(node->type == TYP_REDOUT || node->type == TYP_REDAPP
+			|| node->type == TYP_REDIN || node->type == TYP_REDHERE))
 		return (1);
-
 	if (node->type == TYP_REDOUT)
-		return typ_redout_fun(node, envp);
+		return (typ_redout_fun(node, envp));
 	else if (node->type == TYP_REDIN)
-		return typ_redin_fun(node, envp);
+		return (typ_redin_fun(node, envp));
 	else if (node->type == TYP_REDAPP)
-		return typ_redapp_fun(node, envp);
+		return (typ_redapp_fun(node, envp));
 	else if (node->type == TYP_REDHERE)
-		return typ_redhere_fun(node, envp);	
+		return (typ_redhere_fun(node, envp));
 	return (1);
 }
-

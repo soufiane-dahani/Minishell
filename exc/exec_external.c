@@ -52,9 +52,9 @@ char	*find_path(char *cmd, char **envp)
 	return (path);
 }
 
-void execute(char **cmd, char **envp)
+void	execute(char **cmd, char **envp)
 {
-	char *path;
+	char	*path;
 
 	if (ft_strchr(cmd[0], '/'))
 	{
@@ -74,7 +74,6 @@ void execute(char **cmd, char **envp)
 	perror("execve failed");
 	exit(1);
 }
-
 
 int	exec_external(t_ast *node, char **envp)
 {

@@ -22,19 +22,17 @@ int	get_next_line(char **line)
 	buffer = malloc(10000);
 	if (!buffer)
 		return (-1);
-
 	i = 0;
 	while ((r = read(0, &c, 1)) > 0)
 	{
 		if (c == '\n')
-			break;
+			break ;
 		buffer[i++] = c;
 	}
 	buffer[i] = '\0';
 	*line = buffer;
 	return (r);
 }
-
 
 int	handle_child_process(t_ast *node, int fd[2])
 {
@@ -45,12 +43,12 @@ int	handle_child_process(t_ast *node, int fd[2])
 	{
 		write(1, "> ", 2);
 		if (get_next_line(&line) <= 0)
-			break;
+			break ;
 		if (ft_strncmp(line, node->r->cmd[0], ft_strlen(node->r->cmd[0])) == 0
 			&& ft_strlen(line) == ft_strlen(node->r->cmd[0]))
 		{
 			free(line);
-			break;
+			break ;
 		}
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);

@@ -14,8 +14,9 @@
 
 int	is_valid_identifier(char *name)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!name || !name[0])
 		return (0);
 	if (!ft_isalpha(name[0]) && name[0] != '_')
@@ -30,23 +31,23 @@ int	is_valid_identifier(char *name)
 	return (1);
 }
 
-
-
 void	remove_env_var(int idx, char ***envp_ptr)
 {
-	int		i = 0;
-	int		j = 0;
-	int		count = 0;
-	char	**env = *envp_ptr;
+	int		i;
+	int		j;
+	int		count;
+	char	**env;
 	char	**new_env;
 
+	i = 0;
+	j = 0;
+	count = 0;
+	env = *envp_ptr;
 	while (env[count])
 		count++;
-
-    new_env = ft_malloc((sizeof(char *) * count) ,FT_ALLOC);
+	new_env = ft_malloc((sizeof(char *) * count), FT_ALLOC);
 	if (!new_env)
-		return;
-
+		return ;
 	while (env[i])
 	{
 		if (i != idx)
@@ -54,20 +55,19 @@ void	remove_env_var(int idx, char ***envp_ptr)
 		i++;
 	}
 	new_env[j] = NULL;
-
 	i = 0;
 	while (env[i])
 		free(env[i++]);
 	free(env);
-
 	*envp_ptr = new_env;
 }
 
 int	my_unset(char **args, char ***envp_ptr)
 {
-	int	i = 1;
+	int	i;
 	int	idx;
 
+	i = 1;
 	while (args[i])
 	{
 		if (is_valid_identifier(args[i]))

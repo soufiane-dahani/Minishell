@@ -14,8 +14,9 @@
 
 int	is_numeric(const char *str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !str[0])
 		return (0);
 	if (str[i] == '-' || str[i] == '+')
@@ -31,9 +32,11 @@ int	is_numeric(const char *str)
 
 long	ft_atol(const char *str)
 {
-	long	res = 0;
-	int		sign = 1;
+	long	res;
+	int		sign;
 
+	res = 0;
+	sign = 1;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 22:05:52 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:29:54 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	free(tmp);
 	return (result);
 }
+
 char	*ft_strdup_custom(const char *s)
 {
-	size_t	len = ft_strlen(s);
-	char	*copy = ft_malloc(len + 1, FT_ALLOC);
+	size_t	len;
+	char	*copy;
+
+	len = ft_strlen(s);
+	copy = ft_malloc(len + 1, FT_ALLOC);
 	if (!copy)
 		return (NULL);
 	ft_memcpy(copy, s, len);

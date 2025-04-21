@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_and.c                                         :+:      :+:    :+:   */
+/*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 22:07:44 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 11:37:37 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	exec_and(t_ast *node, char ***envp)
-{
-	int	left_status;
+// char	**expand_wildcard(const char *pattern)
+// {
+// 	DIR				*dir;
+// 	struct dirent	*entry;
+// 	char			**matches;
+// 	int				i;
 
-	if (!node || node->type != TYP_AND)
-		return (1);
-	left_status = execute_ast(node->l, envp);
-	if (left_status == 0)
-		return (execute_ast(node->r, envp));
-	return (left_status);
-}
-
-int	exec_or(t_ast *node, char ***envp)
-{
-	int	left_status;
-
-	if (!node || node->type != TYP_OR)
-		return (1);
-	left_status = execute_ast(node->l, envp);
-	if (left_status != 0)
-		return (execute_ast(node->r, envp));
-	return (left_status);
-}
+// 	dir = opendir(".");
+// 	matches = malloc(sizeof(char *) * 1024);
+// 	i = 0;
+// 	if (!dir)
+// 		return (NULL);
+// 	while ((entry = readdir(dir)) != NULL)
+// 	{
+// 		if (match_pattern(pattern, entry->d_name))
+// 		{
+// 			matches[i++] = ft_strdup(entry->d_name);
+// 		}
+// 	}
+// 	matches[i] = NULL;
+// 	closedir(dir);
+// 	return (matches);
+// }

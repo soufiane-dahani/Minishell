@@ -14,20 +14,17 @@
 
 int	exec_pipe(t_ast *node, char ***envp)
 {
-	int fd[2];
-	pid_t pid1, pid2;
-	int status;
+	int	fd[2];
+	int	status;
 
+	pid_t pid1, pid2;
 	if (!node || node->type != TYP_PIPE)
 		return (1);
-
 	if (pipe(fd) == -1)
 		return (perror("pipe"), 1);
-
 	pid1 = fork();
 	if (pid1 == -1)
 		return (perror("fork"), 1);
-
 	if (pid1 == 0)
 	{
 		close(fd[0]);
@@ -36,14 +33,12 @@ int	exec_pipe(t_ast *node, char ***envp)
 		execute_ast(node->l, envp);
 		exit(1);
 	}
-
 	pid2 = fork();
 	if (pid2 == -1)
 		return (perror("fork"), 1);
-
 	if (pid2 == 0)
 	{
-		close(fd[1]); 
+		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		execute_ast(node->r, envp);
@@ -51,9 +46,7 @@ int	exec_pipe(t_ast *node, char ***envp)
 	}
 	close(fd[0]);
 	close(fd[1]);
-
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
-
 	return (WEXITSTATUS(status));
 }

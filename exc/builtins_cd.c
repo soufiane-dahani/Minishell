@@ -134,19 +134,15 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	}
 	new_env[count] = new_entry;
 	new_env[count + 1] = NULL;
-	
 	// Store old environment to free it properly
 	old_env = *envp;
-	
 	// Update environment pointer
 	*envp = new_env;
-	
 	// Free old environment
 	i = 0;
 	while (old_env[i])
 		free(old_env[i++]);
 	free(old_env);
-	
 	return (1);
 }
 

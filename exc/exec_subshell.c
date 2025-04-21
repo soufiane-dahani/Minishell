@@ -10,22 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
-int exec_subshell(t_ast *node, char ***envp)
+int	exec_subshell(t_ast *node, char ***envp)
 {
-    pid_t pid;
-    int status;
+	pid_t	pid;
+	int		status;
 
-    pid = fork();
-    if (pid == -1)
-        return (perror("fork"), 1);
-
-    if (pid == 0)
-    {
-        exit(execute_ast(node->r, envp));
-    }
-    waitpid(pid, &status, 0);
-    return (WEXITSTATUS(status));
+	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
+	if (pid == 0)
+	{
+		exit(execute_ast(node->r, envp));
+	}
+	waitpid(pid, &status, 0);
+	return (WEXITSTATUS(status));
 }

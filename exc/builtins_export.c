@@ -19,12 +19,13 @@ void	update_env_var(int idx, char *new_var, char ***envp_ptr)
 
 int	env_var_index(char *arg, char **env)
 {
-	int		i = 0;
-	int		len = 0;
+	int	i;
+	int	len;
 
+	i = 0;
+	len = 0;
 	while (arg[len] && arg[len] != '=')
 		len++;
-
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], arg, len) && env[i][len] == '=')
@@ -34,19 +35,19 @@ int	env_var_index(char *arg, char **env)
 	return (-1);
 }
 
-
 // Add new env var
 void	append_env_var(char *new_var, char ***envp_ptr)
 {
-	int		len = 0;
+	int		len;
 	char	**new_env;
 	int		i;
 
+	len = 0;
 	while ((*envp_ptr)[len])
 		len++;
 	new_env = ft_malloc(sizeof(char *) * (len + 2), FT_ALLOC);
 	if (!new_env)
-		return;
+		return ;
 	i = 0;
 	while (i < len)
 	{
@@ -72,11 +73,11 @@ void	add_or_update_env(char *arg, char ***envp_ptr)
 
 int	my_export(char **args, char ***envp_ptr)
 {
-	int	i = 1;
+	int	i;
 
+	i = 1;
 	if (!args[1])
 		return (print_sorted_env(*envp_ptr));
-
 	while (args[i])
 	{
 		if (is_valid_env_assignment(args[i]) || is_valid_identifier(args[i]))

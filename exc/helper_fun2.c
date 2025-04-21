@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 20:13:50 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:31:16 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_env_size(char **envp)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (envp[i])
 		i++;
 	return (i);
@@ -22,17 +24,20 @@ int	ft_env_size(char **envp)
 
 void	swap_strs(char **a, char **b)
 {
-	char *tmp = *a;
+	char	*tmp;
+
+	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
 
-// Simple Bubble Sort
 void	sort_env(char **env)
 {
-	int		i, j;
-	int		size = ft_env_size(env);
+	int	size;
+	int	j;
+	int	i;
 
+	size = ft_env_size(env);
 	i = 0;
 	while (i < size - 1)
 	{
@@ -49,9 +54,10 @@ void	sort_env(char **env)
 
 int	print_sorted_env(char **envp)
 {
-	int		i = 0;
+	int		i;
 	char	**copy;
 
+	i = 0;
 	copy = ft_malloc(sizeof(char *) * (ft_env_size(envp) + 1), FT_ALLOC);
 	if (!copy)
 		return (1);
@@ -72,6 +78,7 @@ int	print_sorted_env(char **envp)
 	}
 	return (0);
 }
+
 int	open_file(char *filename, int mode)
 {
 	int	fd;
