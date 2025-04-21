@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 20:36:50 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:31:55 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ int	execute_ast(t_ast *node, char ***envp)
 		return exec_and(node, envp);
 	else if (node->type == TYP_OR)
 		return exec_or(node, envp);
-	// else if (node->type == TYP_PAR_BLOCK)
-	// 	return exec_subshell(node, envp);
-	
+	else if (node->type == TYP_LPAR)
+		return exec_subshell(node, envp);
 	return (1);
 }
 

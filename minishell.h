@@ -6,42 +6,31 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 20:39:16 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 10:45:08 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>
-#include <limits.h>
 #include <stdlib.h>
+#include <limits.h>
+#include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
-# include <stdio.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
-# include <unistd.h>
-# include <ctype.h>
-# include "Libft/libft.h"
-# include <dirent.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/ioctl.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <termcap.h>
-# include <termios.h>
-# include <unistd.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
+#include <ctype.h>
+#include "Libft/libft.h"
+#include <sys/ioctl.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
-#include <stdio.h>
+#include <termcap.h>
+#include <termios.h>
+#include <fcntl.h>
+
 
 # define ANSI_COLOR_RED "\x1b[33m"
 # define ANSI_RESET_ALL "\x1b[0m"
@@ -192,5 +181,6 @@ int		typ_redapp_fun(t_ast *node, char ***envp);
 int		typ_redhere_fun(t_ast *node, char ***envp);
 int		exec_and(t_ast *node, char ***envp);
 int		exec_or(t_ast *node, char ***envp);
+int		exec_subshell(t_ast *node, char ***envp);
 
 #endif

@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_and.c                                         :+:      :+:    :+:   */
+/*   exec_subshell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 22:07:44 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 10:45:58 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 
-int exec_and(t_ast *node, char ***envp)
+int exec_subshell(t_ast *node, char ***envp)
 {
-    int left_status;
+    pid_t pid;
+    int status;
 
-    if (!node || node->type != TYP_AND)
-        return 1;
+    pid = fork();
+    if (pid == -1)
+        return (perror("fork"), 1);
 
-    left_status = execute_ast(node->l, envp);
-    if (left_status == 0)
-        return execute_ast(node->r, envp);
-    return left_status;
-}
-
-int exec_or(t_ast *node, char ***envp)
-{
-    int left_status;
-
-    if (!node || node->type != TYP_OR)
-        return 1;
-
-    left_status = execute_ast(node->l, envp);
-    if (left_status != 0)
-        return execute_ast(node->r, envp);
-    return left_status;
+    if (pid == 0)
+    {
+        exit(execute_ast(node->r, envp));
+    }
+    waitpid(pid, &status, 0);
+    return (WEXITSTATUS(status));
 }
