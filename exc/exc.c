@@ -57,7 +57,7 @@ int	execute_ast(t_ast *node, char ***envp)
 	else if (node->type == TYP_PIPE)
 		return (exec_pipe(node, envp));
 	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP
-		|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
+			|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
 		return (exec_redirection(node, envp));
 	else if (node->type == TYP_AND)
 		return (exec_and(node, envp));

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 13:03:08 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:41:54 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ long	ft_atol(const char *str)
 int	my_exit(char **cmd)
 {
 	ft_putstr_fd("exit\n", STDERR_FILENO);
-
 	if (cmd[1])
 	{
 		if (!is_numeric(cmd[1]))

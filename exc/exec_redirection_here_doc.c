@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 20:20:13 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:40:57 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ int	get_next_line(char **line)
 	if (!buffer)
 		return (-1);
 	i = 0;
-	while ((r = read(0, &c, 1)) > 0)
+	r = read(0, &c, 1);
+	while (r > 0)
 	{
 		if (c == '\n')
 			break ;
 		buffer[i++] = c;
+		r = read(0, &c, 1);
 	}
 	buffer[i] = '\0';
 	*line = buffer;

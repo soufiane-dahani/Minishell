@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 10:23:58 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:50:11 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,41 @@ int	is_valid_identifier(char *name)
 	return (1);
 }
 
+static void	free_env_array(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		free(env[i++]);
+	free(env);
+}
+
+static int	count_env_variables(char **env)
+{
+	int	count;
+
+	count = 0;
+	while (env[count])
+		count++;
+	return (count);
+}
+
 void	remove_env_var(int idx, char ***envp_ptr)
 {
 	int		i;
 	int		j;
-	int		count;
 	char	**env;
 	char	**new_env;
+	int		count;
 
-	i = 0;
-	j = 0;
-	count = 0;
 	env = *envp_ptr;
-	while (env[count])
-		count++;
+	count = count_env_variables(env);
 	new_env = ft_malloc((sizeof(char *) * count), FT_ALLOC);
 	if (!new_env)
 		return ;
+	i = 0;
+	j = 0;
 	while (env[i])
 	{
 		if (i != idx)
@@ -55,10 +73,7 @@ void	remove_env_var(int idx, char ***envp_ptr)
 		i++;
 	}
 	new_env[j] = NULL;
-	i = 0;
-	while (env[i])
-		free(env[i++]);
-	free(env);
+	free_env_array(env);
 	*envp_ptr = new_env;
 }
 

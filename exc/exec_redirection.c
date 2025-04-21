@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/20 20:20:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:39:44 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	typ_redout_fun(t_ast *node, char ***envp)
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
+
 int	typ_redin_fun(t_ast *node, char ***envp)
 {
 	pid_t	pid;
@@ -62,6 +63,7 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
+
 int	typ_redapp_fun(t_ast *node, char ***envp)
 {
 	pid_t	pid;
