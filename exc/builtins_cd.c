@@ -6,16 +6,13 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/18 14:57:28 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:01:42 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/**
- * Gets value of an environment variable from envp.
- * Returns NULL if variable is not found.
- */
+
 static char	*get_env_value(char **envp, const char *name)
 {
 	int	i;
@@ -34,9 +31,7 @@ static char	*get_env_value(char **envp, const char *name)
 	return (NULL);
 }
 
-/**
- * Finds an environment variable and returns its index or -1 if not found
- */
+
 static int	find_env_index(char **envp, const char *name)
 {
 	int	i;
@@ -55,9 +50,7 @@ static int	find_env_index(char **envp, const char *name)
 	return (-1);
 }
 
-/**
- * Expands tilde (~) in path if present at the beginning
- */
+
 static char	*expand_tilde(char *path, char **envp)
 {
 	char	*home;
@@ -74,9 +67,7 @@ static char	*expand_tilde(char *path, char **envp)
 	return (ft_strdup(path));
 }
 
-/**
- * Updates existing environment variable
- */
+
 static int	update_existing_env(char *key, char *value, char ***envp)
 {
 	int		index;
@@ -93,9 +84,7 @@ static int	update_existing_env(char *key, char *value, char ***envp)
 	return (1);
 }
 
-/**
- * Adds new environment variable
- */
+
 static int	add_new_env(char *key, char *value, char ***envp)
 {
 	int		i;
@@ -146,9 +135,7 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	return (1);
 }
 
-/**
- * Updates or adds an environment variable
- */
+
 static int	update_env(char *key, char *value, char ***envp)
 {
 	if (!envp || !*envp || !key || !value)
@@ -158,9 +145,6 @@ static int	update_env(char *key, char *value, char ***envp)
 	return (add_new_env(key, value, envp));
 }
 
-/**
- * Implementation of the cd command
- */
 int	my_cd(char **cmd, char ***envp)
 {
 	char	*target;
@@ -198,9 +182,6 @@ int	my_cd(char **cmd, char ***envp)
 	return (0);
 }
 
-/**
- * Handles the directory change portion of cd
- */
 int	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp)
 {
 	char	*expanded_path;
@@ -228,9 +209,6 @@ int	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp)
 	return (0);
 }
 
-/**
- * Creates a deep copy of the environment variables
- */
 char	**copy_env(char **env)
 {
 	int i;

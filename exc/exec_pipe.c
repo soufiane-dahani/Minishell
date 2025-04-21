@@ -6,26 +6,20 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 19:06:41 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:00:10 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	exec_pipe(t_ast *node, char ***envp)
+static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2])
 {
-	int	fd[2];
-	int	status;
+	pid_t	pid;
 
-	pid_t pid1, pid2;
-	if (!node || node->type != TYP_PIPE)
-		return (1);
-	if (pipe(fd) == -1)
-		return (perror("pipe"), 1);
-	pid1 = fork();
-	if (pid1 == -1)
+	pid = fork();
+	if (pid == -1)
 		return (perror("fork"), 1);
-	if (pid1 == 0)
+	if (pid == 0)
 	{
 		close(fd[0]);
 		dup2(fd[1], STDOUT_FILENO);
@@ -33,10 +27,17 @@ int	exec_pipe(t_ast *node, char ***envp)
 		execute_ast(node->l, envp);
 		exit(1);
 	}
-	pid2 = fork();
-	if (pid2 == -1)
+	return (pid);
+}
+
+static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2])
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
 		return (perror("fork"), 1);
-	if (pid2 == 0)
+	if (pid == 0)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
@@ -44,6 +45,22 @@ int	exec_pipe(t_ast *node, char ***envp)
 		execute_ast(node->r, envp);
 		exit(1);
 	}
+	return (pid);
+}
+
+int	exec_pipe(t_ast *node, char ***envp)
+{
+	int		fd[2];
+	int		status;
+	pid_t	pid1;
+	pid_t	pid2;
+
+	if (!node || node->type != TYP_PIPE)
+		return (1);
+	if (pipe(fd) == -1)
+		return (perror("pipe"), 1);
+	pid1 = handle_left_pipe(node, envp, fd);
+	pid2 = handle_right_pipe(node, envp, fd);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid1, &status, 0);
