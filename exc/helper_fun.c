@@ -48,14 +48,16 @@ char	*ft_strdup_custom(const char *s)
 	copy[len] = '\0';
 	return (copy);
 }
-int ft_strchr2(char *cmd , char c)
+int	ft_strchr2(char *cmd, char c)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (cmd[i] != '\0')
 	{
 		if (cmd[i] == c)
-			return 0;
+			return (0);
 		i++;
 	}
-	return 1;
+	return (1);
 }

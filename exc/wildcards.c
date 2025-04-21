@@ -12,15 +12,16 @@
 
 #include "../minishell.h"
 
-bool match_pattern(const char *pattern, const char *str)
+bool	match_pattern(const char *pattern, const char *str)
 {
 	if (*pattern == '\0' && *str == '\0')
-		return true;
+		return (true);
 	if (*pattern == '*')
-		return match_pattern(pattern + 1, str) || (*str && match_pattern(pattern, str + 1));
+		return (match_pattern(pattern + 1, str) || (*str
+				&& match_pattern(pattern, str + 1)));
 	if (*pattern == *str)
-		return match_pattern(pattern + 1, str + 1);
-	return false;
+		return (match_pattern(pattern + 1, str + 1));
+	return (false);
 }
 
 char	*expand_wildcard(const char *pattern)
@@ -29,19 +30,17 @@ char	*expand_wildcard(const char *pattern)
 	struct dirent	*entry;
 	char			*result;
 	char			*tmp;
-	int				first = 1;
+	int				first;
 
+	first = 1;
 	dir = opendir(".");
 	if (!dir)
 		return (NULL);
-
 	result = ft_strdup("");
-
 	while ((entry = readdir(dir)) != NULL)
 	{
 		if (entry->d_name[0] == '.')
-			continue;
-		
+			continue ;
 		if (match_pattern(pattern, entry->d_name))
 		{
 			if (first)
@@ -64,4 +63,3 @@ char	*expand_wildcard(const char *pattern)
 	closedir(dir);
 	return (result);
 }
-

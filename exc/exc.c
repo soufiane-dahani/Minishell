@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 17:11:09 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:27:43 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	is_builtin(char **cmd)
 		return (0);
 	return (!ft_strcmp(cmd[0], "cd") || !ft_strcmp(cmd[0], "export")
 		|| !ft_strcmp(cmd[0], "unset") || !ft_strcmp(cmd[0], "exit")
-		|| !ft_strcmp(cmd[0], "env")
+		|| !ft_strcmp(cmd[0], "env") || !ft_strcmp(cmd[0], "echo")
 		|| !ft_strcmp(cmd[0], "pwd"));
 }
 
@@ -30,8 +30,8 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 		return (my_cd(node->cmd, envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "pwd"))
 		return (my_pwd());
-	// if (!ft_strcmp(node->cmd[0], "echo"))
-	// 	return (my_echo(node->cmd));
+	if (!ft_strcmp(node->cmd[0], "echo"))
+		return (my_echo(node->cmd));
 	if (!ft_strcmp(node->cmd[0], "env"))
 		return (my_env(node->cmd, *envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "export"))
