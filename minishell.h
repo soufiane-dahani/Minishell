@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 11:12:52 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:23:05 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,12 @@ int		typ_redhere_fun(t_ast *node, char ***envp);
 int		exec_and(t_ast *node, char ***envp);
 int		exec_or(t_ast *node, char ***envp);
 int		exec_subshell(t_ast *node, char ***envp);
+char	*get_env_value(char **envp, const char *name);
+int		find_env_index(char **envp, const char *name);
+char	*expand_tilde(char *path, char **envp);
+int	update_existing_env(char *key, char *value, char ***envp);
+int	count_env_entries(char ***envp);
+void	free_old_env(char **old_env);
+int	create_and_copy_env(char ***envp, char ***new_env, int count);
 
 #endif

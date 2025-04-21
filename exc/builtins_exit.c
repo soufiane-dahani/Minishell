@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:41:54 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:23:21 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,37 @@ int	my_exit(char **cmd)
 		exit((unsigned char)ft_atol(cmd[1]));
 	}
 	exit(0);
+}
+
+void	free_old_env(char **old_env)
+{
+	int	i;
+
+	i = 0;
+	while (old_env[i])
+		free(old_env[i++]);
+	free(old_env);
+}
+
+int	create_and_copy_env(char ***envp, char ***new_env, int count)
+{
+	int	i;
+
+	*new_env = ft_malloc(sizeof(char *) * (count + 2), FT_ALLOC);
+	if (!*new_env)
+		return (0);
+	i = 0;
+	while (i < count)
+	{
+		(*new_env)[i] = ft_strdup((*envp)[i]);
+		if (!(*new_env)[i])
+		{
+			while (--i >= 0)
+				free((*new_env)[i]);
+			free(*new_env);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

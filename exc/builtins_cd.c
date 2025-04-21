@@ -6,135 +6,37 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 13:01:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:23:10 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-static char	*get_env_value(char **envp, const char *name)
-{
-	int	i;
-	int	name_len;
-
-	if (!envp || !name)
-		return (NULL);
-	name_len = ft_strlen(name);
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], name, name_len) && envp[i][name_len] == '=')
-			return (envp[i] + name_len + 1);
-		i++;
-	}
-	return (NULL);
-}
-
-
-static int	find_env_index(char **envp, const char *name)
-{
-	int	i;
-	int	name_len;
-
-	if (!envp || !name)
-		return (-1);
-	name_len = ft_strlen(name);
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], name, name_len) && envp[i][name_len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-
-static char	*expand_tilde(char *path, char **envp)
-{
-	char	*home;
-
-	if (!path || path[0] != '~')
-		return (ft_strdup(path));
-	home = get_env_value(envp, "HOME");
-	if (!home)
-		return (ft_strdup(path));
-	if (path[1] == '\0')
-		return (ft_strdup(home));
-	if (path[1] == '/')
-		return (ft_strjoin(home, path + 1));
-	return (ft_strdup(path));
-}
-
-
-static int	update_existing_env(char *key, char *value, char ***envp)
-{
-	int		index;
-	char	*new_entry;
-
-	index = find_env_index(*envp, key);
-	if (index == -1)
-		return (0);
-	new_entry = ft_strjoin3(key, "=", value);
-	if (!new_entry)
-		return (0);
-	free((*envp)[index]);
-	(*envp)[index] = new_entry;
-	return (1);
-}
-
-
 static int	add_new_env(char *key, char *value, char ***envp)
 {
-	int		i;
 	int		count;
 	char	*new_entry;
 	char	**new_env;
 	char	**old_env;
 
-	count = 0;
-	while ((*envp)[count])
-		count++;
-	new_env = ft_malloc(sizeof(char *) * (count + 2), FT_ALLOC);
-	if (!new_env)
+	count = count_env_entries(envp);
+	if (!create_and_copy_env(envp, &new_env, count))
 		return (0);
-	i = 0;
-	while (i < count)
-	{
-		new_env[i] = ft_strdup((*envp)[i]);
-		if (!new_env[i])
-		{
-			while (--i >= 0)
-				free(new_env[i]);
-			free(new_env);
-			return (0);
-		}
-		i++;
-	}
 	new_entry = ft_strjoin3(key, "=", value);
 	if (!new_entry)
 	{
-		i = 0;
-		while (i < count)
-			free(new_env[i++]);
+		while (--count >= 0)
+			free(new_env[count]);
 		free(new_env);
 		return (0);
 	}
 	new_env[count] = new_entry;
 	new_env[count + 1] = NULL;
-	// Store old environment to free it properly
 	old_env = *envp;
-	// Update environment pointer
 	*envp = new_env;
-	// Free old environment
-	i = 0;
-	while (old_env[i])
-		free(old_env[i++]);
-	free(old_env);
+	free_old_env(old_env);
 	return (1);
 }
-
 
 static int	update_env(char *key, char *value, char ***envp)
 {
@@ -145,18 +47,10 @@ static int	update_env(char *key, char *value, char ***envp)
 	return (add_new_env(key, value, envp));
 }
 
-int	my_cd(char **cmd, char ***envp)
+static char	*get_cd_target(char **cmd, char ***envp)
 {
 	char	*target;
-	char	*oldpwd;
-	char	cwd[1024];
 
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-	{
-		perror("cd: getcwd");
-		return (1);
-	}
 	if (!cmd[1])
 		target = get_env_value(*envp, "HOME");
 	else if (ft_strcmp(cmd[1], "-") == 0)
@@ -169,7 +63,28 @@ int	my_cd(char **cmd, char ***envp)
 		target = cmd[1];
 	if (!target)
 	{
-		ft_putstr_fd(cmd[1] ? "cd: OLDPWD not set\n" : "cd: HOME not set\n", 2);
+		if (cmd[1])
+			ft_putstr_fd("cd: OLDPWD not set\n", 2);
+		else
+			ft_putstr_fd("cd: HOME not set\n", 2);
+	}
+	return (target);
+}
+
+int	my_cd(char **cmd, char ***envp)
+{
+	char	*target;
+	char	*oldpwd;
+
+	oldpwd = getcwd(NULL, 0);
+	if (!oldpwd)
+	{
+		perror("cd: getcwd");
+		return (1);
+	}
+	target = get_cd_target(cmd, envp);
+	if (!target)
+	{
 		free(oldpwd);
 		return (1);
 	}
@@ -207,35 +122,4 @@ int	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp)
 		update_env("PWD", cwd, envp);
 	}
 	return (0);
-}
-
-char	**copy_env(char **env)
-{
-	int i;
-	int count;
-	char **new_env;
-
-	if (!env)
-		return (NULL);
-	count = 0;
-	while (env[count])
-		count++;
-	new_env = ft_malloc(sizeof(char *) * (count + 1), FT_ALLOC);
-	if (!new_env)
-		return (NULL);
-	i = 0;
-	while (i < count)
-	{
-		new_env[i] = ft_strdup(env[i]);
-		if (!new_env[i])
-		{
-			while (--i >= 0)
-				free(new_env[i]);
-			free(new_env);
-			return (NULL);
-		}
-		i++;
-	}
-	new_env[i] = NULL;
-	return (new_env);
 }
