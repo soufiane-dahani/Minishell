@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 09:51:49 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:38:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_token	*change_the_cards(char *pattern)
 	entry = readdir(dir);
 	while (entry)
 	{
-		if (entry->d_name[0] != '.')
+		if (!(entry->d_name[0] == '.' && pattern[0] != '.'))
 		{
 			if (match_pattern(pattern, entry->d_name))
 				add_token(&expanded, entry->d_name, TYP_WORD, 0);
