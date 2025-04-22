@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 19:43:18 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:26:15 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	help_fix(t_token *s, t_token **new, t_token *redir)
 
 	while (s && !is_token_sep(s->type))
 	{
-		add_token(new, s->value, s->type);
+		add_token(new, s->value, s->type, 0);
 		s = s->next;
 	}
 	if (redir)
-		add_token(new, redir->value, redir->type);
+		add_token(new, redir->value, redir->type, 0);
 	redir = redir->next;
 	if (redir)
-		add_token(new, redir->value, redir->type);
+		add_token(new, redir->value, redir->type, 0);
 	if (s)
 	{
-		add_token(new, s->value, s->type);
+		add_token(new, s->value, s->type, 0);
 		s = s->next;
 		if (s)
 		{
@@ -65,7 +65,7 @@ t_token	*fix_the_case(t_token *tk)
 	s = tk;
 	while (s && !is_token_sep(s->type) && !is_token_nor(s->type))
 	{
-		add_token(&new, s->value, s->type);
+		add_token(&new, s->value, s->type, 0);
 		s = s->next;
 	}
 	if (!s)
@@ -101,7 +101,7 @@ t_ast	*build_the_tree(t_token *tk)
 	}
 	if (npar != 0)
 		return (printf("invalid syntax near `('\n"), NULL);
-	tk = fix_the_case(tk);
+	tk = fixing(tk);
 	node = start_for_ast(tk);
 	return (node);
 }

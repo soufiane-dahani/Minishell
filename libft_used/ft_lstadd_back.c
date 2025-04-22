@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 09:57:50 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/03 12:30:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:10:45 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,17 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 			yas = yas->next;
 		yas->next = new;
 	}
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == (char)c)
+		return ((char *)s);
+	return (0);
 }
