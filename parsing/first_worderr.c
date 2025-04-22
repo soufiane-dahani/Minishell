@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 10:00:28 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:02:12 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ t_token	*handle_wildcard(t_token *tk)
 	t_token	*new;
 	t_token	*tokens;
 
-	(1) && (s = tk), (new = NULL);
+	s = tk;
+	new = NULL;
 	while (s)
 	{
 		if (s->type == TYP_WORD && ft_strchr(s->value, '*'))
