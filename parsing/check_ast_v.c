@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 12:55:02 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:13:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	comond_not_found(char *cmd)
 	path = getenv("PATH");
 	if (access(cmd, X_OK) == 0 || is_builtins(cmd))
 		return (0);
-	paths = ft_split(path, ':');
+	paths = ft_split(path, ":");
 	if (!paths)
 		return (1);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 09:48:28 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:12:32 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		*ft_malloc(size_t size, short option);
 t_list		*mem_alloc(size_t size);
 size_t		ft_strlen(const char *c);
 char		*ft_strjoin(char const *s1, char const *s2);
-char		**ft_split(char const *s, char c);
+char		**ft_split(char *str, char *charset);
 char		*ft_strdup(const char *src);
 char		*ft_strchr(const char *s, int c);
 void		ft_lstadd_back(t_list **lst, t_list *new);
@@ -142,5 +142,6 @@ int			check_ast_is_valid(void);
 t_token		*fix_the_case(t_token *tk);
 t_token		*fixing(t_token *tk);
 t_token		*handle_wildcard(t_token *tk);
+t_token		*handle_exp_quote(t_token *tk);
 
 #endif
