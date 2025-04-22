@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 17:45:57 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:04:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ void	store_new(char **new, int *i, char *s, int *old)
 	j = 0;
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
+	if (!s[(*i)] || s[(*i)] == '"')
+	{
+		(*new)[(*old)++] = '$';
+		return ;
+	}
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store [j++] = s[(*i)++];
 	store[j] = '\0';
 	env = getenv(store);
-	if (!env)
-		(*new)[(*old)++] = '\n';
-	else
+	if (env)
 	{
 		j = 0;
 		while (env[j])
@@ -73,11 +76,13 @@ char	*new_with_exp(char *s)
 {
 	int		i;
 	char	*new;
+	int		a;
 	int		j;
 	char	*env;
 
 	if (!s)
 		return (NULL);
+	a = 0;
 	env = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	j = 0;
 	i = calculate_s(s, env);
@@ -110,6 +115,7 @@ t_token	*handle_exp_quote(t_token *tk)
 				s->value = new_with_exp(s->value);
 			i++;
 		}
+		s->value = skip_quote(s->value);
 		s = s->next;
 	}
 	return (tk);

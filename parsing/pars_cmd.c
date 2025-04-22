@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 14:38:04 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:07:35 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,27 @@ static int	match_pattern(const char *pattern, const char *str)
 	if (*pattern == *str)
 		return (match_pattern(pattern + 1, str + 1));
 	return (0);
+}
+
+char	*skip_quote(char *s)
+{
+	int		i;
+	int		j;
+	char	*new;
+	char	quote;
+
+	i = 0;
+	j = 0;
+	new = ft_malloc(ft_strlen(s)* sizeof(char), FT_ALLOC);
+	if (s[0] == '\'' || s[0] == '"')
+	{
+		i++;
+		quote = s[0];
+	}
+	while (s[i] && s[i] != quote)
+		new[j++] = s[i++];
+	new[j] = '\0';
+	return (new);
 }
 
 t_token	*change_the_cards(char *pattern)

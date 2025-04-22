@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 15:12:32 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:12:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ t_token		*fix_the_case(t_token *tk);
 t_token		*fixing(t_token *tk);
 t_token		*handle_wildcard(t_token *tk);
 t_token		*handle_exp_quote(t_token *tk);
+char		*skip_quote(char *s);
+char		*extra_work(char *cmd);
 
 #endif
