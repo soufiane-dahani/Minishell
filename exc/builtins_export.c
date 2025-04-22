@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/19 10:27:43 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/22 15:41:32 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	env_var_index(char *arg, char **env)
 	return (-1);
 }
 
-// Add new env var
 void	append_env_var(char *new_var, char ***envp_ptr)
 {
 	int		len;
@@ -59,7 +58,6 @@ void	append_env_var(char *new_var, char ***envp_ptr)
 	*envp_ptr = new_env;
 }
 
-// Final add_or_update_env
 void	add_or_update_env(char *arg, char ***envp_ptr)
 {
 	int	idx;
