@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/22 15:42:15 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:31:25 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strdup_custom(const char *s)
 	copy[len] = '\0';
 	return (copy);
 }
+
 int	ft_strchr2(char *cmd, char c)
 {
 	int	i;
@@ -61,6 +62,7 @@ int	ft_strchr2(char *cmd, char c)
 	}
 	return (1);
 }
+
 int	is_valid_env_assignment(char *arg)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 16:48:58 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:25:47 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	main(int ac, char **av, char **env)
 		free(data);
 		return (1);
 	}
-	env_copy = copy_env(env); // <-- this is the fix
+	if (env[0] == NULL)
+		env = add_new_env_if_not_found();
+	env_copy = copy_env(env);
 	while (1)
 	{
 		data->s = readline("minishell$> ");
