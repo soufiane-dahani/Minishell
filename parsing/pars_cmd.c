@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 18:07:35 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/23 10:02:27 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ char	*skip_quote(char *s)
 	char	*new;
 	char	quote;
 
-	i = 0;
+	if (s[0] != '\'' || s[0] != '"')
+		return (ft_strdup(s));
+	i = 1;
 	j = 0;
-	new = ft_malloc(ft_strlen(s)* sizeof(char), FT_ALLOC);
-	if (s[0] == '\'' || s[0] == '"')
-	{
-		i++;
-		quote = s[0];
-	}
+	quote = s[0];
+	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	while (s[i] && s[i] != quote)
 		new[j++] = s[i++];
 	new[j] = '\0';

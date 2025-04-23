@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 18:12:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/23 09:53:01 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,14 @@ typedef struct s_spl
 	int		len;
 	int		offset;
 }				t_spl;
+
+typedef struct s_q
+{
+	int			a;
+	int			i;
+	int			j;
+}				t_q;
+
 
 void		handler(int sig);
 void		*ft_malloc(size_t size, short option);
