@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:08:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/23 10:02:06 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:52:35 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,44 @@ char	*extra_work(char *s)
 	}
 	new[q.i] = '\0';
 	return (new);
+}
+
+int	get_env_len(char *str)
+{
+	int i = 0;
+	while (str[i] && (isalnum(str[i]) || str[i] == '_'))
+	i++;
+	return i;
+}
+
+char	*before_quote(char *str)
+{
+	int		i = 0, j = 0;
+	char	*env = ft_malloc(ft_strlen(str + 1), FT_ALLOC);
+	char	*new = ft_malloc(calculate_s(str, env) + 1, FT_ALLOC);
+
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] && str[i + 1] != '"' && str[i + 1] != ' ')
+		{
+			i++; // skip $
+			int var_len = get_env_len(&str[i]);
+			char varname[256];
+			strncpy(varname, &str[i], var_len);
+			varname[var_len] = '\0';
+			env = getenv(varname);
+			if (env)
+			{
+				for (int k = 0; env[k]; k++)
+					new[j++] = env[k];
+			}
+			i += var_len;
+		}
+		else
+		{
+			new[j++] = str[i++];
+		}
+	}
+	new[j] = '\0';
+	return new;
 }
