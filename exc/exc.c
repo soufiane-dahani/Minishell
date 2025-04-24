@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/23 16:31:40 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:57:00 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_builtin(char **cmd)
 		|| !ft_strcmp(cmd[0], "pwd"));
 }
 
-int	exec_builtin(t_ast *node, char ***envp_ptr)
+int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 {
 	if (!node || !node->cmd || !node->cmd[0])
 		return (1);
@@ -35,7 +35,7 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 	if (!ft_strcmp(node->cmd[0], "env"))
 		return (my_env(node->cmd, *envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "export"))
-		return (my_export(node->cmd, envp_ptr));
+		return (my_export(node->cmd, envp_ptr, store));
 	if (!ft_strcmp(node->cmd[0], "unset"))
 		return (my_unset(node->cmd, envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "exit"))
@@ -43,27 +43,27 @@ int	exec_builtin(t_ast *node, char ***envp_ptr)
 	return (1);
 }
 
-int	execute_ast(t_ast *node, char ***envp)
+int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 {
 	if (!node)
 		return (1);
 	if (node->type == TYP_WORD)
 	{
 		if (is_builtin(node->cmd))
-			return (exec_builtin(node, envp));
+			return (exec_builtin(node, envp, store));
 		else
 			return (exec_external(node, *envp));
 	}
 	else if (node->type == TYP_PIPE)
-		return (exec_pipe(node, envp));
+		return (exec_pipe(node, envp, store));
 	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP
 		|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
-		return (exec_redirection(node, envp));
+		return (exec_redirection(node, envp, store));
 	else if (node->type == TYP_AND)
-		return (exec_and(node, envp));
+		return (exec_and(node, envp, store));
 	else if (node->type == TYP_OR)
-		return (exec_or(node, envp));
+		return (exec_or(node, envp, store));
 	else if (node->type == TYP_LPAR)
-		return (exec_subshell(node, envp));
+		return (exec_subshell(node, envp, store));
 	return (1);
 }

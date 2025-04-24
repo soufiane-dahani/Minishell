@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:31:16 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:57:50 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	sort_env(char **env)
 	}
 }
 
-int	print_sorted_env(char **envp)
+int	print_sorted_env(char **envp , t_export_store *store)
 {
 	int		i;
 	char	**copy;
@@ -75,6 +75,17 @@ int	print_sorted_env(char **envp)
 		ft_putstr_fd(copy[i], 1);
 		ft_putchar_fd('\n', 1);
 		i++;
+	}
+	if (store && store->vars)
+	{
+		i = 0;
+		while (store->vars[i])
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(store->vars[i], 1);
+			ft_putchar_fd('\n', 1);
+			i++;
+		}
 	}
 	return (0);
 }

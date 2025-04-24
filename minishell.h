@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 11:15:09 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:43:36 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ typedef struct s_ast
 	struct s_ast	*r;
 	struct s_ast	*l;
 }				t_ast;
+
+typedef struct s_export_store
+{
+	char **vars;
+}	t_export_store;
 
 extern t_ast	*g_ast;
 
@@ -149,7 +154,7 @@ t_token	*fix_the_case(t_token *tk);
 
 void		print_error(char *message);
 
-int			execute_ast(t_ast *node, char ***envp);
+int		execute_ast(t_ast *node, char ***envp, t_export_store *store);
 
 
 
@@ -161,7 +166,7 @@ int		my_cd(char **cmd, char ***envp);
 int		my_pwd(void);
 int		my_echo(char **cmd);
 int		my_env(char **cmd, char **envp);
-int		my_export(char **cmd, char ***envp_ptr);
+int		my_export(char **args, char ***envp_ptr, t_export_store *store);
 int		my_unset(char **cmd, char ***envp_ptr);
 int		my_exit(char **cmd);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
@@ -170,19 +175,19 @@ int 	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp);
 int		is_valid_identifier(char *name);
 int		is_valid_env_assignment(char *arg);
 char	*ft_strdup_custom(const char *s);
-int		print_sorted_env(char **envp);
+int		print_sorted_env(char **envp , t_export_store *store);
 int		env_var_index(char *name, char **env);
 int 	exec_external(t_ast *node, char **envp);
-int		exec_pipe(t_ast *node, char ***env);
-int		exec_builtin(t_ast *node, char ***envp_ptr);
-int		exec_redirection(t_ast *node, char ***envp);
+int		exec_pipe(t_ast *node, char ***envp, t_export_store *store);
+int		exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store);
+int		exec_redirection(t_ast *node, char ***envp, t_export_store *store);
 int		open_file(char *argv, int i);
-int		typ_redin_fun(t_ast *node, char ***envp);
-int		typ_redapp_fun(t_ast *node, char ***envp);
-int		typ_redhere_fun(t_ast *node, char ***envp);
-int		exec_and(t_ast *node, char ***envp);
-int		exec_or(t_ast *node, char ***envp);
-int		exec_subshell(t_ast *node, char ***envp);
+int		typ_redin_fun(t_ast *node, char ***envp, t_export_store *store);
+int		typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store);
+int		typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store);
+int		exec_and(t_ast *node, char ***envp, t_export_store *store);
+int		exec_or(t_ast *node, char ***envp, t_export_store *store);
+int		exec_subshell(t_ast *node, char ***envp, t_export_store *store);
 char	*get_env_value(char **envp, const char *name);
 int		find_env_index(char **envp, const char *name);
 char	*expand_tilde(char *path, char **envp);
@@ -193,6 +198,7 @@ int		create_and_copy_env(char ***envp, char ***new_env, int count);
 int		ft_strchr2(char *cmd , char c);
 int		my_echo(char **cmd);
 char	**add_new_env_if_not_found(void);
-
 void	add_shlvl(char ***env);
+void	store_export_only_var(const char *key, t_export_store *store);
+void	remove_export_only_var(char **env, t_export_store *store);
 #endif

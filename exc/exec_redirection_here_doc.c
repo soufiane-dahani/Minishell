@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:40:57 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:53:42 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	handle_child_process(t_ast *node, int fd[2])
 	exit(0);
 }
 
-int	typ_redhere_fun(t_ast *node, char ***envp)
+int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
@@ -80,7 +80,7 @@ int	typ_redhere_fun(t_ast *node, char ***envp)
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	waitpid(pid, &status, 0);
-	ret = execute_ast(node->l, envp);
+	ret = execute_ast(node->l, envp, store);
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 	return (ret);

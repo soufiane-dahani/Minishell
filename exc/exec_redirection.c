@@ -6,13 +6,13 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:39:44 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:53:22 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	typ_redout_fun(t_ast *node, char ***envp)
+int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
@@ -31,14 +31,14 @@ int	typ_redout_fun(t_ast *node, char ***envp)
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
-		execute_ast(node->l, envp);
+		execute_ast(node->l, envp, store);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
 
-int	typ_redin_fun(t_ast *node, char ***envp)
+int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
@@ -57,14 +57,14 @@ int	typ_redin_fun(t_ast *node, char ***envp)
 		}
 		dup2(in_fd, STDIN_FILENO);
 		close(in_fd);
-		execute_ast(node->l, envp);
+		execute_ast(node->l, envp, store);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
 
-int	typ_redapp_fun(t_ast *node, char ***envp)
+int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
@@ -83,25 +83,25 @@ int	typ_redapp_fun(t_ast *node, char ***envp)
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
-		execute_ast(node->l, envp);
+		execute_ast(node->l, envp, store);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
 
-int	exec_redirection(t_ast *node, char ***envp)
+int	exec_redirection(t_ast *node, char ***envp, t_export_store *store)
 {
 	if (!node || !(node->type == TYP_REDOUT || node->type == TYP_REDAPP
 			|| node->type == TYP_REDIN || node->type == TYP_REDHERE))
 		return (1);
 	if (node->type == TYP_REDOUT)
-		return (typ_redout_fun(node, envp));
+		return (typ_redout_fun(node, envp, store));
 	else if (node->type == TYP_REDIN)
-		return (typ_redin_fun(node, envp));
+		return (typ_redin_fun(node, envp, store));
 	else if (node->type == TYP_REDAPP)
-		return (typ_redapp_fun(node, envp));
+		return (typ_redapp_fun(node, envp, store));
 	else if (node->type == TYP_REDHERE)
-		return (typ_redhere_fun(node, envp));
+		return (typ_redhere_fun(node, envp, store));
 	return (1);
 }

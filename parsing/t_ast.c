@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/21 16:28:36 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:18:44 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ void	help_fix(t_token *s, t_token **new, t_token *redir)
 		s = s->next;
 	}
 	if (redir)
+	{
 		add_token(new, redir->value, redir->type);
-	redir = redir->next;
-	if (redir)
-		add_token(new, redir->value, redir->type);
+		redir = redir->next;
+		if (redir)
+			add_token(new, redir->value, redir->type);
+	}
 	if (s)
 	{
 		add_token(new, s->value, s->type);
