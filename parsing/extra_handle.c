@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:08:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/23 16:52:35 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 09:45:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,42 +77,39 @@ char	*extra_work(char *s)
 	return (new);
 }
 
-int	get_env_len(char *str)
-{
-	int i = 0;
-	while (str[i] && (isalnum(str[i]) || str[i] == '_'))
-	i++;
-	return i;
-}
-
 char	*before_quote(char *str)
 {
-	int		i = 0, j = 0;
-	char	*env = ft_malloc(ft_strlen(str + 1), FT_ALLOC);
-	char	*new = ft_malloc(calculate_s(str, env) + 1, FT_ALLOC);
+	int		i;
+	int		j;
+	int		size;
+	char	*env = ft_malloc(ft_strlen(str) * sizeof(char) + 1, FT_ALLOC);
+	char	*new;
 
-	while (str[i])
+	size = calculate_s(str, env);
+	j = 0;
+	i = 0;
+	new = ft_malloc(((sizeof(char)) * size) + 1, FT_ALLOC);
+	while (str[j])
 	{
-		if (str[i] == '$' && str[i + 1] && str[i + 1] != '"' && str[i + 1] != ' ')
-		{
-			i++; // skip $
-			int var_len = get_env_len(&str[i]);
-			char varname[256];
-			strncpy(varname, &str[i], var_len);
-			varname[var_len] = '\0';
-			env = getenv(varname);
-			if (env)
-			{
-				for (int k = 0; env[k]; k++)
-					new[j++] = env[k];
-			}
-			i += var_len;
-		}
+		if (str[j] == '$' && str[j + 1] != '"')
+			store_new(&new, &j, str, &i);
 		else
 		{
-			new[j++] = str[i++];
+			if (str[j] != '$')
+				new[i++] = str[j++];
+			else
+				j++;
+		}
+		if (str[j] == '"' || str[j] == '\'')
+		{
+			char ch = str[j];
+			new[i++] = str[j++];
+			while (str[j] && str[j] != ch)
+				new[i++] = str[j++];
+			if (str[j] == ch)
+				new[i++] = str[j++];
 		}
 	}
-	new[j] = '\0';
-	return new;
+	new[i] = '\0';
+	return (new);
 }
