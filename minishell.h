@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/23 16:24:14 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:15:09 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,9 @@ int		update_existing_env(char *key, char *value, char ***envp);
 int		count_env_entries(char ***envp);
 void	free_old_env(char **old_env);
 int		create_and_copy_env(char ***envp, char ***new_env, int count);
-char	*expand_wildcard(const char *pattern);
 int		ft_strchr2(char *cmd , char c);
 int		my_echo(char **cmd);
 char	**add_new_env_if_not_found(void);
 
+void	add_shlvl(char ***env);
 #endif
