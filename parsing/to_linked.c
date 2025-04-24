@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 14:54:25 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:28:36 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ static t_type	get_token_type(char *str)
 		return (TYP_LPAR);
 	else if (str[0] == ')')
 		return (TYP_RPAR);
-	else if (str[0] == '"')
+	else if (is_couple(str))
 		return (TYP_DQUOTE);
-	else if (str[0] == '\'')
+	else if (is_single(str))
 		return (TYP_SQOUTE);
 	else
 		return (TYP_WORD);

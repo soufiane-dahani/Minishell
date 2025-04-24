@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/23 10:02:27 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:38:25 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ char	*skip_quote(char *s)
 	int		i;
 	int		j;
 	char	*new;
-	char	quote;
 
-	if (s[0] != '\'' || s[0] != '"')
-		return (ft_strdup(s));
-	i = 1;
+	i = 0;
 	j = 0;
-	quote = s[0];
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
-	while (s[i] && s[i] != quote)
+	while (s[i])
+	{
+		if (s[i] == '\'' || s[i] == '"')
+		{
+			while (s[i] && (s[i] == '\'' || s[i] == '"'))
+				i++;
+		}
 		new[j++] = s[i++];
+	}
 	new[j] = '\0';
 	return (new);
 }
@@ -65,4 +68,32 @@ t_token	*change_the_cards(char *pattern)
 	}
 	closedir(dir);
 	return (expanded);
+}
+
+int	is_single(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	is_couple(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '"')
+			return (1);
+		i++;
+	}
+	return (0);
 }

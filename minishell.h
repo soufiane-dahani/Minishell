@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 15:28:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:30:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_q
 	char		ch;
 }				t_q;
 
+int			is_single(char *s);
+int			is_couple(char *s);
 char		*before_quote(char *c);
 void		handler(int sig);
 void		*ft_malloc(size_t size, short option);
