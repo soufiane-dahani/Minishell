@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:08:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 16:32:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 17:49:49 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ void	for_quote(t_q *q, char *str, char **new)
 	}
 }
 
+void	help_quoute(char *str, char **new, t_q *q)
+{
+	if (str[q->j] == '\'')
+	{
+		(*new)[q->i++] = str[q->j++];
+		while (str[q->j] && str[q->j] != '\'')
+			(*new)[q->i++] = str[q->j++];
+		if (str[q->j] == '\'')
+			(*new)[q->i++] = str[q->j++];
+	}
+	if (str[q->j] == '$' && str[q->j + 1] != '"')
+		store_new(new, &q->j, str, &q->i);
+	else
+	{
+		if (str[q->j] != '$')
+			(*new)[q->i++] = str[q->j++];
+		else
+			q->j++;
+	}
+}
+
 char	*before_quote(char *str)
 {
 	t_q		q;
@@ -45,15 +66,7 @@ char	*before_quote(char *str)
 	new = ft_malloc(((sizeof(char)) * q.a) + 1, FT_ALLOC);
 	while (str[q.j])
 	{
-		if (str[q.j] == '$' && str[q.j + 1] != '"')
-			store_new(&new, &q.j, str, &q.i);
-		else
-		{
-			if (str[q.j] != '$')
-				new[q.i++] = str[q.j++];
-			else
-				q.j++;
-		}
+		help_quoute(str, &new, &q);
 		if (str[q.j] == '"' || str[q.j] == '\'')
 			for_quote(&q, str, &new);
 	}
