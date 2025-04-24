@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 09:17:30 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:28:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_q
 	int			a;
 	int			i;
 	int			j;
+	char		ch;
 }				t_q;
 
 char		*before_quote(char *c);
@@ -135,6 +136,7 @@ int			check_the_exp(t_token *tk);
 int			invalid_syntax(t_token *tk);
 t_ast		*build_the_tree(t_token *tk);
 int			dup_the_token(t_cmd *data, t_spl *spl);
+int			is_token_sep(t_type s);
 t_ast		*start_for_ast(t_token *tk);
 t_token		*change_the_cards(char *pattern);
 t_token		*creat_new(t_token *tk, t_token **op);
