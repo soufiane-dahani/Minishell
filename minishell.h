@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 16:30:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:35:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_q
 	int			i;
 	int			j;
 	char		ch;
-}				t_q;
+}				t_quote;
 
 int			is_single(char *s);
 int			is_couple(char *s);

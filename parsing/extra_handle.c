@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:08:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 17:49:49 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:53:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_token(char c)
 		|| is_space(c));
 }
 
-void	for_quote(t_q *q, char *str, char **new)
+void	for_quote(t_quote *q, char *str, char **new)
 {
 	if (str[q->j] == '"' || str[q->j] == '\'')
 	{
@@ -32,7 +32,7 @@ void	for_quote(t_q *q, char *str, char **new)
 	}
 }
 
-void	help_quoute(char *str, char **new, t_q *q)
+void	help_quoute(char *str, char **new, t_quote *q)
 {
 	if (str[q->j] == '\'')
 	{
@@ -55,9 +55,9 @@ void	help_quoute(char *str, char **new, t_q *q)
 
 char	*before_quote(char *str)
 {
-	t_q		q;
-	char	*env;
-	char	*new;
+	t_quote		q;
+	char		*env;
+	char		*new;
 
 	env = ft_malloc(ft_strlen(str) * sizeof(char) + 1, FT_ALLOC);
 	q.a = calculate_s(str, env);

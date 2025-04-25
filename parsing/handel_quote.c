@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 16:27:12 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:50:27 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,11 @@ t_token	*handle_exp_quote(t_token *tk)
 			i++;
 		}
 		s->value = skip_quote(s->value);
+		if (!s->value)
+		{
+			printf("invalid syntax\n");
+			return (NULL);
+		}
 		s = s->next;
 	}
 	return (tk);

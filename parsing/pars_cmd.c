@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 16:38:25 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:52:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,30 @@ static int	match_pattern(const char *pattern, const char *str)
 
 char	*skip_quote(char *s)
 {
-	int		i;
-	int		j;
-	char	*new;
+	t_quote		q;
+	char		*new;
 
-	i = 0;
-	j = 0;
+	q.i = 0;
+	q.j = 0;
+	q.a = 0;
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
-	while (s[i])
+	while (s[q.i] && s[q.i] != '\'' && s[q.i] != '"')
+		new [q.j++] = s[q.i++];
+	if (!s[q.i])
+		return (s);
+	q.ch = s[q.i++];
+	while (s[q.i])
 	{
-		if (s[i] == '\'' || s[i] == '"')
+		if (s[q.i] == q.ch)
 		{
-			while (s[i] && (s[i] == '\'' || s[i] == '"'))
-				i++;
+			q.a++;
+			q.i++;
 		}
-		new[j++] = s[i++];
+		new [q.j++] = s[q.i++];
 	}
-	new[j] = '\0';
+	new[q.j] = '\0';
+	if (!(q.a % 2))
+		return (NULL);
 	return (new);
 }
 
@@ -77,6 +84,8 @@ int	is_single(char *s)
 	i = 0;
 	while (s[i])
 	{
+		if (s[i] == '"')
+			return (0);
 		if (s[i] == '\'')
 			return (1);
 		i++;
@@ -91,6 +100,8 @@ int	is_couple(char *s)
 	i = 0;
 	while (s[i])
 	{
+		if (s[i] == '\'')
+			return (0);
 		if (s[i] == '"')
 			return (1);
 		i++;
