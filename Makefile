@@ -6,7 +6,7 @@
 #    By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/04/23 16:31:06 by sodahani         ###   ########.fr        #
+#    Updated: 2025/04/25 15:25:28 by sodahani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,16 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -lreadline -L$(LIBFT_DIR) -lft
 TARGET = minishell
-SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
+SRC =  minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
 	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c parsing/malloc.c libft_used/ft_strncmp.c \
-	parsing/parsing.c parsing/is.c parsing/t_ast.c parsing/is_the_cmd_valid.c parsing/first_worderr.c parsing/to_linked.c parsing/check_the.c parsing/pars_cmd.c parsing/creat_new_node.c \
-	parsing/build_tree.c parsing/check_ast_v.c\
+	parsing/parsing.c parsing/is.c parsing/t_ast.c parsing/is_the_cmd_valid.c parsing/first_worderr.c parsing/to_linked.c \
+	parsing/check_the.c parsing/pars_cmd.c parsing/creat_new_node.c parsing/build_tree.c parsing/check_ast_v.c \
+	parsing/handel_quote.c parsing/extra_handle.c\
+
 	exc/execute_simple_command.c exc/exc.c exc/error.c exc/builtins_cd.c exc/helper_fun.c \
 	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c exc/builtins_unset.c exc/builtins_export.c \
 	exc/helper_fun2.c exc/exec_external.c exc/exec_pipe.c exc/exec_redirection.c exc/exec_redirection_here_doc.c \
-	exc/exec_and.c exc/exec_subshell.c exc/builtins_cd_help.c exc/builtins_echo.c
+	exc/exec_and.c exc/exec_subshell.c exc/builtins_cd_help.c exc/builtins_echo.c exc/builtins_export_help.c
 OBJ = $(SRC:.c=.o)
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a

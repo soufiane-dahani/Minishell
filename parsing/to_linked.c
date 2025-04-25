@@ -6,13 +6,13 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/17 14:36:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 09:50:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token	*create_token(char *value, t_type type)
+t_token	*create_token(char *value, t_type type, int exp)
 {
 	t_token	*new_token;
 
@@ -21,16 +21,17 @@ t_token	*create_token(char *value, t_type type)
 		return (NULL);
 	new_token->value = ft_strdup(value);
 	new_token->type = type;
+	new_token->is_exp = exp;
 	new_token->next = NULL;
 	return (new_token);
 }
 
-void	add_token(t_token **head, char *value, t_type type)
+void	add_token(t_token **head, char *value, t_type type, int exp)
 {
 	t_token	*new_token;
 	t_token	*temp;
 
-	new_token = create_token(value, type);
+	new_token = create_token(value, type, exp);
 	if (!new_token)
 		return ;
 	if (!*head)
@@ -64,9 +65,9 @@ static t_type	get_token_type(char *str)
 		return (TYP_LPAR);
 	else if (str[0] == ')')
 		return (TYP_RPAR);
-	else if (str[0] == '"')
+	else if (is_couple(str))
 		return (TYP_DQUOTE);
-	else if (str[0] == '\'')
+	else if (is_single(str))
 		return (TYP_SQOUTE);
 	else
 		return (TYP_WORD);
@@ -83,8 +84,16 @@ t_token	*tokenize(char **cmd)
 	while (cmd[i])
 	{
 		type = get_token_type(cmd[i]);
-		add_token(&head, cmd[i], type);
+		add_token(&head, cmd[i], type, 0);
 		i++;
 	}
 	return (head);
+}
+
+t_token	*fixing(t_token *tk)
+{
+	tk = fix_the_case(tk);
+	tk = handle_wildcard(tk);
+	tk = handle_exp_quote(tk);
+	return (tk);
 }

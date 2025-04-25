@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/23 16:31:25 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 20:01:12 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,21 @@ int	ft_strchr2(char *cmd, char c)
 int	is_valid_env_assignment(char *arg)
 {
 	int	i;
+	int	found;
 
 	if (!arg || !arg[0])
 		return (0);
 	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 		return (0);
 	i = 1;
+	found = 0;
 	while (arg[i] && arg[i] != '=')
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		if (arg[i] == '+')
+			found++;
+		if ((!ft_isalnum(arg[i]) && arg[i] != '_' && arg[i] != '+') || found >= 2)
 			return (0);
 		i++;
 	}
-	return (arg[i] == '=');
+	return (1);
 }

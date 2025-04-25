@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 15:43:36 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:15:30 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,25 @@ typedef struct s_spl
 	int		offset;
 }				t_spl;
 
+typedef struct s_q
+{
+	int			a;
+	int			i;
+	int			j;
+	char		ch;
+}				t_quote;
+
+int			is_single(char *s);
+int			is_couple(char *s);
+char		*before_quote(char *c);
 void		handler(int sig);
 void		*ft_malloc(size_t size, short option);
 t_list		*mem_alloc(size_t size);
 size_t		ft_strlen(const char *c);
 char		*ft_strjoin(char const *s1, char const *s2);
-char		**ft_split(char const *s, char c);
+char		**ft_split2(char *str, char *charset);
 char		*ft_strdup(const char *src);
+char		*ft_strchr(const char *s, int c);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 t_list		*ft_lstnew(void *content);
@@ -133,24 +145,30 @@ int			nb_tok(char	*str);
 int			check_the_exp(t_token *tk);
 int			invalid_syntax(t_token *tk);
 t_ast		*build_the_tree(t_token *tk);
-t_ast		*new_ast_node(t_type type, char **cmd, int exp);
 int			dup_the_token(t_cmd *data, t_spl *spl);
-void		ft_node(t_ast **head, t_ast **cur_node, t_token *cur);
-t_ast		*creat_nor_cmd(t_token *tk);
+int			is_token_sep(t_type s);
 t_ast		*start_for_ast(t_token *tk);
-t_ast		*ft_par_cmd(t_token *tk);
+t_token		*change_the_cards(char *pattern);
 t_token		*creat_new(t_token *tk, t_token **op);
 void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
 t_token		*find_the_head(t_token *tk);
-void		add_token(t_token **head, char *value, t_type type);
-t_token		*create_token(char *value, t_type type);
+void		add_token(t_token **head, char *value, t_type type, int exp);
+t_token		*create_token(char *value, t_type type, int exp);
 void		the_best_sep(t_token *tk, t_token **op);
 int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
-int			for_par(t_token **tk, t_token **op);
 int			check_ast_is_valid(void);
-t_token	*fix_the_case(t_token *tk);
+t_token		*fix_the_case(t_token *tk);
+t_token		*fixing(t_token *tk);
+t_token		*handle_wildcard(t_token *tk);
+t_token		*handle_exp_quote(t_token *tk);
+char		*skip_quote(char *s);
+char		*extra_work(char *cmd);
+char		*new_with_exp(char *s);
+int			calculate_s(char *s, char *env);
+void		store_new(char **new, int *i, char *s, int *old);
+
 
 void		print_error(char *message);
 
@@ -201,4 +219,8 @@ char	**add_new_env_if_not_found(void);
 void	add_shlvl(char ***env);
 void	store_export_only_var(const char *key, t_export_store *store);
 void	remove_export_only_var(char **env, t_export_store *store);
+
+void update_env_plus(char *var, char ***envp_ptr);
+int	is_valid_identifier2(char *name);
+char	*ft_strdup_custom2(const char *s);
 #endif

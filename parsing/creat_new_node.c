@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:21:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/22 09:26:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_new_node(t_token **head, t_token **cur_node, t_token *cur)
 {
 	t_token	*tmp;
 
-	*cur_node = create_token(cur->value, cur->type);
+	*cur_node = create_token(cur->value, cur->type, 0);
 	if (!*cur_node)
 		return ;
 	if (!*head)

@@ -40,7 +40,7 @@ void	split_the_cmd(t_cmd *data)
 
 int	handle_token(t_cmd *data, t_spl *spl)
 {
-	int(i), (start), (a);
+	int (i), (start), (a);
 	i = spl->i;
 	if (data->s[i] == '|' && data->s[i + 1] == '|')
 	{

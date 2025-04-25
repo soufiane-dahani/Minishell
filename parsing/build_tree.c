@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 13:33:31 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:27:32 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	help_start(t_token *op, t_token *tk, t_ast **node)
 	t_token	*left;
 	t_token	*right;
 
+	if (!op || !tk || !node || !(*node))
+		return ;
 	left = new_list(&tk, op);
 	right = op->next;
 	op->next = NULL;
@@ -88,11 +90,13 @@ int	lowest(t_token **tk, t_type h, t_token **op)
 			count_par--;
 		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
 				|| prev->type == TYP_OR) && count_par != 0)
+		{
 			prev = prev->next;
-		if (prev->type == h)
+			continue ;
+		}
+		if (prev && prev->type == h)
 		{
 			*op = prev;
-			(*op)->head = 1;
 			return (1);
 		}
 		prev = prev->next;

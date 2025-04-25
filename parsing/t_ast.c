@@ -3,62 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   t_ast.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 14:18:44 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:11:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_token_sep(t_type s)
-{
-	return (s == TYP_AND || s == TYP_PIPE || s == TYP_OR);
-}
-
 int	is_token_nor(t_type s)
 {
-	return (s == TYP_REDAPP || s == TYP_REDIN || s == TYP_REDOUT
-		|| s == TYP_REDHERE);
+	return (s == TYP_REDAPP || s == TYP_REDIN
+		|| s == TYP_REDOUT || s == TYP_REDHERE);
+}
+
+void	extra_help(t_token **new, t_token *s)
+{
+	t_token	*last;
+
+	add_token(new, s->value, s->type, 0);
+	s = s->next;
+	if (s)
+	{
+		last = *new;
+		while (last->next)
+			last = last->next;
+		last->next = fix_the_case(s);
+	}
 }
 
 void	help_fix(t_token *s, t_token **new, t_token *redir)
 {
-	t_token	*last;
-
 	while (s && !is_token_sep(s->type))
 	{
-		add_token(new, s->value, s->type);
+		add_token(new, s->value, s->type, 0);
 		s = s->next;
 	}
 	if (redir)
 	{
-		add_token(new, redir->value, redir->type);
+		add_token(new, redir->value, redir->type, 0);
 		redir = redir->next;
 		if (redir)
-			add_token(new, redir->value, redir->type);
+			add_token(new, redir->value, redir->type, 0);
 	}
 	if (s)
-	{
-		add_token(new, s->value, s->type);
-		s = s->next;
-		if (s)
-		{
-			last = *new;
-			while (last->next)
-				last = last->next;
-			last->next = fix_the_case(s);
-		}
-	}
+		extra_help(new, s);
 }
 
 t_token	*fix_the_case(t_token *tk)
 {
-	t_token(*s), (*new), (*redir);
-	s = tk;
-	new = NULL;
-	redir = NULL;
+	t_token	*s;
+	t_token	*new;
+	t_token	*redir;
+
+	(1) && (s = tk), (new = NULL), (redir = NULL);
 	while (s && !is_token_nor(s->type))
 		s = s->next;
 	if (!s)
@@ -66,7 +65,7 @@ t_token	*fix_the_case(t_token *tk)
 	s = tk;
 	while (s && !is_token_sep(s->type) && !is_token_nor(s->type))
 	{
-		add_token(&new, s->value, s->type);
+		add_token(&new, s->value, s->type, 0);
 		s = s->next;
 	}
 	if (!s)
@@ -77,7 +76,8 @@ t_token	*fix_the_case(t_token *tk)
 		s = s->next;
 		s = s->next;
 	}
-	return (help_fix(s, &new, redir), new);
+	help_fix(s, &new, redir);
+	return (new);
 }
 
 t_ast	*build_the_tree(t_token *tk)
@@ -104,7 +104,7 @@ t_ast	*build_the_tree(t_token *tk)
 	}
 	if (npar != 0)
 		return (printf("invalid syntax near `('\n"), NULL);
-	tk = fix_the_case(tk);
+	tk = fixing(tk);
 	node = start_for_ast(tk);
 	return (node);
 }

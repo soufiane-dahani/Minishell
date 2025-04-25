@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:11:44 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:08:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 int	is_space(char c)
 {
 	return (c == ' ' || c == '\n' || c == '\t');
+}
+
+int	is_token_sep(t_type s)
+{
+	return (s == TYP_AND || s == TYP_PIPE || s == TYP_OR);
 }
 
 void	nb_tok_special(char *str, int *i, int *count)
@@ -58,8 +63,8 @@ int	nb_tok(char *str)
 		{
 			count++;
 			while (str[i] && !is_space(str[i]) && !is_special_char(str[i])
-				&& str[i] != '(' && str[i] != ')' && str[i] != '"'
-				&& str[i] != '\'')
+				&& str[i] != '(' && str[i] != ')'
+				&& str[i] != '"' && str[i] != '\'')
 				i++;
 		}
 	}
@@ -68,6 +73,6 @@ int	nb_tok(char *str)
 
 int	is_special_char(char c)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>' || c == '('
-		|| c == ')');
+	return (c == '|' || c == '&' || c == '<' || c == '>'
+		|| c == '(' || c == ')');
 }
