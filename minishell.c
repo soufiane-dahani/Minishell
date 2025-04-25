@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/20 16:52:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:49:51 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,13 @@ int	main(int ac, char **av, char **env)
 
 	(void)av;
 	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
-	signal(SIGINT, handler);
-	// signal(SIGQUIT, SIG_IGN);
 	if (ac != 1)
 	{
 		printf("\n [ ==> Usage: ./minishell <== ]\n\n");
 		free(data);
 		return (1);
 	}
+	setup_interactive_signals();
 	while (1)
 	{
 		data->s = readline("minishell$> ");

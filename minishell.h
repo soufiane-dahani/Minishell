@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 15:41:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:55:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_ast
 	int				work;
 	int				exp;
 	int				suc;
+	int				sig;
 	int				ret;
 	struct s_ast	*r;
 	struct s_ast	*l;
@@ -150,16 +151,19 @@ void		the_best_sep(t_token *tk, t_token **op);
 int			lowest(t_token **tk, t_type h, t_token **op);
 void		help_start(t_token *op, t_token *tk, t_ast **node);
 int			parsing(t_cmd *data);
-int			check_ast_is_valid(void);
 t_token		*fix_the_case(t_token *tk);
 t_token		*fixing(t_token *tk);
 t_token		*handle_wildcard(t_token *tk);
 t_token		*handle_exp_quote(t_token *tk);
 char		*skip_quote(char *s);
-char		*extra_work(char *cmd);
 char		*new_with_exp(char *s);
 int			calculate_s(char *s, char *env);
 void		store_new(char **new, int *i, char *s, int *old);
 void		help_skiping(char **new, t_quote *q, char *s);
+void		setup_interactive_signals(void);
+void		reset_signals(void);
+void		setup_execution_signals(void);
+void		handler_execution(int sig);
+void		handler_interactive(int sig);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 09:50:27 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:31:24 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	store_new(char **new, int *i, char *s, int *old)
 	j = 0;
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
-	if (!s[(*i)] || s[(*i)] == '"')
+	if (!s[(*i)] || s[(*i)] == '"' || !ft_isalnum(s[(*i)]))
 	{
 		(*new)[(*old)++] = '$';
 		return ;
