@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 16:55:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:00:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_ast
 	t_type			type;
 	int				work;
 	int				exp;
-	int				suc;
+	int				exit_status;
 	int				sig;
 	int				ret;
 	struct s_ast	*r;
