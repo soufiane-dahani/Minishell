@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 09:35:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:41:58 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ char		*extra_work(char *cmd);
 char		*new_with_exp(char *s);
 int			calculate_s(char *s, char *env);
 void		store_new(char **new, int *i, char *s, int *old);
+void		help_skiping(char **new, t_quote *q, char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 18:08:25 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 09:53:04 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:33:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ char	*before_quote(char *str)
 	new = ft_malloc(((sizeof(char)) * q.a) + 1, FT_ALLOC);
 	while (str[q.j])
 	{
-		help_quoute(str, &new, &q);
-		if (str[q.j] == '"' || str[q.j] == '\'')
+		if (str[q.j] && (str[q.j] == '"' || str[q.j] == '\''))
 			for_quote(&q, str, &new);
+		else
+			help_quoute(str, &new, &q);
 	}
 	new[q.i] = '\0';
 	return (new);

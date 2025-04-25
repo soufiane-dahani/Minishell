@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 09:52:31 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:43:25 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ char	*skip_quote(char *s)
 	q.j = 0;
 	q.a = 0;
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
-	while (s[q.i] && s[q.i] != '\'' && s[q.i] != '"')
-		new [q.j++] = s[q.i++];
+	help_skiping(&new, &q, s);
 	if (!s[q.i])
 		return (s);
 	q.ch = s[q.i++];
@@ -44,13 +43,14 @@ char	*skip_quote(char *s)
 		{
 			q.a++;
 			q.i++;
+			if (!s[q.i])
+				break ;
 		}
 		new [q.j++] = s[q.i++];
 	}
-	new[q.j] = '\0';
 	if (!(q.a % 2))
 		return (NULL);
-	return (new);
+	return (new[q.j] = '\0', new);
 }
 
 t_token	*change_the_cards(char *pattern)
