@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 13:23:21 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:34:56 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ int	my_exit(char **cmd)
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 			return (1);
 		}
+		ft_malloc(0, FT_CLEAR);
 		exit((unsigned char)ft_atol(cmd[1]));
 	}
+	ft_malloc(0, FT_CLEAR);
 	exit(0);
 }
 

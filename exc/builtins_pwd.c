@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 13:24:17 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 18:33:27 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ static int	copy_env_strings(char **new_env, char **env, int count)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			while (--i >= 0)
-				free(new_env[i]);
-			free(new_env);
 			return (0);
 		}
 		i++;
