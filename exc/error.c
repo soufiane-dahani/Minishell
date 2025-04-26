@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 11:13:50 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:44:03 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	**add_new_env_if_not_found(void)
 	env[3] = NULL;
 	return (env);
 }
+
 void	add_shlvl(char ***env)
 {
 	int		i;
@@ -62,11 +63,9 @@ void	add_shlvl(char ***env)
 		{
 			level = atoi((*env)[i] + 6);
 			level++;
-
 			new_val = ft_itoa(level);
 			tmp = ft_strjoin("SHLVL=", new_val);
 			free(new_val);
-
 			free((*env)[i]);
 			(*env)[i] = tmp;
 			return ;

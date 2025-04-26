@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 14:23:59 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:43:43 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	env_var_index(char *arg, char **env)
 
 	i = 0;
 	len = 0;
-	while (arg[len] && arg[len] != '=' && !(arg[len] == '+' && arg[len + 1] == '='))
+	while (arg[len] && arg[len] != '=' && !(arg[len] == '+' && arg[len
+				+ 1] == '='))
 		len++;
 	while (env[i])
 	{
@@ -34,7 +35,6 @@ int	env_var_index(char *arg, char **env)
 	}
 	return (-1);
 }
-
 
 void	append_env_var(char *new_var, char ***envp_ptr)
 {
@@ -59,19 +59,24 @@ void	append_env_var(char *new_var, char ***envp_ptr)
 	*envp_ptr = new_env;
 }
 
-void add_or_update_env(char *arg, char ***envp_ptr)
+static int	handle_export_arg(char *arg, char ***envp_ptr,
+		t_export_store *store)
 {
-	int idx;
-	char *clean_arg;
-
-	clean_arg = remove_plus(arg);
-	idx = env_var_index(clean_arg, *envp_ptr);
-	if (idx != -1)
+	if (!is_valid_env_assignment(arg) && !is_valid_identifier(arg))
 	{
-		(*envp_ptr)[idx] = ft_strdup_custom(clean_arg);
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd("`: not a valid identifier\n", 2);
+		return (1);
 	}
+	if (ft_strnstr(arg, "+=", ft_strlen(arg)))
+		update_env_plus(arg, envp_ptr);
+	else if (ft_strchr(arg, '='))
+		add_or_update_env(arg, envp_ptr);
 	else
-		append_env_var(clean_arg, envp_ptr);
+		store_export_only_var(arg, store);
+	remove_export_only_var(*envp_ptr, store);
+	return (0);
 }
 
 int	my_export(char **args, char ***envp_ptr, t_export_store *store)
@@ -83,24 +88,8 @@ int	my_export(char **args, char ***envp_ptr, t_export_store *store)
 		return (print_sorted_env(*envp_ptr, store));
 	while (args[i])
 	{
-		if (is_valid_env_assignment(args[i]) || is_valid_identifier(args[i]))
-		{
-			if (ft_strnstr(args[i], "+=", ft_strlen(args[i])))
-				update_env_plus(args[i], envp_ptr);
-			else if (ft_strchr(args[i], '='))
-				add_or_update_env(args[i], envp_ptr);
-			else
-				store_export_only_var(args[i], store);
-			remove_export_only_var(*envp_ptr, store);
-		}
-		else
-		{
-			ft_putstr_fd("export: `", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("`: not a valid identifier\n", 2);
-		}
+		handle_export_arg(args[i], envp_ptr, store);
 		i++;
 	}
 	return (0);
 }
-

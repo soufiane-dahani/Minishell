@@ -6,7 +6,7 @@
 #    By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/04/26 14:24:27 by sodahani         ###   ########.fr        #
+#    Updated: 2025/04/26 14:41:33 by sodahani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC =  minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c 
 	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c exc/builtins_unset.c exc/builtins_export.c \
 	exc/helper_fun2.c exc/exec_external.c exc/exec_pipe.c exc/exec_redirection.c exc/exec_redirection_here_doc.c \
 	exc/exec_and.c exc/exec_subshell.c exc/builtins_cd_help.c exc/builtins_echo.c exc/builtins_export_help.c \
-	exc/builtins_export_help2.c 
+	exc/builtins_export_help2.c exc/builtins_export_help3.c 
 OBJ = $(SRC:.c=.o)
 LIBFT_DIR = Libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 18:12:20 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:50:32 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 
 void	store_export_only_var(const char *key, t_export_store *store)
 {
-	int		count = 0;
+	int		count;
 	char	**new_vars;
 
+	count = 0;
 	while (store->vars && store->vars[count])
 	{
 		if (ft_strcmp(store->vars[count], key) == 0)
-			return;
+			return ;
 		count++;
 	}
-
-	
 	count = 0;
 	while (store->vars && store->vars[count])
 		count++;
-
 	new_vars = ft_malloc(sizeof(char *) * (count + 2), FT_ALLOC);
 	if (!new_vars)
 		return ;
-
 	count = 0;
 	while (store->vars && store->vars[count])
 	{
@@ -41,8 +38,6 @@ void	store_export_only_var(const char *key, t_export_store *store)
 	}
 	new_vars[count++] = ft_strdup(key);
 	new_vars[count] = NULL;
-
-	free(store->vars);
 	store->vars = new_vars;
 }
 
@@ -78,7 +73,6 @@ static int	is_var_in_env(char *var_name, char **env)
 		env_name = extract_var_name(env[i]);
 		if (env_name && ft_strcmp(var_name, env_name) == 0)
 			result = 1;
-		//free(env_name);
 		if (result)
 			break ;
 		i++;
@@ -118,7 +112,8 @@ void	remove_export_only_var(char **env, t_export_store *store)
 
 	if (!env || !store || !store->vars)
 		return ;
-	new_vars = (char **)ft_malloc(sizeof(char *) * (count_store_vars(store) + 1), FT_ALLOC);
+	new_vars = (char **)ft_malloc(sizeof(char *) * (count_store_vars(store)
+				+ 1), FT_ALLOC);
 	if (!new_vars)
 		return ;
 	i = 0;
@@ -134,6 +129,5 @@ void	remove_export_only_var(char **env, t_export_store *store)
 		i++;
 	}
 	new_vars[k] = NULL;
-	//free_store_vars(store);
 	store->vars = new_vars;
 }

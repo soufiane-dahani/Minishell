@@ -16,7 +16,8 @@ t_ast	*g_ast;
 
 void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store)
 {
-	int i;
+	int	i;
+
 	if (!parsing(data))
 		return ;
 	i = execute_ast(g_ast, env, store);
@@ -24,13 +25,14 @@ void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store)
 
 int	main(int ac, char **av, char **env)
 {
-	t_cmd	*data;
-	char	**env_copy;
-	t_export_store *store = ft_malloc(sizeof(t_export_store), FT_ALLOC);
+	t_cmd			*data;
+	char			**env_copy;
+	t_export_store	*store;
+
+	store = ft_malloc(sizeof(t_export_store), FT_ALLOC);
 	if (!store)
 		return (1);
 	store->vars = NULL;
-
 	(void)av;
 	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
 	signal(SIGINT, handler);

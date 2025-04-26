@@ -78,7 +78,8 @@ int	is_valid_env_assignment(char *arg)
 	{
 		if (arg[i] == '+')
 			found++;
-		if ((!ft_isalnum(arg[i]) && arg[i] != '_' && arg[i] != '+') || found >= 2)
+		if ((!ft_isalnum(arg[i]) && arg[i] != '_' && arg[i] != '+')
+			|| found >= 2)
 			return (0);
 		i++;
 	}

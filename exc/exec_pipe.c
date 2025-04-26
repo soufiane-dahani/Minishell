@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2], t_export_store *store)
+static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2],
+		t_export_store *store)
 {
 	pid_t	pid;
 
@@ -30,7 +31,8 @@ static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2], t_export_store
 	return (pid);
 }
 
-static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2], t_export_store *store)
+static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2],
+		t_export_store *store)
 {
 	pid_t	pid;
 
