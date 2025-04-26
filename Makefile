@@ -6,17 +6,14 @@
 #    By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/04/26 16:21:06 by sodahani         ###   ########.fr        #
+#    Updated: 2025/04/26 17:41:59 by sodahani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-LIBFT_DIR = libft
-LIBFT_LIB = $(LIBFT_DIR)/libft.a
-INCLUDES = -I $(LIBFT_DIR)
-LDFLAGS = -lreadline -L$(LIBFT_DIR) -lft
+LDFLAGS = -lreadline -L -lft
 
 # Project files
 TARGET = minishell
@@ -29,29 +26,28 @@ SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c l
 	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c exc/builtins_unset.c exc/builtins_export.c \
 	exc/helper_fun2.c exc/exec_external.c exc/exec_pipe.c exc/exec_redirection.c exc/exec_redirection_here_doc.c \
 	exc/exec_and.c exc/exec_subshell.c exc/builtins_cd_help.c exc/builtins_echo.c exc/builtins_export_help.c \
-	exc/builtins_export_help2.c exc/builtins_export_help3.c 
+	exc/builtins_export_help2.c exc/builtins_export_help3.c libft_exc/ft_isdigit.c \
+	libft_exc/ft_itoa.c libft_exc/ft_isalpha.c libft_exc/ft_memcpy.c libft_exc/ft_putchar_fd.c \
+	libft_exc/ft_putstr_fd.c libft_exc/ft_split.c libft_exc/ft_strchr.c libft_exc/ft_strlcat.c libft_exc/ft_strnstr.c\
+	libft_exc/ft_strlcpy.c
 
 OBJ = $(SRC:.c=.o)
 
 # Rules
 all: $(TARGET)
 
-$(TARGET): $(OBJ) $(LIBFT_LIB)
+$(TARGET): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
-$(LIBFT_LIB):
-	@$(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ)
-	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@rm -rf $(TARGET)
-	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

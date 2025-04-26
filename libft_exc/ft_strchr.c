@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 07:26:57 by sodahani          #+#    #+#             */
-/*   Updated: 2024/11/01 10:02:04 by sodahani         ###   ########.fr       */
+/*   Created: 2024/10/23 10:47:31 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 17:31:13 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+char	*ft_strchr(const char *s, int c)
 {
-	t_list	*tmp;
-
-	tmp = lst;
-	while (tmp)
+	while (*s != '\0')
 	{
-		f(tmp->content);
-		tmp = tmp->next;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
+	if (*s == (char)c)
+		return ((char *)s);
+	return (0);
 }

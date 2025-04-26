@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 18:49:48 by sodahani          #+#    #+#             */
-/*   Updated: 2024/10/22 18:50:40 by sodahani         ###   ########.fr       */
+/*   Created: 2024/10/22 18:44:10 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 17:20:24 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-int	ft_isascii(int c)
+int	ft_isdigit(int c)
 {
-	if (c >= 0 && c <= 127)
+	if (c >= 48 && c <= 57)
 		return (1);
 	return (0);
 }

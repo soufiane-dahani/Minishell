@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 07:42:09 by sodahani          #+#    #+#             */
-/*   Updated: 2024/10/24 09:05:00 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:08:13 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
 int	ft_intlen(int nbr)
 {
@@ -35,7 +35,7 @@ char	*ft_itoa(int n)
 
 	tmp = n;
 	len = ft_intlen(n);
-	str = (char *)malloc(len + 1);
+	str = (char *)ft_malloc(len + 1, FT_ALLOC);
 	if (!str)
 		return (NULL);
 	str[len] = '\0';

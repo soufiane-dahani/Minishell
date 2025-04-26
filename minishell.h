@@ -6,14 +6,14 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/26 14:48:57 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:53:53 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "Libft/libft.h"
+
 # include <ctype.h>
 # include <dirent.h>
 # include <fcntl.h>
@@ -111,6 +111,12 @@ typedef struct s_q
 	int				j;
 	char			ch;
 }					t_quote;
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}			t_list;
 
 int					is_single(char *s);
 int					is_couple(char *s);
@@ -235,4 +241,25 @@ void				append_env_var(char *new_var, char ***envp_ptr);
 void				add_or_update_env(char *arg, char ***envp_ptr);
 int					ft_env_size(char **envp);
 void				sort_env(char **env);
+
+
+
+int	ft_atoi(const char *str);
+int	ft_isalpha(int c);
+int	ft_isdigit(int c);
+char	*ft_itoa(int n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *str, int fd);
+char	**ft_split(char const *s, char c);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int	ft_isalnum(int c);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+
+
+
+
+
 #endif

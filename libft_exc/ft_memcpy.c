@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:47:31 by sodahani          #+#    #+#             */
-/*   Updated: 2024/10/30 10:47:59 by sodahani         ###   ########.fr       */
+/*   Created: 2024/10/22 19:17:34 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 17:30:58 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strchr(const char *s, int c)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	while (*s != '\0')
+	size_t	i;
+
+	if (!dest && !src && n > 0)
+		return (NULL);
+	i = 0;
+	while (i < n)
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+		i++;
 	}
-	if (*s == (char)c)
-		return ((char *)s);
-	return (0);
+	return (dest);
 }
