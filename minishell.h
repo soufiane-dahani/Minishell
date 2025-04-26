@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 15:15:30 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/26 14:25:01 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ char		*extra_work(char *cmd);
 char		*new_with_exp(char *s);
 int			calculate_s(char *s, char *env);
 void		store_new(char **new, int *i, char *s, int *old);
+void		help_skiping(char **new, t_quote *q, char *s);
 
 
 void		print_error(char *message);
@@ -220,7 +221,8 @@ void	add_shlvl(char ***env);
 void	store_export_only_var(const char *key, t_export_store *store);
 void	remove_export_only_var(char **env, t_export_store *store);
 
-void update_env_plus(char *var, char ***envp_ptr);
-int	is_valid_identifier2(char *name);
+void	update_env_plus(char *var, char ***envp_ptr);
 char	*ft_strdup_custom2(const char *s);
+char *remove_plus(char *arg);
+void	append_env_var(char *new_var, char ***envp_ptr);
 #endif
