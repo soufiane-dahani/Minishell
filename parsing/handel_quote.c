@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 13:20:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:14:11 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,11 @@ int	calculate_s(char *s, char *env)
 		{
 			i++;
 			if (s[i] == '?')
+			{
 				total += is_question(s, &i);
-			while (s[i] && (ft_isalnum(s[i])))
-				env[j++] = s[i++];
-			env[j] = '\0';
-			if (j > 0)
-				total += ft_strlen(getenv(env));
-			else
-				total++;
+				continue ;
+			}
+			total += help_clcule(&env, &j, s, &i);
 		}
 		else
 		{

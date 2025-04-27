@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 13:39:49 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:14:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,19 @@ void	expand_to_directories(char *s, t_token **new)
 		entry = readdir(dir);
 	}
 	closedir(dir);
+}
+
+int	help_clcule(char **env, int *j, char *s, int *i)
+{
+	int	total;
+
+	total = 0;
+	while (s[(*i)] && (ft_isalnum(s[(*i)])))
+		(*env)[(*j)++] = s[(*i)++];
+	(*env)[(*j)] = '\0';
+	if ((*j) > 0)
+		total += ft_strlen(getenv((*env)));
+	else
+		total++;
+	return (total);
 }

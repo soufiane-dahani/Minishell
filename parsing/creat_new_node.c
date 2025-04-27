@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:21:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/26 14:40:25 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:02:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,26 +83,26 @@ void	more_extra(char **new, t_quote *quote, char *s)
 {
 	char	q;
 
-	if ((is_token(s[(quote->i)])))
+	if (is_token(s[quote->i]))
 	{
-		(quote->i) = quote->a;
-		while (s[(quote->i)] && !is_token(s[(quote->i)]))
-			(*new)[quote->j++] = s[(quote->i)++];
+		quote->i = quote->a;
+		while (s[quote->i] && !is_token(s[quote->i]))
+			(*new)[quote->j++] = s[quote->i++];
 	}
 	else
 	{
-		q = s[(quote->i)];
+		q = s[quote->i];
 		(*new)[quote->j++] = q;
-		while (s[quote->a] && quote->a < (quote->i))
+		while (s[quote->a] && quote->a < quote->i)
 			(*new)[quote->j++] = s[quote->a++];
-		(quote->i)++;
-		while (s[(quote->i)] && s[(quote->i)] != q)
-			(*new)[quote->j++] = s[(quote->i)++];
-		if (s[(quote->i)] && is_token(s[(quote->i) + 1]))
+		quote->i++;
+		while (s[quote->i] && s[quote->i] != q)
+			(*new)[quote->j++] = s[quote->i++];
+		if (s[quote->i] && is_token(s[quote->i + 1]))
 		{
-			(quote->i)++;
-			while (s[(quote->i)] && (is_token(s[(quote->i)])))
-				(*new)[quote->j++] = s[(quote->i)++];
+			quote->i++;
+			while (s[quote->i] && !is_token(s[quote->i]))
+				(*new)[quote->j++] = s[quote->i++];
 			(*new)[quote->j++] = q;
 		}
 	}
@@ -119,7 +119,7 @@ char	*extra_work(char *s)
 	new = ft_malloc(strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	while (s[q.i])
 	{
-		while (s[q.i] && (is_token(s[q.i])))
+		while (s[q.i] && is_token(s[q.i]))
 			new[q.j++] = s[q.i++];
 		q.a = q.i;
 		while (s[q.i] && s[q.i] != '\'' && s[q.i] != '"' && !is_token(s[q.i]))
@@ -133,6 +133,6 @@ char	*extra_work(char *s)
 		else
 			more_extra(&new, &q, s);
 	}
-	new[q.i] = '\0';
+	new[q.j] = '\0';
 	return (new);
 }

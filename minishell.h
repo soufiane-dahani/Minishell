@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 13:40:48 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 15:16:18 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <stdio.h>
-# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -172,5 +171,6 @@ int			is_question(char *s, int *i);
 void		help_wildcard(t_token *tokens, t_token **new, t_token *s);
 void		expand_to_directories(char *s, t_token **new);
 int			is_hide(char *s);
+int			help_clcule(char **env, int *j, char *s, int *i);
 
 #endif
