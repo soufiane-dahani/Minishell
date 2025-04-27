@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection_here_doc.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 14:53:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:50:03 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_next_line(char **line)
 	int		i;
 	int		r;
 
-	buffer = malloc(10000);
+	buffer = ft_malloc(10000, FT_ALLOC);
 	if (!buffer)
 		return (-1);
 	i = 0;
@@ -48,15 +48,12 @@ int	handle_child_process(t_ast *node, int fd[2])
 			break ;
 		if (ft_strncmp(line, node->r->cmd[0], ft_strlen(node->r->cmd[0])) == 0
 			&& ft_strlen(line) == ft_strlen(node->r->cmd[0]))
-		{
-			free(line);
 			break ;
-		}
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);
-		free(line);
 	}
 	close(fd[1]);
+	ft_malloc(0, FT_CLEAR);
 	exit(0);
 }
 

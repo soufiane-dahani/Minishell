@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_help.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 14:50:32 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:24:09 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	remove_export_only_var(char **env, t_export_store *store)
 		{
 			new_vars[k++] = ft_strdup(store->vars[i]);
 		}
-		free(store_name);
+		// free(store_name);
 		i++;
 	}
 	new_vars[k] = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_fun.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 20:01:12 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:24:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	if (!tmp)
 		return (NULL);
 	result = ft_strjoin(tmp, s3);
-	free(tmp);
+	// free(tmp);
 	return (result);
 }
 

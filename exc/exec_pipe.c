@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 14:50:56 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:27:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2],
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		execute_ast(node->l, envp, store);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	return (pid);
@@ -45,6 +46,7 @@ static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2],
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		execute_ast(node->r, envp, store);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	return (pid);

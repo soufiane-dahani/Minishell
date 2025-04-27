@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/22 17:45:15 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:33:57 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*check_command_in_paths(char *cmd, char **paths)
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
-		free(part_path);
+		// free(part_path);
 		if (access(path, F_OK) == 0)
 			return (path);
-		free(path);
+		// free(path);
 		i++;
 	}
 	return (NULL);
@@ -46,9 +46,9 @@ char	*find_path(char *cmd, char **envp)
 	paths = ft_split(envp[i] + 5, ':');
 	path = check_command_in_paths(cmd, paths);
 	i = -1;
-	while (paths[++i])
-		free(paths[i]);
-	free(paths);
+	// while (paths[++i])
+	// 	free(paths[i]);
+	// free(paths);
 	return (path);
 }
 
@@ -59,7 +59,10 @@ void	execute(char **cmd, char **envp)
 	if (ft_strchr(cmd[0], '/'))
 	{
 		if (access(cmd[0], F_OK | X_OK) == -1)
+		{
+			ft_malloc(0, FT_CLEAR);
 			perror("command not found");
+		}
 		else
 			execve(cmd[0], cmd, envp);
 		exit(127);
@@ -68,6 +71,7 @@ void	execute(char **cmd, char **envp)
 	if (!path)
 	{
 		write(2, "command not found\n", 19);
+		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
 	execve(path, cmd, envp);

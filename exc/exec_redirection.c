@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 14:53:22 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:49:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 		if (out_fd == -1)
 		{
 			perror("open");
+			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 		execute_ast(node->l, envp, store);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -53,11 +55,13 @@ int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 		if (in_fd == -1)
 		{
 			perror("open");
+			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
 		dup2(in_fd, STDIN_FILENO);
 		close(in_fd);
 		execute_ast(node->l, envp, store);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
@@ -79,11 +83,13 @@ int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 		if (out_fd == -1)
 		{
 			perror("open");
+			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 		execute_ast(node->l, envp, store);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	waitpid(pid, &status, 0);

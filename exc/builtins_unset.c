@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 12:50:11 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:43:48 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	is_valid_identifier(char *name)
 	return (1);
 }
 
-static void	free_env_array(char **env)
-{
-	int	i;
+// static void	free_env_array(char **env)
+// {
+// 	int	i;
 
-	i = 0;
-	while (env[i])
-		free(env[i++]);
-	free(env);
-}
+// 	i = 0;
+// 	while (env[i])
+// 		free(env[i++]);
+// 	free(env);
+// }
 
 static int	count_env_variables(char **env)
 {
@@ -73,7 +73,7 @@ void	remove_env_var(int idx, char ***envp_ptr)
 		i++;
 	}
 	new_env[j] = NULL;
-	free_env_array(env);
+	// free_env_array(env);
 	*envp_ptr = new_env;
 }
 
