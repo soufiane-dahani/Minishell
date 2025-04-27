@@ -25,7 +25,7 @@ int	env_var_index(char *arg, char **env)
 	i = 0;
 	len = 0;
 	while (arg[len] && arg[len] != '=' && !(arg[len] == '+' && arg[len
-				+ 1] == '='))
+			+ 1] == '='))
 		len++;
 	while (env[i])
 	{

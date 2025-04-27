@@ -31,7 +31,6 @@ int	is_valid_identifier(char *name)
 	return (1);
 }
 
-
 static int	count_env_variables(char **env)
 {
 	int	count;

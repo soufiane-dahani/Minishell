@@ -90,7 +90,6 @@ static int	count_store_vars(t_export_store *store)
 	return (count);
 }
 
-
 void	remove_export_only_var(char **env, t_export_store *store)
 {
 	int		i;

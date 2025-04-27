@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 19:40:01 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:21:09 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_error(char *message)
-{
-	int	i;
-
-	i = 0;
-	write(2, ANSI_COLOR_RED, 5);
-	while (message[i])
-		i++;
-	write(2, message, i);
-	write(2, ANSI_RESET_ALL, 4);
-}
 
 char	**add_new_env_if_not_found(void)
 {

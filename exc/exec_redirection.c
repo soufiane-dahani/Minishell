@@ -3,20 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 20:08:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:23:52 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+static void	handle_child_process(t_ast *node, char ***envp,
+		t_export_store *store)
+{
+	int	out_fd;
+
+	out_fd = open_file(node->r->cmd[0], 1);
+	if (out_fd == -1)
+	{
+		perror("open");
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
+	dup2(out_fd, STDOUT_FILENO);
+	close(out_fd);
+	execute_ast(node->l, envp, store);
+	ft_malloc(0, FT_CLEAR);
+	exit(1);
+}
+
 int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
-	int		out_fd;
+	int		i;
 
 	pid = fork();
 	reset_signals();
@@ -24,22 +43,9 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
-	{
-		out_fd = open_file(node->r->cmd[0], 1);
-		if (out_fd == -1)
-		{
-			perror("open");
-			ft_malloc(0, FT_CLEAR);
-			exit(1);
-		}
-		dup2(out_fd, STDOUT_FILENO);
-		close(out_fd);
-		execute_ast(node->l, envp, store);
-		ft_malloc(0, FT_CLEAR);
-		exit(1);
-	}
+		handle_child_process(node, envp, store);
 	waitpid(pid, &status, 0);
-	int i = WEXITSTATUS(status);
+	i = WEXITSTATUS(status);
 	if (i == 1)
 		ft_putstr_fd("echo: write error\n", 2);
 	return (i);
@@ -71,8 +77,7 @@ int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
-	waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
+	return (waitpid(pid, &status, 0), WEXITSTATUS(status));
 }
 
 int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
@@ -101,8 +106,7 @@ int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
-	waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
+	return (waitpid(pid, &status, 0), WEXITSTATUS(status));
 }
 
 int	exec_redirection(t_ast *node, char ***envp, t_export_store *store)
