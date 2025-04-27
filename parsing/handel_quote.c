@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 16:31:24 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:11:50 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ void	store_new(char **new, int *i, char *s, int *old)
 	j = 0;
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
-	if (!s[(*i)] || s[(*i)] == '"' || !ft_isalnum(s[(*i)]))
-	{
-		(*new)[(*old)++] = '$';
+	if (is_exit(new, i, s, old))
 		return ;
-	}
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store [j++] = s[(*i)++];
 	store[j] = '\0';
@@ -48,20 +45,22 @@ void	store_new(char **new, int *i, char *s, int *old)
 int	calculate_s(char *s, char *env)
 {
 	int (i), (total), (j);
-	i = 0;
-	j = 0;
-	total = 0;
+	(1) &&, i = 0, j = 0, total = 0;
 	while (s[i])
 	{
 		j = 0;
 		if (s[i] == '$')
 		{
 			i++;
-			while (s[i] && ft_isalnum(s[i]))
+			if (s[i] == '?')
+				total += is_question(s, &i);
+			while (s[i] && (ft_isalnum(s[i])))
 				env[j++] = s[i++];
 			env[j] = '\0';
 			if (j > 0)
 				total += ft_strlen(getenv(env));
+			else
+				total++;
 		}
 		else
 		{

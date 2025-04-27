@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 17:00:23 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:55:43 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ typedef struct s_q
 int			is_single(char *s);
 int			is_couple(char *s);
 char		*before_quote(char *c);
-void		handler(int sig);
 void		*ft_malloc(size_t size, short option);
 t_list		*mem_alloc(size_t size);
 size_t		ft_strlen(const char *c);
@@ -130,7 +129,6 @@ int			is_special_char(char c);
 int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
 int			check_the_first(t_token *tk);
 int			is_cmd_valid(t_token *tk);
-int			is_root(char *cmd);
 char		*ft_strcpy(char *dest, char const *src);
 void		*ft_memset(void *s, int c, size_t n);
 t_token		*tokenize(char **cmd);
@@ -165,5 +163,11 @@ void		reset_signals(void);
 void		setup_execution_signals(void);
 void		handler_execution(int sig);
 void		handler_interactive(int sig);
+char		*extra_work(char *s);
+int			is_token(char c);
+char		*ft_itoa(int n);
+int			ft_isalnum(int c);
+int			is_exit(char **new, int *i, char *s, int *old);
+int			is_question(char *s, int *i);
 
 #endif

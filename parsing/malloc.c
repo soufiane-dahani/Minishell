@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:33:12 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/16 17:50:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 12:09:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,20 @@ void	*ft_malloc(size_t size, short option)
 	if (option == FT_CLEAR)
 		ft_lstclear(&head, free);
 	return (NULL);
+}
+
+int	is_question(char *s, int *i)
+{
+	char	*num;
+	int		len;
+
+	if (s[*i] == '?')
+	{
+		num = ft_itoa(g_ast->exit_status);
+		len = ft_strlen(num);
+		(*i)++;
+		return (len);
+	}
+	else
+		return (1);
 }

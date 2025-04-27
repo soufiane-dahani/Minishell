@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 10:02:12 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:20:18 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,6 @@ int	invalid_syntax(t_token *tk)
 		&& tk->type != TYP_SQOUTE && tk->type != TYP_RPAR)
 	{
 		printf("invalid syntax near '%s'\n", tk->value);
-		return (1);
-	}
-	return (0);
-}
-
-int	is_root(char *cmd)
-{
-	int		i;
-	char	*cd;
-
-	if (!cmd)
-		return (0);
-	i = ft_strlen(cmd);
-	if (cmd[0] == '/' || cmd[0] == '-')
-	{
-		printf("bash: %s: command not found\n", cmd);
-		return (1);
-	}
-	if (cmd[0] == '\\')
-	{
-		if (i % 2)
-			return (1);
-		cd = ft_malloc((i / 2) + 1, FT_ALLOC);
-		if (!cd)
-			return (1);
-		ft_memset(cd, '\\', i / 2);
-		cd[i / 2] = '\0';
-		printf("bash: %s: command not found\n", cd);
 		return (1);
 	}
 	return (0);
@@ -102,4 +74,26 @@ t_token	*handle_wildcard(t_token *tk)
 		s = s->next;
 	}
 	return (new);
+}
+
+int	is_exit(char **new, int *i, char *s, int *old)
+{
+	char	*helper;
+	int		j;
+
+	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '?' || !ft_isalnum(s[(*i)]))
+	{
+		if (s[(*i)] == '?')
+		{
+			helper = ft_itoa(g_ast->exit_status);
+			j = 0;
+			while (helper[j])
+				(*new)[(*old)++] = helper[j++];
+			(*i)++;
+			return (1);
+		}
+		(*new)[(*old)++] = '$';
+		return (1);
+	}
+	return (0);
 }

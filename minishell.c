@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/25 19:11:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:17:06 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ int	main(int ac, char **av, char **env)
 		printf("\n [ ==> Usage: ./minishell <== ]\n\n");
 		return (1);
 	}
-	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
 	setup_interactive_signals();
 	while (1)
 	{
+		data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
 		data->s = readline("minishell$> ");
 		add_history(data->s);
 		ft_clear_work(data, &env);
+		// ft_malloc(0, FT_CLEAR);
 	}
 }
