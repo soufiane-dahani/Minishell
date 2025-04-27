@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 11:55:43 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:40:48 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,8 @@ char		*ft_itoa(int n);
 int			ft_isalnum(int c);
 int			is_exit(char **new, int *i, char *s, int *old);
 int			is_question(char *s, int *i);
+void		help_wildcard(t_token *tokens, t_token **new, t_token *s);
+void		expand_to_directories(char *s, t_token **new);
+int			is_hide(char *s);
 
 #endif

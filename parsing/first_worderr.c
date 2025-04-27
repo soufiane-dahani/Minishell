@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 11:20:18 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:40:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,18 @@ int	invalid_syntax(t_token *tk)
 	return (0);
 }
 
-static void	help_wildcard(t_token *tokens, t_token **new, t_token *s)
+int	is_hide(char *s)
 {
-	if (tokens)
-	{
-		while (tokens)
-		{
-			add_token(new, tokens->value, tokens->type, 0);
-			tokens = tokens->next;
-		}
-	}
-	else
-		add_token(new, s->value, s->type, 0);
+	if (s[0] == '.')
+		return (1);
+	return (0);
 }
 
 t_token	*handle_wildcard(t_token *tk)
 {
-	t_token	*s;
-	t_token	*new;
-	t_token	*tokens;
+	t_token		*s;
+	t_token		*new;
+	t_token		*tokens;
 
 	s = tk;
 	new = NULL;
@@ -66,8 +59,13 @@ t_token	*handle_wildcard(t_token *tk)
 	{
 		if (s->type == TYP_WORD && ft_strchr(s->value, '*'))
 		{
-			tokens = change_the_cards(s->value);
-			help_wildcard(tokens, &new, s);
+			if (s->value[strlen(s->value) - 1] == '/' && strchr(s->value, '*'))
+				expand_to_directories(s->value, &new);
+			else
+			{
+				tokens = change_the_cards(s->value);
+				help_wildcard(tokens, &new, s);
+			}
 		}
 		else
 			add_token(&new, s->value, s->type, 0);

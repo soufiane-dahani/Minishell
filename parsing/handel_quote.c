@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 12:11:50 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:20:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	store_new(char **new, int *i, char *s, int *old)
 int	calculate_s(char *s, char *env)
 {
 	int (i), (total), (j);
-	(1) &&, i = 0, j = 0, total = 0;
+	(1) && (i = 0), (j = 0), (total = 0);
 	while (s[i])
 	{
 		j = 0;
