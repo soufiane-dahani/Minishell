@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:23:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:05:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	update_existing_env(char *key, char *value, char ***envp)
 	new_entry = ft_strjoin3(key, "=", value);
 	if (!new_entry)
 		return (0);
-	// free((*envp)[index]);
 	(*envp)[index] = new_entry;
 	return (1);
 }

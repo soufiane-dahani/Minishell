@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:33:57 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:10:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ char	*check_command_in_paths(char *cmd, char **paths)
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
-		// free(part_path);
 		if (access(path, F_OK) == 0)
 			return (path);
-		// free(path);
 		i++;
 	}
 	return (NULL);
@@ -46,9 +44,6 @@ char	*find_path(char *cmd, char **envp)
 	paths = ft_split(envp[i] + 5, ':');
 	path = check_command_in_paths(cmd, paths);
 	i = -1;
-	// while (paths[++i])
-	// 	free(paths[i]);
-	// free(paths);
 	return (path);
 }
 
@@ -84,12 +79,12 @@ int	exec_external(t_ast *node, char **envp)
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
-	{
-		perror("fork");
-		return (1);
-	}
+		return (perror("fork"), 1);
 	if (pid == 0)
 	{
 		execute(node->cmd, envp);
@@ -97,7 +92,8 @@ int	exec_external(t_ast *node, char **envp)
 	}
 	else
 	{
+		g_ast->exit_status = exit_status(status);
 		waitpid(pid, &status, 0);
-		return (WEXITSTATUS(status));
+		return (g_ast->exit_status);
 	}
 }

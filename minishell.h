@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/26 17:53:53 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:38:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_ast
 	t_type			type;
 	int				nor;
 	int				exp;
+	int				exit_status;
 	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
@@ -118,64 +119,74 @@ typedef struct s_list
 	struct s_list	*next;
 }			t_list;
 
-int					is_single(char *s);
-int					is_couple(char *s);
-char				*before_quote(char *c);
-void				handler(int sig);
-void				*ft_malloc(size_t size, short option);
-t_list				*mem_alloc(size_t size);
-size_t				ft_strlen(const char *c);
-char				*ft_strjoin(char const *s1, char const *s2);
-char				**ft_split2(char *str, char *charset);
-char				*ft_strdup(const char *src);
-char				*ft_strchr(const char *s, int c);
-void				ft_lstadd_back(t_list **lst, t_list *new);
-void				ft_lstclear(t_list **lst, void (*del)(void *));
-t_list				*ft_lstnew(void *content);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
-void				split_the_cmd(t_cmd *data);
-int					is_space(char c);
-char				*ft_strndup(const char *s, size_t n);
-int					handle_quote(t_cmd *data, int i);
-int					handle_token(t_cmd *data, t_spl *spl);
-int					is_special_char(char c);
-int					ft_handle_token(t_cmd *data, t_spl *spl, int *i);
-int					check_the_first(t_token *tk);
-int					is_cmd_valid(t_token *tk);
-int					is_root(char *cmd);
-char				*ft_strcpy(char *dest, char const *src);
-void				*ft_memset(void *s, int c, size_t n);
-t_token				*tokenize(char **cmd);
-int					nb_tok(char *str);
-int					check_the_exp(t_token *tk);
-int					invalid_syntax(t_token *tk);
-t_ast				*build_the_tree(t_token *tk);
-int					dup_the_token(t_cmd *data, t_spl *spl);
-int					is_token_sep(t_type s);
-t_ast				*start_for_ast(t_token *tk);
-t_token				*change_the_cards(char *pattern);
-t_token				*creat_new(t_token *tk, t_token **op);
-void				ft_new_node(t_token **head, t_token **cur_node,
-						t_token *cur);
-t_token				*find_the_head(t_token *tk);
-void				add_token(t_token **head, char *value, t_type type,
-						int exp);
-t_token				*create_token(char *value, t_type type, int exp);
-void				the_best_sep(t_token *tk, t_token **op);
-int					lowest(t_token **tk, t_type h, t_token **op);
-void				help_start(t_token *op, t_token *tk, t_ast **node);
-int					parsing(t_cmd *data);
-int					check_ast_is_valid(void);
-t_token				*fix_the_case(t_token *tk);
-t_token				*fixing(t_token *tk);
-t_token				*handle_wildcard(t_token *tk);
-t_token				*handle_exp_quote(t_token *tk);
-char				*skip_quote(char *s);
-char				*extra_work(char *cmd);
-char				*new_with_exp(char *s);
-int					calculate_s(char *s, char *env);
-void				store_new(char **new, int *i, char *s, int *old);
-void				help_skiping(char **new, t_quote *q, char *s);
+int			is_single(char *s);
+int			is_couple(char *s);
+char		*before_quote(char *c);
+void		*ft_malloc(size_t size, short option);
+t_list		*mem_alloc(size_t size);
+size_t		ft_strlen(const char *c);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		**ft_split2(char *str, char *charset);
+char		*ft_strdup(const char *src);
+char		*ft_strchr(const char *s, int c);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstclear(t_list **lst, void (*del)(void *));
+t_list		*ft_lstnew(void *content);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		split_the_cmd(t_cmd *data);
+int			is_space(char c);
+char		*ft_strndup(const char *s, size_t n);
+int			handle_quote(t_cmd *data, int i);
+int			handle_token(t_cmd *data, t_spl *spl);
+int			is_special_char(char c);
+int			ft_handle_token(t_cmd *data, t_spl *spl, int *i);
+int			check_the_first(t_token *tk);
+int			is_cmd_valid(t_token *tk);
+char		*ft_strcpy(char *dest, char const *src);
+void		*ft_memset(void *s, int c, size_t n);
+t_token		*tokenize(char **cmd);
+int			nb_tok(char	*str);
+int			check_the_exp(t_token *tk);
+int			invalid_syntax(t_token *tk);
+t_ast		*build_the_tree(t_token *tk);
+int			dup_the_token(t_cmd *data, t_spl *spl);
+int			is_token_sep(t_type s);
+t_ast		*start_for_ast(t_token *tk);
+t_token		*change_the_cards(char *pattern);
+t_token		*creat_new(t_token *tk, t_token **op);
+void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
+t_token		*find_the_head(t_token *tk);
+void		add_token(t_token **head, char *value, t_type type, int exp);
+t_token		*create_token(char *value, t_type type, int exp);
+void		the_best_sep(t_token *tk, t_token **op);
+int			lowest(t_token **tk, t_type h, t_token **op);
+void		help_start(t_token *op, t_token *tk, t_ast **node);
+int			parsing(t_cmd *data);
+t_token		*fix_the_case(t_token *tk);
+t_token		*fixing(t_token *tk);
+t_token		*handle_wildcard(t_token *tk);
+t_token		*handle_exp_quote(t_token *tk);
+char		*skip_quote(char *s);
+char		*new_with_exp(char *s);
+int			calculate_s(char *s, char *env);
+void		store_new(char **new, int *i, char *s, int *old);
+void		help_skiping(char **new, t_quote *q, char *s);
+void		setup_interactive_signals(void);
+void		reset_signals(void);
+void		setup_execution_signals(void);
+void		handler_execution(int sig);
+void		handler_interactive(int sig);
+char		*extra_work(char *s);
+int			is_token(char c);
+char		*ft_itoa(int n);
+int			ft_isalnum(int c);
+int			is_exit(char **new, int *i, char *s, int *old);
+int			is_question(char *s, int *i);
+void		help_wildcard(t_token *tokens, t_token **new, t_token *s);
+void		expand_to_directories(char *s, t_token **new);
+int			is_hide(char *s);
+int			help_clcule(char **env, int *j, char *s, int *i);
+
 
 void				print_error(char *message);
 
@@ -257,7 +268,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	ft_isalnum(int c);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-
+int	exit_status(int status);
 
 
 

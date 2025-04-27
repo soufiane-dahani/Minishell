@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:24:09 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:10:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,6 @@ static int	count_store_vars(t_export_store *store)
 	return (count);
 }
 
-// static void	free_store_vars(t_export_store *store)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (store->vars[i])
-// 	{
-// 		free(store->vars[i]);
-// 		i++;
-// 	}
-// 	free(store->vars);
-// }
 
 void	remove_export_only_var(char **env, t_export_store *store)
 {
@@ -125,7 +113,6 @@ void	remove_export_only_var(char **env, t_export_store *store)
 		{
 			new_vars[k++] = ft_strdup(store->vars[i]);
 		}
-		// free(store_name);
 		i++;
 	}
 	new_vars[k] = NULL;

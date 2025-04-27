@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:27:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:41:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2],
 	pid_t	pid;
 
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -38,6 +40,8 @@ static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2],
 	pid_t	pid;
 
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -59,6 +63,7 @@ int	exec_pipe(t_ast *node, char ***envp, t_export_store *store)
 	pid_t	pid1;
 	pid_t	pid2;
 
+	status = 0;
 	if (!node || node->type != TYP_PIPE)
 		return (1);
 	if (pipe(fd) == -1)
@@ -67,7 +72,8 @@ int	exec_pipe(t_ast *node, char ***envp, t_export_store *store)
 	pid2 = handle_right_pipe(node, envp, fd, store);
 	close(fd[0]);
 	close(fd[1]);
+	g_ast->exit_status = exit_status(status);
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
-	return (WEXITSTATUS(status));
+	return (g_ast->exit_status);
 }

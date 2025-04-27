@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:49:08 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:08:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 	int		out_fd;
 
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -37,7 +39,10 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
+	int i = WEXITSTATUS(status);
+	if (i == 1)
+		ft_putstr_fd("echo: write error\n", 2);
+	return (i);
 }
 
 int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
@@ -47,6 +52,8 @@ int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 	int		in_fd;
 
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -75,6 +82,8 @@ int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 	int		out_fd;
 
 	pid = fork();
+	reset_signals();
+	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)

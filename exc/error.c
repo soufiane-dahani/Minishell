@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 18:30:35 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:40:01 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,15 @@ void	add_shlvl(char ***env)
 		i++;
 	}
 	tmp = ft_strdup("SHLVL=1");
+}
+
+int	exit_status(int status)
+{
+	if (WIFEXITED(status))
+		g_ast->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_ast->exit_status = 128 + WTERMSIG(status);
+	else if (WIFSTOPPED(status))
+		g_ast->exit_status = 128 + WSTOPSIG(status);
+	return (g_ast->exit_status);
 }

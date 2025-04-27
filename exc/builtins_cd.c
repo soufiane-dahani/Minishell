@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:37:35 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:09:51 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,12 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	new_entry = ft_strjoin3(key, "=", value);
 	if (!new_entry)
 	{
-		// while (--count >= 0)
-		// 	free(new_env[count]);
-		// free(new_env);
 		return (0);
 	}
 	new_env[count] = new_entry;
 	new_env[count + 1] = NULL;
 	old_env = *envp;
 	*envp = new_env;
-	// free_old_env(old_env);
 	return (1);
 }
 
@@ -112,10 +108,8 @@ int	handle_cd_chdir(char *target, char *oldpwd, char **cmd, char ***envp)
 	if (chdir(expanded_path) != 0)
 	{
 		perror("cd");
-		// free(expanded_path);
 		return (1);
 	}
-	// free(expanded_path);
 	if (getcwd(cwd, sizeof(cwd)))
 	{
 		update_env("OLDPWD", oldpwd, envp);

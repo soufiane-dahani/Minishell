@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 10:02:12 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:40:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,53 +40,18 @@ int	invalid_syntax(t_token *tk)
 	return (0);
 }
 
-int	is_root(char *cmd)
+int	is_hide(char *s)
 {
-	int		i;
-	char	*cd;
-
-	if (!cmd)
-		return (0);
-	i = ft_strlen(cmd);
-	if (cmd[0] == '/' || cmd[0] == '-')
-	{
-		printf("bash: %s: command not found\n", cmd);
+	if (s[0] == '.')
 		return (1);
-	}
-	if (cmd[0] == '\\')
-	{
-		if (i % 2)
-			return (1);
-		cd = ft_malloc((i / 2) + 1, FT_ALLOC);
-		if (!cd)
-			return (1);
-		ft_memset(cd, '\\', i / 2);
-		cd[i / 2] = '\0';
-		printf("bash: %s: command not found\n", cd);
-		return (1);
-	}
 	return (0);
-}
-
-static void	help_wildcard(t_token *tokens, t_token **new, t_token *s)
-{
-	if (tokens)
-	{
-		while (tokens)
-		{
-			add_token(new, tokens->value, tokens->type, 0);
-			tokens = tokens->next;
-		}
-	}
-	else
-		add_token(new, s->value, s->type, 0);
 }
 
 t_token	*handle_wildcard(t_token *tk)
 {
-	t_token	*s;
-	t_token	*new;
-	t_token	*tokens;
+	t_token		*s;
+	t_token		*new;
+	t_token		*tokens;
 
 	s = tk;
 	new = NULL;
@@ -94,12 +59,39 @@ t_token	*handle_wildcard(t_token *tk)
 	{
 		if (s->type == TYP_WORD && ft_strchr(s->value, '*'))
 		{
-			tokens = change_the_cards(s->value);
-			help_wildcard(tokens, &new, s);
+			if (s->value[strlen(s->value) - 1] == '/' && strchr(s->value, '*'))
+				expand_to_directories(s->value, &new);
+			else
+			{
+				tokens = change_the_cards(s->value);
+				help_wildcard(tokens, &new, s);
+			}
 		}
 		else
 			add_token(&new, s->value, s->type, 0);
 		s = s->next;
 	}
 	return (new);
+}
+
+int	is_exit(char **new, int *i, char *s, int *old)
+{
+	char	*helper;
+	int		j;
+
+	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '?' || !ft_isalnum(s[(*i)]))
+	{
+		if (s[(*i)] == '?')
+		{
+			helper = ft_itoa(g_ast->exit_status);
+			j = 0;
+			while (helper[j])
+				(*new)[(*old)++] = helper[j++];
+			(*i)++;
+			return (1);
+		}
+		(*new)[(*old)++] = '$';
+		return (1);
+	}
+	return (0);
 }

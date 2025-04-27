@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 16:24:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:11:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	if (!tmp)
 		return (NULL);
 	result = ft_strjoin(tmp, s3);
-	// free(tmp);
 	return (result);
 }
 
