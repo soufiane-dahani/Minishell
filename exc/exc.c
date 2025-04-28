@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 14:57:00 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:33:38 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 	else if (node->type == TYP_PIPE)
 		return (exec_pipe(node, envp, store));
 	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP
-			|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
+		|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
 		return (exec_redirection(node, envp, store));
 	else if (node->type == TYP_AND)
 		return (exec_and(node, envp, store));

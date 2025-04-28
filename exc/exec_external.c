@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 20:15:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:40:22 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ void	execute(char **cmd, char **envp)
 			ft_malloc(0, FT_CLEAR);
 			perror("command not found");
 		}
-		else
-			if (execve(cmd[0], cmd, envp) == -1)
-				perror("error ");
+		else if (execve(cmd[0], cmd, envp) == -1)
+			perror("error ");
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
@@ -76,15 +75,18 @@ void	execute(char **cmd, char **envp)
 	exit(1);
 }
 
-int	is_root(char *s)
+int	is_root(char *s, char *str)
 {
 	int	i;
 
 	i = 0;
+	if (access(str, F_OK | X_OK) == -1 && access(s,
+			F_OK | X_OK) == -1)
+		return (127);
 	while (s[i] && s[i] == '/')
 		i++;
 	if (!s[i])
-		return (1);
+		return (126);
 	return (0);
 }
 
@@ -94,8 +96,7 @@ int	exec_external(t_ast *node, char **envp)
 	int		status;
 	char	*str;
 
-	status = 0;
-	pid = fork();
+	(1) && (status = 0), (pid = fork());
 	reset_signals();
 	setup_execution_signals();
 	if (pid == -1)
@@ -109,12 +110,11 @@ int	exec_external(t_ast *node, char **envp)
 	else
 	{
 		str = ft_strjoin("/usr/bin/", node->cmd[0]);
-		if (access(str, F_OK | X_OK) == -1 && access(node->cmd[0], F_OK | X_OK) == -1)
+		if (is_root(node->cmd[0], str) == 127)
 			return (waitpid(pid, &status, 0), 127);
-		if (is_root(node->cmd[0]))
+		if (is_root(node->cmd[0], str) == 126)
 			return (waitpid(pid, &status, 0), 126);
 		g_ast->exit_status = exit_status(status);
-		waitpid(pid, &status, 0);
-		return (g_ast->exit_status);
+		return (waitpid(pid, &status, 0), g_ast->exit_status);
 	}
 }

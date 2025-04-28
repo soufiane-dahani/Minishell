@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 15:13:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:33:58 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	env_var_index(char *arg, char **env)
 	i = 0;
 	len = 0;
 	while (arg[len] && arg[len] != '=' && !(arg[len] == '+' && arg[len
-			+ 1] == '='))
+				+ 1] == '='))
 		len++;
 	while (env[i])
 	{

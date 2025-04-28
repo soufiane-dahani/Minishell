@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 20:10:03 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:31:41 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,22 @@ long	ft_atol(const char *str)
 			sign = -1;
 		str++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (*str && *str >= '0' && *str <= '9')
 		res = res * 10 + (*str++ - '0');
 	return (res * sign);
 }
 
 int	my_exit(char **cmd)
 {
+	int	ex;
+
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (cmd[1])
 	{
 		if (!is_numeric(cmd[1]))
 		{
 			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+			ft_malloc(0, FT_CLEAR);
 			exit(2);
 		}
 		if (cmd[2])
@@ -63,21 +66,12 @@ int	my_exit(char **cmd)
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 			return (1);
 		}
+		ex = atoi(cmd[1]);
 		ft_malloc(0, FT_CLEAR);
-		exit((unsigned char)ft_atol(cmd[1]));
+		exit(ex);
 	}
 	ft_malloc(0, FT_CLEAR);
 	exit(0);
-}
-
-void	free_old_env(char **old_env)
-{
-	int	i;
-
-	i = 0;
-	while (old_env[i])
-		free(old_env[i++]);
-	free(old_env);
 }
 
 int	create_and_copy_env(char ***envp, char ***new_env, int count)
