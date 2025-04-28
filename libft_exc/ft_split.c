@@ -12,17 +12,6 @@
 
 #include "../minishell.h"
 
-static char	**free_array(char **ptr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(ptr[i]);
-	}
-	free(ptr);
-	return (0);
-}
-
 static int	ft_count_words(char const *str, char c)
 {
 	int	i;
@@ -78,8 +67,6 @@ static char	**ft_split_words(char const *s, char c, char **s2, int num_words)
 			word_len++;
 		}
 		s2[word] = ft_malloc(sizeof(char) * (word_len + 1), FT_ALLOC);
-		if (!s2[word])
-			return (free_array(s2, word));
 		ft_putword(s2[word], s, i, word_len);
 		word_len = 0;
 		word++;

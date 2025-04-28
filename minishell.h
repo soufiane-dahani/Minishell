@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/28 13:25:59 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:03:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_ast
 	int				nor;
 	int				exp;
 	int				exit_status;
-	int				*suc;
 	struct s_ast	*r;
 	struct s_ast	*l;
 }					t_ast;
@@ -156,7 +155,7 @@ t_token		*change_the_cards(char *pattern);
 t_token		*creat_new(t_token *tk, t_token **op);
 void		ft_new_node(t_token **head, t_token **cur_node, t_token *cur);
 t_token		*find_the_head(t_token *tk);
-void		add_token(t_token **head, char *value, t_type type, int exp);
+void		add_token(t_token **head, char *value, t_type typ, int exp);
 t_token		*create_token(char *value, t_type type, int exp);
 void		the_best_sep(t_token *tk, t_token **op);
 int			lowest(t_token **tk, t_type h, t_token **op);
@@ -186,9 +185,9 @@ void		help_wildcard(t_token *tokens, t_token **new, t_token *s);
 void		expand_to_directories(char *s, t_token **new);
 int			is_hide(char *s);
 int			help_clcule(char **env, int *j, char *s, int *i);
+int			is_token_nor(t_type s);
+char		*for_herdoc(char *s);
 
-
-void				print_error(char *message);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);

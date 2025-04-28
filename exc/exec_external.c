@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 20:10:52 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 20:02:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	execute(char **cmd, char **envp)
 			perror("command not found");
 		}
 		else
-			execve(cmd[0], cmd, envp);
+			if (execve(cmd[0], cmd, envp) == -1)
+				perror("error ");
+		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
 	path = find_path(cmd[0], envp);
@@ -74,13 +76,31 @@ void	execute(char **cmd, char **envp)
 	exit(1);
 }
 
+int	is_root(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (access(s, F_OK | X_OK) == -1)
+		return (127);
+	if (s[i] == '/' || access(s, F_OK | X_OK))
+	{
+		while (s[i] && s[i] == '/')
+			i++;
+		if (!s[i])
+			return (126);
+		return (0);
+	}
+	return (0);
+}
+
 int	exec_external(t_ast *node, char **envp)
 {
 	pid_t	pid;
 	int		status;
+	char	*str;
 
-	status = 0;
-	pid = fork();
+	(1) && (status = 0), pid = fork();
 	reset_signals();
 	setup_execution_signals();
 	if (pid == -1)
@@ -88,12 +108,15 @@ int	exec_external(t_ast *node, char **envp)
 	if (pid == 0)
 	{
 		execute(node->cmd, envp);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	else
 	{
+		str = ft_strjoin("/usr/bin/", node->cmd[0]);
+		if (is_root(node->cmd[0]))
+			return (waitpid(pid, &status, 0), is_root(node->cmd[0]));
 		g_ast->exit_status = exit_status(status);
-		waitpid(pid, &status, 0);
-		return (g_ast->exit_status);
+		return (waitpid(pid, &status, 0), g_ast->exit_status);
 	}
 }

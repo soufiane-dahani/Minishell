@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_help3.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 14:42:55 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:28:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	print_env_variables(char **variables)
 	int	i;
 
 	i = 0;
+	if (!variables || !*variables)
+		return ;
 	while (variables && variables[i])
 	{
 		ft_putstr_fd("declare -x ", 1);
