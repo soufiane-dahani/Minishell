@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 19:38:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:25:59 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void		add_token(t_token **head, char *value, t_type type, int exp);
 t_token		*create_token(char *value, t_type type, int exp);
 void		the_best_sep(t_token *tk, t_token **op);
 int			lowest(t_token **tk, t_type h, t_token **op);
-void		help_start(t_token *op, t_token *tk, t_ast **node);
+void		help_start(t_token *op, t_token **tk, t_ast **node);
 int			parsing(t_cmd *data);
 t_token		*fix_the_case(t_token *tk);
 t_token		*fixing(t_token *tk);
