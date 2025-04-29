@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 11:04:49 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:37:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_ast	*start_for_ast(t_token *tk)
 		if (!node)
 			return (NULL);
 		node->cmd = ft_malloc(sizeof(char *) * 2, FT_ALLOC);
-		help_start(op, tk, &node);
+		help_start(op, &tk, &node);
 		return (node);
 	}
 	node = ft_malloc(sizeof(t_ast), FT_ALLOC);

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 15:19:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:59:58 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,39 @@ static t_token	*new_list(t_token **tk, t_token *op)
 	return (start);
 }
 
-void	help_start(t_token *op, t_token *tk, t_ast **node)
+void	help_start(t_token *op, t_token **tk, t_ast **node)
 {
 	t_token	*left;
 	t_token	*right;
 
-	if (!op || !tk || !node || !(*node))
+	if (!op || !*tk || !tk || !node || !(*node))
 		return ;
-	left = new_list(&tk, op);
+	left = new_list(tk, op);
 	right = op->next;
 	op->next = NULL;
+	(*node)->exp = (*tk)->is_exp;
+	(*node)->type = (*tk)->type;
+	(*node)->cmd[0] = ft_strdup((*tk)->value);
+	// if (is_token_nor((*tk)->type) && right)
+	// {
+	// 	(*node)->cmd[1] = ft_strdup(right->value);
+	// 	(*tk) = (*tk)->next;
+	// 	right = right->next;
+	// }
+	// else
+		(*node)->cmd[1] = NULL;
 	(*node)->l = start_for_ast(left);
 	(*node)->r = start_for_ast(right);
-	(*node)->cmd[0] = ft_strdup(tk->value);
-	(*node)->cmd[1] = NULL;
-	(*node)->exp = tk->is_exp;
-	(*node)->type = tk->type;
 }
 
 int	lowest(t_token **tk, t_type h, t_token **op)
 {
 	t_token	*prev;
 	int		count_par;
+	t_token	*last_match;
 
 	prev = *tk;
+	last_match = NULL;
 	count_par = 0;
 	while (prev)
 	{
@@ -88,18 +97,16 @@ int	lowest(t_token **tk, t_type h, t_token **op)
 			count_par++;
 		if (prev->type == TYP_RPAR)
 			count_par--;
-		if ((prev->type == TYP_AND || prev->type == TYP_PIPE
-				|| prev->type == TYP_OR) && count_par != 0)
+		if (is_token_sep(prev->type) && count_par != 0)
 		{
 			prev = prev->next;
 			continue ;
 		}
-		if (prev && prev->type == h)
-		{
+		if (prev && prev->type == h && count_par == 0)
 			*op = prev;
-			return (1);
-		}
 		prev = prev->next;
 	}
+	if (last_match)
+		return (*op = last_match, 1);
 	return (0);
 }

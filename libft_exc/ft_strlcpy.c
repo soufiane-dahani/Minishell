@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 14:56:48 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/05 10:28:49 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/23 10:34:02 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 17:41:39 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_list	*ft_lstnew(void *content)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	t_list	*yas;
+	size_t	i;
 
-	yas = malloc(sizeof(t_list));
-	if (!yas)
-		return (NULL);
-	yas->content = content;
-	yas->next = NULL;
-	return (yas);
+	i = 0;
+	if (size != 0)
+	{
+		while (src[i] != '\0' && i < (size - 1))
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

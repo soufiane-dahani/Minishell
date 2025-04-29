@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 15:21:06 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/22 15:59:43 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:11:40 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*ft_strdup_spl(char *src, char *charset)
 	return (yas);
 }
 
-char	**ft_split(char *str, char *charset)
+char	**ft_split2(char *str, char *charset)
 {
 	char	**yas;
 	int		i;

@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 08:15:40 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/28 15:49:34 by yaait-am         ###   ########.fr       */
+/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/21 21:48:28 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	ft_strlen(const char *c)
+int	my_echo(char **cmd)
 {
-	size_t	i;
+	int	i;
+	int	flag;
 
-	i = 0;
-	if (!c)
-		return (0);
-	while (c[i])
-		i++;
-	return (i);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*y;
-
-	i = 0;
-	y = s;
-	while (i < n)
+	flag = 0;
+	i = 1;
+	if (cmd[1] == NULL)
 	{
-		y[i] = c;
+		printf("\n");
+		return (0);
+	}
+	if (cmd[1][0] == '-' && cmd[1][1] == 'n' && cmd[1][2] == '\0')
+	{
+		flag = 1;
+		i = 2;
+	}
+	while (cmd[i] != NULL)
+	{
+		printf("%s", cmd[i]);
 		i++;
 	}
-	return (y);
+	if (flag == 0)
+		printf("\n");
+	return (0);
 }

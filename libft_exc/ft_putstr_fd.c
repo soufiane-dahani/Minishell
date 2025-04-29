@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 14:56:48 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/03/05 10:28:49 by yaait-am         ###   ########.fr       */
+/*   Created: 2024/10/24 11:46:43 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 17:31:05 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_putstr_fd(char *str, int fd)
 {
-	t_list	*yas;
+	int	i;
 
-	yas = malloc(sizeof(t_list));
-	if (!yas)
-		return (NULL);
-	yas->content = content;
-	yas->next = NULL;
-	return (yas);
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+	{
+		write(fd, &str[i], 1);
+		i++;
+	}
 }
