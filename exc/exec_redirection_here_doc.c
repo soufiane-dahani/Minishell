@@ -3,14 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection_here_doc.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 22:41:09 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:59:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	more_expand(char **new, int *i, char *s, int *a)
+{
+	int		j;
+	char	*store;
+	char	*env;
+
+	j = 0;
+	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
+	(*i)++;
+	while (s[(*i)] && ft_isalnum(s[(*i)]))
+		store [j++] = s[(*i)++];
+	store[j] = '\0';
+	env = getenv(store);
+	if (env)
+	{
+		j = 0;
+		while (env[j])
+			(*new)[(*a)++] = env[j++];
+	}
+}
+
+char	*exp_for_herdoc(char *s)
+{
+	int		i;
+	int		a;
+	char	*env;
+	char	*new;
+
+	i = 0;
+	env = ft_malloc(ft_strlen(s) + 1, FT_ALLOC);
+	a = calculate_s(s, env);
+	new = ft_malloc(a * sizeof(char) + 1, FT_ALLOC);
+	a = 0;
+	while (s[i])
+	{
+		if (s[i] == '$')
+			more_expand(&new, &i, s, &a);
+		else
+			new[a++] = s[i++];
+	}
+	new[a] = '\0';
+	return (new);
+}
 
 int	get_next_line(char **line)
 {
@@ -49,6 +93,8 @@ int	handle_child_process(t_ast *node, int fd[2])
 		if (ft_strncmp(line, node->r->cmd[0], ft_strlen(node->r->cmd[0])) == 0
 			&& ft_strlen(line) == ft_strlen(node->r->cmd[0]))
 			break ;
+		if (node->r->type != TYP_SQOUTE && node->r->type != TYP_DQUOTE)
+			line = exp_for_herdoc(line);
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);
 	}

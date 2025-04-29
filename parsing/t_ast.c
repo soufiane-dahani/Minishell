@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/24 15:11:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:23:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	extra_help(t_token **new, t_token *s)
 
 void	help_fix(t_token *s, t_token **new, t_token *redir)
 {
-	while (s && !is_token_sep(s->type))
+	while (s && !is_token_sep(s->type) && !is_token_nor(s->type))
 	{
 		add_token(new, s->value, s->type, 0);
 		s = s->next;
@@ -46,6 +46,16 @@ void	help_fix(t_token *s, t_token **new, t_token *redir)
 		redir = redir->next;
 		if (redir)
 			add_token(new, redir->value, redir->type, 0);
+	}
+	while (s && is_token_nor(s->type))
+	{
+		add_token(new, s->value, s->type, 0);
+		s = s->next;
+		if (s)
+		{
+			add_token(new, s->value, s->type, 0);
+			s = s->next;
+		}
 	}
 	if (s)
 		extra_help(new, s);

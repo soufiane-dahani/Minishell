@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/28 17:13:08 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:24:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,30 @@ char	*for_herdoc(char *s)
 	return (new);
 }
 
+// static void	print_indent(int level)
+// {
+// 	for (int i = 0; i < level; i++)
+// 		printf("  ");
+// }
+
+// static void	print_ast(t_ast *node, int level)
+// {
+// 	if (!node)
+// 		return ;
+// 	print_ast(node->r, level + 8);
+// 	print_indent(level);
+// 	if (node->cmd && node->cmd[0])
+// 	{
+// 		printf("%s - %d - %d", node->cmd[0],
+// 			node->exp, node->type);
+// 		for (int i = 1; node->cmd[i]; i++)
+// 			printf(" --> %s", node->cmd[i]);
+// 		printf("\n");
+// 	}
+// 	else
+// 		printf("(NULL CMD)\n");
+// 	print_ast(node->l, level + 8);
+// }
 
 int	parsing(t_cmd *data)
 {
