@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 19:18:01 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:59:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	handler_interactive(int sig)
 {
+	if (!g_ast->sign)
 	if (sig == SIGINT)
 	{
 		g_ast->exit_status = 130;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 21:40:22 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:21:47 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	is_root(char *s, char *str)
 	if (access(str, F_OK | X_OK) == -1 && access(s,
 			F_OK | X_OK) == -1)
 		return (127);
+	if (s[i] == '.' && s[i + 1] == '\0')
+		return (126);
 	while (s[i] && s[i] == '/')
 		i++;
 	if (!s[i])

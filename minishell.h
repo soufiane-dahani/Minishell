@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/29 09:21:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:02:34 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_ast
 	int				nor;
 	int				exp;
 	int				exit_status;
+	char			**env;
 	struct s_ast	*r;
 	struct s_ast	*l;
 }					t_ast;
@@ -72,6 +73,8 @@ typedef struct s_export_store
 }					t_export_store;
 
 extern t_ast		*g_ast;
+
+extern int sign;
 
 typedef struct s_token
 {
@@ -187,6 +190,7 @@ int					is_hide(char *s);
 int					help_clcule(char **env, int *j, char *s, int *i);
 int					is_token_nor(t_type s);
 char				*for_herdoc(char *s);
+char				*my_getenv(char *s);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);

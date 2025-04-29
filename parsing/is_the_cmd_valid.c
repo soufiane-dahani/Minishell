@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 15:14:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:40:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	help_clcule(char **env, int *j, char *s, int *i)
 		(*env)[(*j)++] = s[(*i)++];
 	(*env)[(*j)] = '\0';
 	if ((*j) > 0)
-		total += ft_strlen(getenv((*env)));
+		total += ft_strlen(my_getenv((*env)));
 	else
 		total++;
 	return (total);

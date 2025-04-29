@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 15:25:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:40:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	more_expand(char **new, int *i, char *s, int *a)
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store [j++] = s[(*i)++];
 	store[j] = '\0';
-	env = getenv(store);
+	env = my_getenv(store);
 	if (env)
 	{
 		j = 0;

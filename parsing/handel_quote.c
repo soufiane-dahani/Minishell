@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/27 15:14:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:40:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	store_new(char **new, int *i, char *s, int *old)
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store [j++] = s[(*i)++];
 	store[j] = '\0';
-	env = getenv(store);
+	env = my_getenv(store);
 	if (env)
 	{
 		j = 0;

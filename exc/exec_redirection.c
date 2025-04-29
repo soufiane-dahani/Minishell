@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 08:52:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:32:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 {
 	pid_t	pid;
 	int		status;
-	int		i;
 
 	pid = fork();
 	reset_signals();
@@ -68,10 +67,7 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 	if (pid == 0)
 		handle_child_process(node, envp, store);
 	waitpid(pid, &status, 0);
-	i = WEXITSTATUS(status);
-	if (i == 1)
-		ft_putstr_fd("echo: write error\n", 2);
-	return (i);
+	return (WEXITSTATUS(status));
 }
 
 int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
