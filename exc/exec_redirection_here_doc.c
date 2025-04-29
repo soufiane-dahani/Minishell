@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 09:59:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:25:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,23 +109,48 @@ int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
 	int		status;
 	int		fd[2];
 	int		original_stdin;
+	t_ast	*cur;
+	t_ast	*par;
 	int		ret;
 
-	if (pipe(fd) == -1)
-		return (perror("pipe"), 1);
-	pid = fork();
-	reset_signals();
-	setup_execution_signals();
-	if (pid == -1)
-		return (perror("fork"), 1);
-	if (pid == 0)
-		handle_child_process(node, fd);
+	ret = 0;
+	cur = node;
 	original_stdin = dup(STDIN_FILENO);
-	close(fd[1]);
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
-	waitpid(pid, &status, 0);
-	ret = execute_ast(node->l, envp, store);
+	if (original_stdin == -1)
+		return (perror("dup"), 1);
+	while (cur->l && cur->l->type == TYP_REDHERE)
+		cur = cur->l;
+	while (cur && cur->type == TYP_REDHERE)
+	{
+		if (pipe(fd) == -1)
+			return (perror("pipe"), 1);
+		pid = fork();
+		reset_signals();
+		setup_execution_signals();
+		if (pid == -1)
+			return (perror("fork"), 1);
+		if (pid == 0)
+			handle_child_process(cur, fd);
+		int temp_stdin = dup(STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		waitpid(pid, &status, 0);
+		if (cur == node)
+			break ;
+		par = node;
+		while (par->l != cur)
+			par = par->l;
+		cur = par;
+		dup2(temp_stdin, STDIN_FILENO);
+		close(temp_stdin);
+	}
+	while (node->l && node->l->type == TYP_REDHERE)
+		node = node->l;
+	if (node->l && node->l->type != TYP_REDHERE)
+		ret = execute_ast(node->l, envp, store);
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 	return (ret);
