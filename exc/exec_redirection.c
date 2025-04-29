@@ -6,16 +6,16 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 14:37:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:32:43 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	handle_child_process(t_ast *node, char ***envp,
-		t_export_store *store)
+
+static void handle_child_process(t_ast *node, char ***envp, t_export_store *store)
 {
-	int	out_fd;
+	int out_fd;
 
 	out_fd = open_file(node->r->cmd[0], 1);
 	if (out_fd == -1)
@@ -26,7 +26,31 @@ static void	handle_child_process(t_ast *node, char ***envp,
 	}
 	dup2(out_fd, STDOUT_FILENO);
 	close(out_fd);
-	execute_ast(node->l, envp, store);
+	if (node->l->type == TYP_REDOUT || node->l->type == TYP_REDAPP)
+	{
+		int left_out_fd = open_file(node->l->r->cmd[0], 1);
+		if (left_out_fd == -1)
+		{
+			perror("open");
+			ft_malloc(0, FT_CLEAR);
+			exit(1);
+		}
+		close(left_out_fd);
+		t_ast *current = node->l;
+		while (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
+		{
+			if (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
+			{
+				int intermediate_fd = open_file(current->r->cmd[0], 1);
+				if (intermediate_fd != -1)
+					close(intermediate_fd);
+			}
+			current = current->l;
+		}
+		execute_ast(current, envp, store);
+	}
+	else
+		execute_ast(node->l, envp, store);
 	ft_malloc(0, FT_CLEAR);
 	exit(1);
 }
@@ -124,3 +148,4 @@ int	exec_redirection(t_ast *node, char ***envp, t_export_store *store)
 		return (typ_redhere_fun(node, envp, store));
 	return (1);
 }
+
