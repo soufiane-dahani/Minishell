@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 09:22:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:40:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	main(int ac, char **av, char **env)
 	if (!store)
 		return (1);
 	store->vars = NULL;
-	g_ast->env = env_copy;
 	while (1)
 	{
+		g_ast->env = env_copy;
 		setup_interactive_signals();
 		data->s = readline("minishell$> ");
 		add_history(data->s);

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 09:45:46 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:20:48 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ t_ast	*start_for_ast(t_token *tk)
 	node->cmd = tokens_to_cmd_array(tk);
 	node->exp = tk->is_exp;
 	node->type = tk->type;
-	node->env = g_ast->env;
+	// printf("jf\n");
+	// node->env = g_ast->env;
 	return (node);
 }
