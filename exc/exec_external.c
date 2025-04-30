@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 18:21:47 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:32:09 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	exec_external(t_ast *node, char **envp)
 
 	(1) && (status = 0), (pid = fork());
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -111,12 +110,13 @@ int	exec_external(t_ast *node, char **envp)
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		str = ft_strjoin("/usr/bin/", node->cmd[0]);
 		if (is_root(node->cmd[0], str) == 127)
-			return (waitpid(pid, &status, 0), 127);
+			return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), 127);
 		if (is_root(node->cmd[0], str) == 126)
-			return (waitpid(pid, &status, 0), 126);
+			return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), 126);
 		g_ast->exit_status = exit_status(status);
-		return (waitpid(pid, &status, 0), g_ast->exit_status);
+		return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), g_ast->exit_status);
 	}
 }

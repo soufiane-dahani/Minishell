@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 18:32:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:00:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 
 	pid = fork();
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -78,20 +77,22 @@ int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 
 	pid = fork();
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
 	{
-		in_fd = open_file(node->r->cmd[0], 2);
-		if (in_fd == -1)
+		if (node->r->type != TYP_WORD)
 		{
-			perror("open");
-			ft_malloc(0, FT_CLEAR);
-			exit(1);
+			in_fd = open_file(node->r->cmd[0], 2);
+			if (in_fd == -1)
+			{
+				perror("open");
+				ft_malloc(0, FT_CLEAR);
+				exit(1);
+			}
+			dup2(in_fd, STDIN_FILENO);
+			close(in_fd);
 		}
-		dup2(in_fd, STDIN_FILENO);
-		close(in_fd);
 		execute_ast(node->l, envp, store);
 		ft_malloc(0, FT_CLEAR);
 		exit(1);
@@ -107,7 +108,6 @@ int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 
 	pid = fork();
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)

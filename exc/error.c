@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 18:40:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:24:56 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	add_shlvl(char ***env)
 		{
 			level = ft_atoi((*env)[i] + 6);
 			level++;
+			g_ast->shell = level;
 			new_val = ft_itoa(level);
 			tmp = ft_strjoin("SHLVL=", new_val);
 			(*env)[i] = tmp;

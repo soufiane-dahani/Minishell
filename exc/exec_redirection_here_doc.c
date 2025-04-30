@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 18:40:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:16:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
 			return (perror("pipe"), 1);
 		pid = fork();
 		reset_signals();
-		setup_execution_signals();
 		if (pid == -1)
 			return (perror("fork"), 1);
 		if (pid == 0)

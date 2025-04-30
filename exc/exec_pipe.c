@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 18:21:15 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:16:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	handle_left_pipe(t_ast *node, char ***envp, int fd[2],
 
 	pid = fork();
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -41,7 +40,6 @@ static int	handle_right_pipe(t_ast *node, char ***envp, int fd[2],
 
 	pid = fork();
 	reset_signals();
-	setup_execution_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)

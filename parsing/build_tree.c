@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/28 14:59:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:06:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	the_best_sep(t_token *tk, t_token **op)
 		return ;
 	else if (lowest(&tk, TYP_REDHERE, op))
 		return ;
-	else if (lowest(&tk, TYP_REDIN, op))
-		return ;
 	else if (lowest(&tk, TYP_REDOUT, op))
+		return ;
+	else if (lowest(&tk, TYP_REDIN, op))
 		return ;
 }
 
@@ -77,7 +77,7 @@ void	help_start(t_token *op, t_token **tk, t_ast **node)
 	// 	right = right->next;
 	// }
 	// else
-		(*node)->cmd[1] = NULL;
+	(*node)->cmd[1] = NULL;
 	(*node)->l = start_for_ast(left);
 	(*node)->r = start_for_ast(right);
 }
