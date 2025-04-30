@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection_here_doc.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 08:16:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:53:35 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	more_expand(char **new, int *i, char *s, int *a)
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
-		store [j++] = s[(*i)++];
+		store[j++] = s[(*i)++];
 	store[j] = '\0';
 	env = my_getenv(store);
 	if (env)
@@ -103,49 +103,58 @@ int	handle_child_process(t_ast *node, int fd[2])
 	exit(0);
 }
 
-int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
+static void	init_redhere_vars(t_ast **cur, t_ast *node, int *ret,
+		int *original_stdin)
+{
+	*ret = 0;
+	*cur = node;
+	*original_stdin = dup(STDIN_FILENO);
+	if (*original_stdin == -1)
+		(perror("dup"), exit(1));
+	while ((*cur)->l && (*cur)->l->type == TYP_REDHERE)
+		*cur = (*cur)->l;
+}
+
+static void	prepare_stdin(int fd[2], int *temp_stdin)
+{
+	*temp_stdin = dup(STDIN_FILENO);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	close(fd[1]);
+}
+
+static void	process_redhere(t_ast *cur, int fd[2])
 {
 	pid_t	pid;
 	int		status;
-	int		fd[2];
-	int		original_stdin;
-	t_ast	*cur;
+
+	if (pipe(fd) == -1)
+		(perror("pipe"), exit(1));
+	pid = fork();
+	reset_signals();
+	if (pid == -1)
+		(perror("fork"), exit(1));
+	if (pid == 0)
+		handle_child_process(cur, fd);
+	waitpid(pid, &status, 0);
+}
+
+static t_ast	*find_next_redhere(t_ast *node, t_ast *cur)
+{
 	t_ast	*par;
-	int		ret;
+
+	par = node;
+	while (par->l != cur)
+		par = par->l;
+	return (par);
+}
+
+static int	execute_remaining(t_ast *node, char ***envp, t_export_store *store,
+		int original_stdin)
+{
+	int	ret;
 
 	ret = 0;
-	cur = node;
-	original_stdin = dup(STDIN_FILENO);
-	if (original_stdin == -1)
-		return (perror("dup"), 1);
-	while (cur->l && cur->l->type == TYP_REDHERE)
-		cur = cur->l;
-	while (cur && cur->type == TYP_REDHERE)
-	{
-		if (pipe(fd) == -1)
-			return (perror("pipe"), 1);
-		pid = fork();
-		reset_signals();
-		if (pid == -1)
-			return (perror("fork"), 1);
-		if (pid == 0)
-			handle_child_process(cur, fd);
-		int temp_stdin = dup(STDIN_FILENO);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		waitpid(pid, &status, 0);
-		if (cur == node)
-			break ;
-		par = node;
-		while (par->l != cur)
-			par = par->l;
-		cur = par;
-		dup2(temp_stdin, STDIN_FILENO);
-		close(temp_stdin);
-	}
 	while (node->l && node->l->type == TYP_REDHERE)
 		node = node->l;
 	if (node->l && node->l->type != TYP_REDHERE)
@@ -153,4 +162,26 @@ int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
 	dup2(original_stdin, STDIN_FILENO);
 	close(original_stdin);
 	return (ret);
+}
+
+int	typ_redhere_fun(t_ast *node, char ***envp, t_export_store *store)
+{
+	int		fd[2];
+	int		original_stdin;
+	t_ast	*cur;
+	int		ret;
+	int		temp_stdin;
+
+	init_redhere_vars(&cur, node, &ret, &original_stdin);
+	while (cur && cur->type == TYP_REDHERE)
+	{
+		process_redhere(cur, fd);
+		prepare_stdin(fd, &temp_stdin);
+		if (cur == node)
+			break ;
+		cur = find_next_redhere(node, cur);
+		dup2(temp_stdin, STDIN_FILENO);
+		close(temp_stdin);
+	}
+	return (execute_remaining(node, envp, store, original_stdin));
 }

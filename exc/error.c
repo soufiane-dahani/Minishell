@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/29 19:24:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:59:54 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,38 @@ int	exit_status(int status)
 	else if (WIFSTOPPED(status))
 		g_ast->exit_status = 128 + WSTOPSIG(status);
 	return (g_ast->exit_status);
+}
+
+int	is_root(char *s, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (access(str, F_OK | X_OK) == -1 && access(s, F_OK | X_OK) == -1)
+		return (127);
+	if (s[i] == '.' && s[i + 1] == '\0')
+		return (126);
+	while (s[i] && s[i] == '/')
+		i++;
+	if (!s[i])
+		return (126);
+	return (0);
+}
+
+char	*check_command_in_paths(char *cmd, char **paths)
+{
+	char	*path;
+	char	*part_path;
+	int		i;
+
+	i = 0;
+	while (paths[i])
+	{
+		part_path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(part_path, cmd);
+		if (access(path, F_OK) == 0)
+			return (path);
+		i++;
+	}
+	return (NULL);
 }

@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 08:32:09 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:59:29 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*check_command_in_paths(char *cmd, char **paths)
-{
-	char	*path;
-	char	*part_path;
-	int		i;
-
-	i = 0;
-	while (paths[i])
-	{
-		part_path = ft_strjoin(paths[i], "/");
-		path = ft_strjoin(part_path, cmd);
-		if (access(path, F_OK) == 0)
-			return (path);
-		i++;
-	}
-	return (NULL);
-}
 
 char	*find_path(char *cmd, char **envp)
 {
@@ -75,20 +57,25 @@ void	execute(char **cmd, char **envp)
 	exit(1);
 }
 
-int	is_root(char *s, char *str)
+static void	child_process(t_ast *node, char **envp)
 {
-	int	i;
+	execute(node->cmd, envp);
+	ft_malloc(0, FT_CLEAR);
+	exit(1);
+}
 
-	i = 0;
-	if (access(str, F_OK | X_OK) == -1 && access(s,
-			F_OK | X_OK) == -1)
-		return (127);
-	if (s[i] == '.' && s[i + 1] == '\0')
-		return (126);
-	while (s[i] && s[i] == '/')
-		i++;
-	if (!s[i])
-		return (126);
+static int	handle_root_errors(char *cmd, char *str, pid_t pid)
+{
+	int	status;
+	int	root_status;
+
+	root_status = is_root(cmd, str);
+	if (root_status == 127 || root_status == 126)
+	{
+		waitpid(pid, &status, 0);
+		signal(SIGINT, handler_interactive);
+		return (root_status);
+	}
 	return (0);
 }
 
@@ -97,26 +84,22 @@ int	exec_external(t_ast *node, char **envp)
 	pid_t	pid;
 	int		status;
 	char	*str;
+	int		result;
 
-	(1) && (status = 0), (pid = fork());
+	status = 0;
+	pid = fork();
 	reset_signals();
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
-	{
-		execute(node->cmd, envp);
-		ft_malloc(0, FT_CLEAR);
-		exit(1);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		str = ft_strjoin("/usr/bin/", node->cmd[0]);
-		if (is_root(node->cmd[0], str) == 127)
-			return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), 127);
-		if (is_root(node->cmd[0], str) == 126)
-			return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), 126);
-		g_ast->exit_status = exit_status(status);
-		return (waitpid(pid, &status, 0),signal(SIGINT, handler_interactive), g_ast->exit_status);
-	}
+		child_process(node, envp);
+	signal(SIGINT, SIG_IGN);
+	str = ft_strjoin("/usr/bin/", node->cmd[0]);
+	result = handle_root_errors(node->cmd[0], str, pid);
+	if (result)
+		return (result);
+	waitpid(pid, &status, 0);
+	g_ast->exit_status = exit_status(status);
+	signal(SIGINT, handler_interactive);
+	return (g_ast->exit_status);
 }

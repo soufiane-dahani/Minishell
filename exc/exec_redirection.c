@@ -12,9 +12,13 @@
 
 #include "../minishell.h"
 
-static void handle_child_process(t_ast *node, char ***envp, t_export_store *store)
+static void	handle_child_process(t_ast *node, char ***envp,
+		t_export_store *store)
 {
-	int out_fd;
+	int		out_fd;
+	int		left_out_fd;
+	t_ast	*current;
+	int		intermediate_fd;
 
 	out_fd = open_file(node->r->cmd[0], 1);
 	if (out_fd == -1)
@@ -27,7 +31,7 @@ static void handle_child_process(t_ast *node, char ***envp, t_export_store *stor
 	close(out_fd);
 	if (node->l->type == TYP_REDOUT || node->l->type == TYP_REDAPP)
 	{
-		int left_out_fd = open_file(node->l->r->cmd[0], 1);
+		left_out_fd = open_file(node->l->r->cmd[0], 1);
 		if (left_out_fd == -1)
 		{
 			perror("open");
@@ -35,12 +39,12 @@ static void handle_child_process(t_ast *node, char ***envp, t_export_store *stor
 			exit(1);
 		}
 		close(left_out_fd);
-		t_ast *current = node->l;
+		current = node->l;
 		while (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
 		{
 			if (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
 			{
-				int intermediate_fd = open_file(current->r->cmd[0], 1);
+				intermediate_fd = open_file(current->r->cmd[0], 1);
 				if (intermediate_fd != -1)
 					close(intermediate_fd);
 			}

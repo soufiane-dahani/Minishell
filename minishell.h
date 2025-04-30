@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 08:16:27 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:01:03 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_export_store
 
 extern t_ast		*g_ast;
 
-extern int g_dahani;
+extern int			g_dahani;
 
 typedef struct s_token
 {
@@ -270,5 +270,7 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 int					ft_isalnum(int c);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					exit_status(int status);
+char				*check_command_in_paths(char *cmd, char **paths);
+int					is_root(char *s, char *str);
 
 #endif
