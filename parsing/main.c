@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 09:08:36 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:40:45 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,24 @@ static void	print_ast(t_ast *node, int level)
 			node->exp, node->type);
 		for (int i = 1; node->cmd[i]; i++)
 			printf(" --> %s", node->cmd[i]);
-		printf("\n");
-	}
+			printf("\n");
+		}
+		t_token *cur = node->redir;
+		if (cur)
+		{
+			while (cur)
+			{
+				printf("next : %s --> ", cur->value);
+				cur = cur->next;
+			}
+			printf("\n");
+		}
 	else
 		printf("(NULL CMD)\n");
 	print_ast(node->l, level + 8);
 }
 
-int	parsing(t_cmd *data)
+int	parsing(t_cmd *data, t_ast **node)
 {
 	int		i;
 	t_token	*tk;
@@ -108,16 +118,11 @@ int	parsing(t_cmd *data)
 		rl_clear_history();
 		exit(0);
 	}
-	data->s = for_herdoc(data->s);
-	data->s = before_quote(data->s);
-	if (!data->s)
-		return (0);
-	data->s = extra_work(data->s);
 	split_the_cmd(data);
 	tk = tokenize(data->cmd);
 	tk = fix_the_case(tk);
-	if (check_the_exp(tk))
+	if (!is_cmd_valid(tk, node))
 		return (0);
-	print_ast(g_ast, 5);
+	print_ast(*node, 5);
 	return (1);
 }

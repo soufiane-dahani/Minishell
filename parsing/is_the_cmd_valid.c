@@ -6,21 +6,21 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 09:29:54 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 10:41:11 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_cmd_valid(t_token *tk)
+int	is_cmd_valid(t_token *tk, t_ast **node)
 {
 	t_token	*s;
 
 	s = tk;
 	if (!check_the_first(tk))
 		return (0);
-	g_ast = build_the_tree(tk);
-	if (!g_ast)
+	*node = build_the_tree(tk);
+	if (!*node)
 		return (0);
 	return (1);
 }
@@ -81,7 +81,7 @@ int	help_clcule(char **env, int *j, char *s, int *i)
 		(*env)[(*j)++] = s[(*i)++];
 	(*env)[(*j)] = '\0';
 	if ((*j) > 0)
-		total += ft_strlen(my_getenv((*env)));
+		total += ft_strlen(my_getenv(*env, NULL));
 	else
 		total++;
 	return (total);

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 13:20:48 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:32:59 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ int	check_the_exp(t_token *tk)
 		{
 			if (s->value[i] == '$' && s->type != TYP_SQOUTE)
 			{
-				s->is_exp = 1;
+				if (s->type == TYP_DQUOTE)
+					s->is_exp = 1;
+				else
+					s->is_exp = 2;
 				break ;
 			}
 			i++;
 		}
 		s = s->next;
 	}
-	if (is_cmd_valid(tk))
-		return (0);
 	return (1);
 }
 
@@ -53,6 +54,23 @@ int	is_nor(t_token *tk)
 		swp = swp->next;
 	}
 	return (a);
+}
+
+void rediraction_to_linked_list(t_token *tk, t_token **node)
+{
+	t_token *tmp;
+
+	if (!tk || !node)
+		return;
+	// *node = ft_malloc(sizeof(t_token), FT_ALLOC);
+	if (*node == NULL)
+		*node = NULL;
+	tmp = tk;
+	while (tmp)
+	{
+		add_token(node, tmp->value, tmp->type, tmp->is_exp);
+		tmp = tmp->next;
+	}
 }
 
 static char	**tokens_to_cmd_array(t_token *tk)
@@ -93,7 +111,7 @@ t_ast	*start_for_ast(t_token *tk)
 		return (NULL);
 	op = NULL;
 	the_best_sep(tk, &op);
-	if (op)
+	if (op && is_token_sep(op->type))
 	{
 		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
 		if (!node)
@@ -102,15 +120,23 @@ t_ast	*start_for_ast(t_token *tk)
 		help_start(op, &tk, &node);
 		return (node);
 	}
-	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
-	if (!node)
-		return (NULL);
-	node->l = NULL;
-	node->r = NULL;
-	node->cmd = tokens_to_cmd_array(tk);
-	node->exp = tk->is_exp;
-	node->type = tk->type;
-	// printf("jf\n");
-	// node->env = g_ast->env;
+	if (op && op->type != TYP_WORD)
+	{
+		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+		rediraction_to_linked_list(tk, &node->redir);
+	}
+	else
+	{
+		printf("%d\n", tk->type);
+		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+		if (!node)
+			return (NULL);
+		node->l = NULL;
+		node->r = NULL;
+		node->redir = NULL;
+		node->cmd = tokens_to_cmd_array(tk);
+		node->exp = tk->is_exp;
+		node->type = tk->type;
+	}
 	return (node);
 }

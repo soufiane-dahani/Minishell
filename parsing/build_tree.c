@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 10:06:04 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:25:09 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	the_best_sep(t_token *tk, t_token **op)
 		return ;
 	else if (lowest(&tk, TYP_PIPE, op))
 		return ;
-	else if (lowest(&tk, TYP_REDAPP, op))
-		return ;
 	else if (lowest(&tk, TYP_LPAR, op))
+		return ;
+	else if (lowest(&tk, TYP_REDAPP, op))
 		return ;
 	else if (lowest(&tk, TYP_REDHERE, op))
 		return ;
@@ -62,24 +62,18 @@ void	help_start(t_token *op, t_token **tk, t_ast **node)
 	t_token	*left;
 	t_token	*right;
 
-	if (!op || !*tk || !tk || !node || !(*node))
+	if (!op || !tk || !node || !(*node))
 		return ;
 	left = new_list(tk, op);
 	right = op->next;
 	op->next = NULL;
-	(*node)->exp = (*tk)->is_exp;
-	(*node)->type = (*tk)->type;
-	(*node)->cmd[0] = ft_strdup((*tk)->value);
-	// if (is_token_nor((*tk)->type) && right)
-	// {
-	// 	(*node)->cmd[1] = ft_strdup(right->value);
-	// 	(*tk) = (*tk)->next;
-	// 	right = right->next;
-	// }
-	// else
-	(*node)->cmd[1] = NULL;
 	(*node)->l = start_for_ast(left);
 	(*node)->r = start_for_ast(right);
+	(*node)->cmd[0] = ft_strdup((*tk)->value);
+	(*node)->cmd[1] = NULL;
+	(*node)->redir = NULL;
+	(*node)->exp = (*tk)->is_exp;
+	(*node)->type = (*tk)->type;
 }
 
 int	lowest(t_token **tk, t_type h, t_token **op)
@@ -102,8 +96,8 @@ int	lowest(t_token **tk, t_type h, t_token **op)
 			prev = prev->next;
 			continue ;
 		}
-		if (prev && prev->type == h && count_par == 0)
-			*op = prev;
+		if (prev && prev->type == h)
+			last_match = prev;
 		prev = prev->next;
 	}
 	if (last_match)
