@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 10:59:54 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:00:45 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	add_shlvl(char ***env)
 		{
 			level = ft_atoi((*env)[i] + 6);
 			level++;
-			g_ast->shell = level;
 			new_val = ft_itoa(level);
 			tmp = ft_strjoin("SHLVL=", new_val);
 			(*env)[i] = tmp;
@@ -64,12 +63,10 @@ void	add_shlvl(char ***env)
 int	exit_status(int status)
 {
 	if (WIFEXITED(status))
-		g_ast->exit_status = WEXITSTATUS(status);
+		return(WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
-		g_ast->exit_status = 128 + WTERMSIG(status);
-	else if (WIFSTOPPED(status))
-		g_ast->exit_status = 128 + WSTOPSIG(status);
-	return (g_ast->exit_status);
+		return(128 + WTERMSIG(status));
+	return(128 + WSTOPSIG(status));
 }
 
 int	is_root(char *s, char *str)

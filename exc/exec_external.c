@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 13:39:47 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:01:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	exec_external(t_ast *node, char **envp)
 	if (result)
 		return (result);
 	waitpid(pid, &status, 0);
-	g_ast->exit_status = exit_status(status);
 	signal(SIGINT, handler_interactive);
-	return (g_ast->exit_status);
+	return (exit_status(status));
 }

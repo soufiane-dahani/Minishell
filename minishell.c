@@ -6,18 +6,19 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 13:40:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:59:18 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast	*g_ast;
-void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store)
+// t_ast	*g_ast;
+
+void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store, t_ast **node)
 {
-	if (!parsing(data))
+	if (!parsing(data, node))
 		return ;
-	g_ast->exit_status = execute_ast(g_ast, env, store);
+	(*node)->exit_status = execute_ast(*node, env, store);
 }
 
 int	main(int ac, char **av, char **env)
@@ -25,6 +26,7 @@ int	main(int ac, char **av, char **env)
 	t_cmd			*data;
 	char			**env_copy;
 	t_export_store	*store;
+	t_ast			*node;
 
 	(void)av;
 	if (ac != 1)
@@ -34,8 +36,8 @@ int	main(int ac, char **av, char **env)
 	}
 	if (env[0] == NULL)
 		env = add_new_env_if_not_found();
-	g_ast = ft_malloc(sizeof(t_ast), FT_ALLOC);
-	g_ast->exit_status = 0;
+	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+	node->exit_status = 0;
 	env_copy = copy_env(env);
 	add_shlvl(&env_copy);
 	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
@@ -45,10 +47,10 @@ int	main(int ac, char **av, char **env)
 	store->vars = NULL;
 	while (1)
 	{
-		g_ast->env = env_copy;
+		node->env = env_copy;
 		setup_interactive_signals();
 		data->s = readline("minishell$> ");
 		add_history(data->s);
-		ft_clear_work(data, &env_copy, store);
+		ft_clear_work(data, &env_copy, store, &node);
 	}
 }

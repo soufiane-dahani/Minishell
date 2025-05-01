@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 08:16:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:01:41 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ int	exec_pipe(t_ast *node, char ***envp, t_export_store *store)
 	pid2 = handle_right_pipe(node, envp, fd, store);
 	close(fd[0]);
 	close(fd[1]);
-	g_ast->exit_status = exit_status(status);
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
-	return (g_ast->exit_status);
+	return (exit_status(status));
 }

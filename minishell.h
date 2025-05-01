@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 11:01:03 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:00:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ typedef enum e_type
 	TYP_PAR_BLOCK
 }					t_type;
 
+typedef struct s_token
+{
+	char			*value;
+	t_type			type;
+	int				head;
+	int				is_exp;
+	struct s_token	*next;
+}					t_token;
+
 typedef struct s_ast
 {
 	char			**cmd;
@@ -67,6 +76,7 @@ typedef struct s_ast
 	int				shell;
 	struct s_ast	*r;
 	struct s_ast	*l;
+	t_token			*redir;
 }					t_ast;
 
 typedef struct s_export_store
@@ -74,18 +84,10 @@ typedef struct s_export_store
 	char			**vars;
 }					t_export_store;
 
-extern t_ast		*g_ast;
+// extern t_ast		*g_ast;
 
 extern int			g_dahani;
 
-typedef struct s_token
-{
-	char			*value;
-	t_type			type;
-	int				head;
-	int				is_exp;
-	struct s_token	*next;
-}					t_token;
 
 typedef struct s_cmd
 {
@@ -144,7 +146,7 @@ int					handle_token(t_cmd *data, t_spl *spl);
 int					is_special_char(char c);
 int					ft_handle_token(t_cmd *data, t_spl *spl, int *i);
 int					check_the_first(t_token *tk);
-int					is_cmd_valid(t_token *tk);
+int					is_cmd_valid(t_token *tk, t_ast **node);
 char				*ft_strcpy(char *dest, char const *src);
 void				*ft_memset(void *s, int c, size_t n);
 t_token				*tokenize(char **cmd);
@@ -165,7 +167,7 @@ t_token				*create_token(char *value, t_type type, int exp);
 void				the_best_sep(t_token *tk, t_token **op);
 int					lowest(t_token **tk, t_type h, t_token **op);
 void				help_start(t_token *op, t_token **tk, t_ast **node);
-int					parsing(t_cmd *data);
+int					parsing(t_cmd *data, t_ast **node);
 t_token				*fix_the_case(t_token *tk);
 t_token				*fixing(t_token *tk);
 t_token				*handle_wildcard(t_token *tk);
@@ -190,7 +192,7 @@ int					is_hide(char *s);
 int					help_clcule(char **env, int *j, char *s, int *i);
 int					is_token_nor(t_type s);
 char				*for_herdoc(char *s);
-char				*my_getenv(char *s);
+char				*my_getenv(char *s, char **copy);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);
