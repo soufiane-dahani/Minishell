@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/29 09:23:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:58:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,75 +18,53 @@ int	is_token_nor(t_type s)
 		|| s == TYP_REDOUT || s == TYP_REDHERE);
 }
 
-void	extra_help(t_token **new, t_token *s)
+void	store_typ_no_red(t_token **tmp, t_token **redir, t_token **new)
 {
-	t_token	*last;
-
-	add_token(new, s->value, s->type, 0);
-	s = s->next;
-	if (s)
+	while ((*tmp) && !is_token_sep((*tmp)->type))
 	{
-		last = *new;
-		while (last->next)
-			last = last->next;
-		last->next = fix_the_case(s);
-	}
-}
-
-void	help_fix(t_token *s, t_token **new, t_token *redir)
-{
-	while (s && !is_token_sep(s->type) && !is_token_nor(s->type))
-	{
-		add_token(new, s->value, s->type, 0);
-		s = s->next;
-	}
-	if (redir)
-	{
-		add_token(new, redir->value, redir->type, 0);
-		redir = redir->next;
-		if (redir)
-			add_token(new, redir->value, redir->type, 0);
-	}
-	while (s && is_token_nor(s->type))
-	{
-		add_token(new, s->value, s->type, 0);
-		s = s->next;
-		if (s)
+		if (is_token_nor((*tmp)->type))
 		{
-			add_token(new, s->value, s->type, 0);
-			s = s->next;
+			add_token(redir, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
+			(*tmp) = (*tmp)->next;
+			if ((*tmp) && (*tmp)->type == TYP_WORD)
+				add_token(redir, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
 		}
+		else
+			add_token(new, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
+		(*tmp) = (*tmp)->next;
 	}
-	if (s)
-		extra_help(new, s);
+	while ((*redir))
+	{
+		add_token(new, (*redir)->value, (*redir)->type, (*redir)->is_exp);
+		(*redir) = (*redir)->next;
+	}
 }
 
 t_token	*fix_the_case(t_token *tk)
 {
-	t_token	*s;
-	t_token	*new;
 	t_token	*redir;
+	t_token	*new;
+	t_token	*tmp;
+	t_token	*head;
 
-	(1) && (s = tk), (new = NULL), (redir = NULL);
-	while (s && !is_token_nor(s->type))
-		s = s->next;
-	if (!s)
+	if (!tk)
+		return (NULL);
+	redir = NULL;
+	new = NULL;
+	tmp = tk;
+	while (tmp && !is_token_nor(tmp->type))
+		tmp = tmp->next;
+	if (!tmp)
 		return (tk);
-	s = tk;
-	while (s && !is_token_sep(s->type) && !is_token_nor(s->type))
+	tmp = tk;
+	store_typ_no_red(&tmp, &redir, &new);
+	if (!tmp)
 	{
-		add_token(&new, s->value, s->type, 0);
-		s = s->next;
+		head = new;
+		while (head->next)
+			head = head->next;
+		head->next = fix_the_case(tmp);
 	}
-	if (!s)
-		return (tk);
-	if (s->next && !is_token_sep(s->type))
-	{
-		redir = s;
-		s = s->next;
-		s = s->next;
-	}
-	help_fix(s, &new, redir);
 	return (new);
 }
 

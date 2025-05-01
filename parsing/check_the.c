@@ -6,18 +6,18 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 15:32:59 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:53:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_the_exp(t_token *tk)
+int	check_the_exp(t_token **tk)
 {
 	int		i;
 	t_token	*s;
 
-	s = tk;
+	s = *tk;
 	while (s)
 	{
 		i = 0;
@@ -63,8 +63,7 @@ void rediraction_to_linked_list(t_token *tk, t_token **node)
 	if (!tk || !node)
 		return;
 	// *node = ft_malloc(sizeof(t_token), FT_ALLOC);
-	if (*node == NULL)
-		*node = NULL;
+	*node = NULL;
 	tmp = tk;
 	while (tmp)
 	{
@@ -123,11 +122,11 @@ t_ast	*start_for_ast(t_token *tk)
 	if (op && op->type != TYP_WORD)
 	{
 		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+		node->cmd = NULL;
 		rediraction_to_linked_list(tk, &node->redir);
 	}
 	else
 	{
-		printf("%d\n", tk->type);
 		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
 		if (!node)
 			return (NULL);

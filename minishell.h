@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 16:00:08 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:40:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ char				*ft_strcpy(char *dest, char const *src);
 void				*ft_memset(void *s, int c, size_t n);
 t_token				*tokenize(char **cmd);
 int					nb_tok(char *str);
-int					check_the_exp(t_token *tk);
+int					check_the_exp(t_token **tk);
 int					invalid_syntax(t_token *tk);
 t_ast				*build_the_tree(t_token *tk);
 int					dup_the_token(t_cmd *data, t_spl *spl);
