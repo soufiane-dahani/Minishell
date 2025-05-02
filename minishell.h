@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 11:55:24 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:27:08 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ typedef struct s_export_store
 	char			**vars;
 }					t_export_store;
 
-// extern t_ast		*g_ast;
-
-extern int			g_dahani;
 
 
 typedef struct s_cmd

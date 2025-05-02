@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 16:36:18 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:52:36 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store, t_ast **node
 {
 	if (!parsing(data, node))
 		return ;
-	// (*node)->exit_status = execute_ast(*node, env, store);
+	(*node)->exit_status = execute_ast(*node, env, store);
 }
 
 int	main(int ac, char **av, char **env)
