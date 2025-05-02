@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 18:53:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:27:14 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	**tokens_to_cmd_array(t_token *tk)
 
 	count = 0;
 	tmp = tk;
-	while (tmp)
+	while (tmp && tmp == TYP_WORD)
 	{
 		count++;
 		tmp = tmp->next;
@@ -91,7 +91,7 @@ static char	**tokens_to_cmd_array(t_token *tk)
 		return (NULL);
 	tmp = tk;
 	i = 0;
-	while (tmp)
+	while (tmp && tmp->type == TYP_WORD)
 	{
 		if (tmp->type != TYP_RPAR)
 			cmd[i++] = ft_strdup(tmp->value);
@@ -110,7 +110,7 @@ t_ast	*start_for_ast(t_token *tk)
 		return (NULL);
 	op = NULL;
 	the_best_sep(tk, &op);
-	if (op && is_token_sep(op->type))
+	if (op && (is_token_sep(op->type) || op->type == TYP_LPAR))
 	{
 		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
 		if (!node)
@@ -125,17 +125,21 @@ t_ast	*start_for_ast(t_token *tk)
 		node->cmd = NULL;
 		rediraction_to_linked_list(tk, &node->redir);
 	}
-	else
+	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
+	if (!node)
+		return (NULL);
+	node->l = NULL;
+	node->r = NULL;
+	// node->redir = NULL;
+	node->cmd = tokens_to_cmd_array(tk);
+	node->exp = tk->is_exp;
+	node->type = tk->type;
+	while (tk && tk->type == TYP_WORD)
+		tk = tk->next;
+	while (tk)
 	{
-		node = ft_malloc(sizeof(t_ast), FT_ALLOC);
-		if (!node)
-			return (NULL);
-		node->l = NULL;
-		node->r = NULL;
-		node->redir = NULL;
-		node->cmd = tokens_to_cmd_array(tk);
-		node->exp = tk->is_exp;
-		node->type = tk->type;
+		add_token(&node->redir, tk->value, tk->type, tk->is_exp);
+		tk = tk->next;
 	}
 	return (node);
 }

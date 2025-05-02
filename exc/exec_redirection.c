@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/02 11:57:37 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:11:47 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	handle_child_process(t_ast *node, char ***envp,
 			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
-		node2->next;
+		node2 = node2->next;
 	}
 	dup2(out_fd, STDOUT_FILENO);
 	close(out_fd);
@@ -56,6 +56,7 @@ static void	handle_child_process2(t_ast *node, char ***envp,
 	t_export_store *store)
 {
 	t_token *node2;
+	int		out_fd;
 	node2 = node->redir;
 	int in_fd;
 	while (node2)
@@ -68,7 +69,7 @@ static void	handle_child_process2(t_ast *node, char ***envp,
 			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
-		node2->next;
+		node2 = node2->next;
 	}
 	dup2(out_fd, STDOUT_FILENO);
 	close(out_fd);
@@ -77,20 +78,20 @@ static void	handle_child_process2(t_ast *node, char ***envp,
 	exit(1);
 }
 
-int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
-{
-	pid_t	pid;
-	int		status;
+// int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
+// {
+// 	pid_t	pid;
+// 	int		status;
 
-	pid = fork();
-	reset_signals();
-	if (pid == -1)
-		return (perror("fork"), 1);
-	if (pid == 0)
-		handle_child_process2(node, envp, store);
-	waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
-}
+// 	pid = fork();
+// 	reset_signals();
+// 	if (pid == -1)
+// 		return (perror("fork"), 1);
+// 	if (pid == 0)
+// 		handle_child_process2(node, envp, store);
+// 	waitpid(pid, &status, 0);
+// 	return (WEXITSTATUS(status));
+// }
 
 int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
 {
@@ -215,7 +216,7 @@ int	apply_redirections(t_ast *node, char ***envp, t_export_store *store)
 	t_token *node2;
 	node2 = node->redir;
 	pid_t	pid;
-	
+
 	pid = fork();
 	reset_signals();
 	if (pid == -1)
