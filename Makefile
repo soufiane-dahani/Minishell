@@ -6,7 +6,7 @@
 #    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/04/29 19:01:03 by yaait-am         ###   ########.fr        #
+#    Updated: 2025/05/02 15:47:46 by yaait-am         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,9 @@ LDFLAGS = -lreadline -L -lft
 TARGET = minishell
 SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
 	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c parsing/malloc.c libft_used/ft_strncmp.c \
-	parsing/parsing.c parsing/is.c parsing/t_ast.c parsing/is_the_cmd_valid.c parsing/first_worderr.c parsing/to_linked.c \
-	parsing/check_the.c parsing/pars_cmd.c parsing/creat_new_node.c parsing/build_tree.c parsing/extra_handle.c \
-	parsing/handel_quote.c parsing/check_ast_v.c\
+	parsing/parsing.c parsing/is_function.c parsing/start_building_ast.c parsing/is_the_cmd_valid.c parsing/first_word_error.c \
+	parsing/creat_the_linked.c parsing/helper_func_to_build_ast.c parsing/helper_function.c parsing/creat_new_node.c parsing/build_the_ast.c \
+	parsing/nb_of_token.c parsing/handel_quote.c parsing/get_the_env.c\
 	exc/exc.c exc/error.c exc/builtins_cd.c exc/helper_fun.c \
 	exc/builtins_pwd.c exc/builtins_exit.c exc/builtins_env.c exc/builtins_unset.c exc/builtins_export.c \
 	exc/helper_fun2.c exc/exec_external.c exc/exec_pipe.c exc/exec_redirection.c exc/exec_redirection_here_doc.c \

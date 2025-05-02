@@ -6,17 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 10:41:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:43:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isalnum(int c)
-{
-	return ((c >= 'A' && c <= 'Z')
-		|| (c >= 'a' && c <= 'z'));
-}
 
 void	store_new(char **new, int *i, char *s, int *old)
 {

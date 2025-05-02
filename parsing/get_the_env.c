@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 10:37:51 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 15:30:45 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*my_getenv(char *s, char **copy)
 {
-	int		i;
-	int		len;
+	int			i;
+	int			len;
 	static char	**env;
 
 	if (!env)
