@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 14:39:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:50:16 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	open_file(char *filename, int mode)
 {
 	int	fd;
 
-	if (mode == 0)
+	if (mode == TYP_REDAPP)
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (mode == 1)
+	else if (mode == TYP_REDOUT)
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (mode == 2)
+	else if (mode == TYP_REDIN)
 		fd = open(filename, O_RDONLY);
 	else
 		return (-1);

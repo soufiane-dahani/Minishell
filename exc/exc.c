@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 08:10:42 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:40:23 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 {
 	if (!node)
 		return (1);
+	if (node->redir)
+	{
+		if (apply_redirections(node, envp, store) == -1)
+			return (1);
+	}
 	if (node->type == TYP_WORD)
 	{
 		if (is_builtin(node->cmd))
@@ -56,9 +61,6 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 	}
 	else if (node->type == TYP_PIPE)
 		return (exec_pipe(node, envp, store));
-	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP
-			|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
-		return (exec_redirection(node, envp, store));
 	else if (node->type == TYP_AND)
 		return (exec_and(node, envp, store));
 	else if (node->type == TYP_OR)

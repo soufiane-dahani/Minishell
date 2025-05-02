@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/30 10:00:14 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:57:37 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,24 @@
 static void	handle_child_process(t_ast *node, char ***envp,
 		t_export_store *store)
 {
-	int		out_fd;
-	int		left_out_fd;
-	t_ast	*current;
-	int		intermediate_fd;
-
-	out_fd = open_file(node->r->cmd[0], 1);
-	if (out_fd == -1)
+	t_token *node2;
+	node2 = node->redir;
+	int out_fd;
+	while (node2)
 	{
-		perror("open");
-		ft_malloc(0, FT_CLEAR);
-		exit(1);
-	}
-	dup2(out_fd, STDOUT_FILENO);
-	close(out_fd);
-	if (node->l->type == TYP_REDOUT || node->l->type == TYP_REDAPP)
-	{
-		left_out_fd = open_file(node->l->r->cmd[0], 1);
-		if (left_out_fd == -1)
+		if (node2->type == TYP_WORD)
+			out_fd = open_file(node2->value, 1);
+		if (out_fd == -1)
 		{
 			perror("open");
 			ft_malloc(0, FT_CLEAR);
 			exit(1);
 		}
-		close(left_out_fd);
-		current = node->l;
-		while (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
-		{
-			if (current->type == TYP_REDOUT || current->type == TYP_REDAPP)
-			{
-				intermediate_fd = open_file(current->r->cmd[0], 1);
-				if (intermediate_fd != -1)
-					close(intermediate_fd);
-			}
-			current = current->l;
-		}
-		execute_ast(current, envp, store);
+		node2->next;
 	}
-	else
-		execute_ast(node->l, envp, store);
+	dup2(out_fd, STDOUT_FILENO);
+	close(out_fd);
+	execute_ast(node->r, envp, store);
 	ft_malloc(0, FT_CLEAR);
 	exit(1);
 }
@@ -69,6 +48,46 @@ int	typ_redout_fun(t_ast *node, char ***envp, t_export_store *store)
 		return (perror("fork"), 1);
 	if (pid == 0)
 		handle_child_process(node, envp, store);
+	waitpid(pid, &status, 0);
+	return (WEXITSTATUS(status));
+}
+
+static void	handle_child_process2(t_ast *node, char ***envp,
+	t_export_store *store)
+{
+	t_token *node2;
+	node2 = node->redir;
+	int in_fd;
+	while (node2)
+	{
+		if (node2->type == TYP_WORD)
+			out_fd = open_file(node2->value, 1);
+		if (in_fd == -1)
+		{
+			perror("open");
+			ft_malloc(0, FT_CLEAR);
+			exit(1);
+		}
+		node2->next;
+	}
+	dup2(out_fd, STDOUT_FILENO);
+	close(out_fd);
+	execute_ast(node->r, envp, store);
+	ft_malloc(0, FT_CLEAR);
+	exit(1);
+}
+
+int	typ_redin_fun(t_ast *node, char ***envp, t_export_store *store)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	reset_signals();
+	if (pid == -1)
+		return (perror("fork"), 1);
+	if (pid == 0)
+		handle_child_process2(node, envp, store);
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
@@ -131,19 +150,82 @@ int	typ_redapp_fun(t_ast *node, char ***envp, t_export_store *store)
 	}
 	return (waitpid(pid, &status, 0), WEXITSTATUS(status));
 }
-
-int	exec_redirection(t_ast *node, char ***envp, t_export_store *store)
+void	close_fd(int fd)
 {
-	if (!node || !(node->type == TYP_REDOUT || node->type == TYP_REDAPP
-			|| node->type == TYP_REDIN || node->type == TYP_REDHERE))
+	if (fd >= 3)
+		close(fd);
+}
+
+int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
+{
+	int (fd);
+	while (redir)
+	{
+		fd = open_file(redir->next->value, redir->type);
+		if (fd == -1)
+		{
+			perror("error");
+			return (1);
+		}
+		if (redir->type == TYP_REDIN)
+		{
+			close_fd(*in_file);
+			*in_file = fd;
+		}
+		else
+		{
+			close_fd(*out_file);
+			*out_file = fd;
+		}
+		redir = redir->next->next;
+	}
+	return (0);
+}
+
+int	get_redirections(t_ast *cmd, int *in_file, int *out_file)
+{
+	t_token	*redir;
+
+	*in_file = -1;
+	*out_file = -1;
+	if (!cmd->redir)
+		return (0);
+	redir = cmd->redir;
+	if (get_in_out_file(redir, in_file, out_file))
 		return (1);
-	if (node->type == TYP_REDOUT)
-		return (typ_redout_fun(node, envp, store));
-	else if (node->type == TYP_REDIN)
-		return (typ_redin_fun(node, envp, store));
-	else if (node->type == TYP_REDAPP)
-		return (typ_redapp_fun(node, envp, store));
-	else if (node->type == TYP_REDHERE)
-		return (typ_redhere_fun(node, envp, store));
-	return (1);
+	if (*in_file != -1 && dup2(*in_file, STDIN_FILENO) == -1)
+	{
+		perror("dup2");
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
+	if (*out_file != -1 && dup2(*out_file, STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
+	return (0);
+}
+
+int	apply_redirections(t_ast *node, char ***envp, t_export_store *store)
+{
+	int in_fd;
+	int out_fd;
+	t_token *node2;
+	node2 = node->redir;
+	pid_t	pid;
+	
+	pid = fork();
+	reset_signals();
+	if (pid == -1)
+		return (perror("fork"), 1);
+	if (pid == 0)
+	{
+		get_redirections(node, &in_fd, &out_fd);
+		execute_ast(node->r, envp, store);
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
+	return (0);
 }

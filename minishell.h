@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 16:40:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:55:24 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,5 +274,5 @@ size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					exit_status(int status);
 char				*check_command_in_paths(char *cmd, char **paths);
 int					is_root(char *s, char *str);
-
+int	apply_redirections(t_ast *node, char ***envp, t_export_store *store);
 #endif

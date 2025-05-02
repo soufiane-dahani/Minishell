@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_ast.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 18:58:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:59:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ t_token	*fix_the_case(t_token *tk)
 		return (tk);
 	tmp = tk;
 	store_typ_no_red(&tmp, &redir, &new);
-	if (!tmp)
+	if (tmp)
 	{
+		add_token(&new, tmp->value, tmp->type, tmp->is_exp);
 		head = new;
 		while (head->next)
 			head = head->next;
-		head->next = fix_the_case(tmp);
+		head->next = fix_the_case(tmp->next);
 	}
 	return (new);
 }
