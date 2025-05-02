@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_the.c                                        :+:      :+:    :+:   */
+/*   build_the_ast.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 15:27:14 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:46:19 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ static char	**tokens_to_cmd_array(t_token *tk)
 	i = 0;
 	while (tmp && tmp->type == TYP_WORD)
 	{
-		if (tmp->type != TYP_RPAR)
-			cmd[i++] = ft_strdup(tmp->value);
+		cmd[i++] = ft_strdup(tmp->value);
 		tmp = tmp->next;
 	}
 	cmd[i] = NULL;
@@ -138,7 +137,8 @@ t_ast	*start_for_ast(t_token *tk)
 		tk = tk->next;
 	while (tk)
 	{
-		add_token(&node->redir, tk->value, tk->type, tk->is_exp);
+		if (tk->type != TYP_RPAR)
+			add_token(&node->redir, tk->value, tk->type, tk->is_exp);
 		tk = tk->next;
 	}
 	return (node);
