@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 16:53:55 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/03 17:25:05 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,4 +272,6 @@ int					exit_status(int status);
 char				*check_command_in_paths(char *cmd, char **paths);
 int					is_root(char *s, char *str);
 int	apply_redirections(t_ast *node, char ***envp, t_export_store *store);
+char	*random_str(void);
+
 #endif
