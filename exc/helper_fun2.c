@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/04 15:57:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:43:43 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,10 @@ char	**handle_exp_for_camond(char **cmd)
 	while (cmd[i])
 	{
 		if (is_couple(cmd[i]))
-		{
 			cmd[i] = exp_for_herdoc(cmd[i]);
-		}
 		else if (!is_has_quote(cmd[i]))
 			cmd[i] = exp_for_herdoc(cmd[i]);
+		cmd[i] = before_quote(cmd[i]);
 		cmd[i] = skip_quote(cmd[i]);
 		i++;
 	}
