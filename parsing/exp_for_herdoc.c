@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 15:20:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:10:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ static void	more_expand(char **new, int *i, char *s, int *a)
 	(*i)++;
 	if (handle_exit_and_number(new, i, s, a))
 		return ;
+	if (!ft_isalnum(s[(*i)]))
+	{
+		(*new)[(*a)++] = '$';
+		return ;
+	}
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store[j++] = s[(*i)++];
 	store[j] = '\0';
