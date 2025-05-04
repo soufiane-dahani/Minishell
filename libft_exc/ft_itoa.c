@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 07:42:09 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 18:29:38 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 18:00:38 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
+
 int	ft_atoi(const char *str)
 {
 	int					i;

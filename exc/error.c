@@ -63,10 +63,10 @@ void	add_shlvl(char ***env)
 int	exit_status(int status)
 {
 	if (WIFEXITED(status))
-		return(WEXITSTATUS(status));
+		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
-		return(128 + WTERMSIG(status));
-	return(128 + WSTOPSIG(status));
+		return (128 + WTERMSIG(status));
+	return (128 + WSTOPSIG(status));
 }
 
 int	is_root(char *s, char *str)

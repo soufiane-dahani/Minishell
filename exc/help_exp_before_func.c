@@ -48,9 +48,9 @@ void	help_quoute(char *str, char **new, t_quote *q)
 
 char	*before_quote(char *str)
 {
-	t_quote		q;
-	char		*env;
-	char		*new;
+	t_quote	q;
+	char	*env;
+	char	*new;
 
 	env = ft_malloc(ft_strlen(str) * sizeof(char) + 1, FT_ALLOC);
 	q.a = calculate_s(str, env);

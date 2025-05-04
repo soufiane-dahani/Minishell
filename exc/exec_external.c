@@ -80,7 +80,7 @@ static int	handle_root_errors(char *cmd, char *str, pid_t pid)
 	return (0);
 }
 
-int exec_external(t_ast *node, char **envp)
+int	exec_external(t_ast *node, char **envp)
 {
 	pid_t	pid;
 	int		status;

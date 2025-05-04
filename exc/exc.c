@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/04 16:42:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:55:14 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,33 @@ int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 	return (1);
 }
 
-int execute_ast(t_ast *node, char ***envp, t_export_store *store)
+static int	execute_ast_by_type(t_ast *node, char ***envp,
+		t_export_store *store)
 {
-    int ret;
+	if (node->type == TYP_PIPE)
+		return (exec_pipe(node, envp, store));
+	else if (node->type == TYP_AND)
+		return (exec_and(node, envp, store));
+	else if (node->type == TYP_OR)
+		return (exec_or(node, envp, store));
+	else if (node->type == TYP_LPAR)
+		return (exec_subshell(node, envp, store));
+	return (1);
+}
 
-    if (!node)
-        return (1);
+int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
+{
+	if (!node)
+		return (1);
 	node->cmd = handle_exp_for_camond(node->cmd);
-    if (node->type == TYP_WORD)
-    {
-        if (node->redir)
-            return (apply_redirections(node, envp, store));
-        else
-        {
-            if (is_builtin(node->cmd))
-                return (exec_builtin(node, envp, store));
-            else
-                return (exec_external(node, *envp));
-        }
-    }
-    else if (node->type == TYP_PIPE)
-        return (exec_pipe(node, envp, store));
-    else if (node->type == TYP_AND)
-        return (exec_and(node, envp, store));
-    else if (node->type == TYP_OR)
-        return (exec_or(node, envp, store));
-    else if (node->type == TYP_LPAR)
-        return (exec_subshell(node, envp, store));
-
-    return (1);
+	if (node->type == TYP_WORD)
+	{
+		if (node->redir)
+			return (apply_redirections(node, envp, store));
+		else if (is_builtin(node->cmd))
+			return (exec_builtin(node, envp, store));
+		else
+			return (exec_external(node, *envp));
+	}
+	return (execute_ast_by_type(node, envp, store));
 }
