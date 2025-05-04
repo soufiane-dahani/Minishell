@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:52:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 11:38:14 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 17:05:06 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	**tokens_to_cmd_array(t_token *tk)
 
 	count = 0;
 	tmp = tk;
-	while (tmp && !is_token_nor(tmp->type))
+	while (tmp && !is_token_nor(tmp->type) && tk->type != TYP_RPAR)
 	{
 		count++;
 		tmp = tmp->next;
@@ -31,7 +31,7 @@ static char	**tokens_to_cmd_array(t_token *tk)
 		return (NULL);
 	tmp = tk;
 	i = 0;
-	while (tmp && !is_token_nor(tmp->type))
+	while (tmp && !is_token_nor(tmp->type) && tmp->type != TYP_RPAR)
 	{
 		cmd[i++] = ft_strdup(tmp->value);
 		tmp = tmp->next;
@@ -49,7 +49,9 @@ void	creat_the_cmd(t_ast **node, t_token **tk)
 	(*node)->cmd = tokens_to_cmd_array(*tk);
 	(*node)->exp = (*tk)->is_exp;
 	(*node)->type = (*tk)->type;
-	while ((*tk) && !is_token_nor((*tk)->type))
+	while ((*tk) && !is_token_nor((*tk)->type) && (*tk)->type != TYP_RPAR)
+		(*tk) = (*tk)->next;
+	if ((*tk) && (*tk)->type == TYP_RPAR)
 		(*tk) = (*tk)->next;
 	while ((*tk))
 	{
