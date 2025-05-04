@@ -3,110 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 16:48:20 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:03:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	help_herdoc(char **new, char *s)
-{
-	int (i), (a);
-	i = 0;
-	a = 0;
-	while (s[i])
-	{
-		if ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '&' && s[i + 1] == '&'))
-		{
-			(*new)[a++] = s[i++];
-			(*new)[a++] = s[i++];
-			while (s[i] && is_space(s[i]))
-				(*new)[a++] = s[i++];
-			if (s[i] == '"')
-				i++;
-			if (s[i] == '$')
-				(*new)[a++] = '\'';
-			while (s[i] && !is_token(s[i]) && s[i] != '"')
-				(*new)[a++] = s[i++];
-			if (s[i] == '"')
-				i++;
-			(*new)[a++] = '\'';
-		}
-		else
-			(*new)[a++] = s[i++];
-	}
-	(*new)[a] = '\0';
-}
-
-char	*for_herdoc(char *s)
-{
-	int		i;
-	int		a;
-	char	*new;
-
-	a = 0;
-	i = 0;
-	while (s[i])
-	{
-		if ((s[i] == '<' && s[i + 1] == '<') || (s[i] == '&' && s[i + 1] == '&'))
-		{
-			i += 2;
-			while (s[i] && is_space(s[i]))
-				i++;
-			if (s[i] == '"')
-				i++;
-			if (s[i] == '$')
-				a++;
-		}
-		i++;
-	}
-	if (!a)
-		return (s);
-	new = ft_malloc(ft_strlen(s) + (a * 2) + 2, FT_ALLOC);
-	help_herdoc(&new, s);
-	return (new);
-}
-
-static void	print_indent(int level)
-{
-	for (int i = 0; i < level; i++)
-		printf("   ");
-}
-
-static void	print_ast(t_ast *node, int level)
-{	
-	if (!node)
-		return;
-	print_ast(node->r, level + 8);
-	print_indent(level);
-	if (node->cmd && node->cmd[0])
-	{
-		printf("%s - %d - %d", node->cmd[0], node->exp, node->type);
-		for (int i = 1; node->cmd[i]; i++)
-			printf(" --> %s", node->cmd[i]);
-		printf("\n");
-	}
-	else
-		printf("(NULL CMD)\n");
-	if (node->redir)
-	{
-		print_indent(level);
-		printf("Redirections: ");
-		t_token *cur = node->redir;
-		while (cur)
-		{
-			printf("%s - %d - %d", cur->value, cur->type, cur->is_exp);
-			if (cur->next)
-				printf(" --> ");
-			cur = cur->next;
-		}
-		printf("\n");
-	}
-	print_ast(node->l, level + 8);
-}
 
 int	parsing(t_cmd *data, t_ast **node)
 {
@@ -123,10 +27,7 @@ int	parsing(t_cmd *data, t_ast **node)
 	}
 	split_the_cmd(data);
 	tk = tokenize(data->cmd);
-	tk = fix_the_case(tk);
-	check_the_exp(&tk);
 	if (!is_cmd_valid(tk, node))
 		return (0);
-	print_ast(*node, 5);
 	return (1);
 }

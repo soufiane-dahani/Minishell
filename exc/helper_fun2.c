@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_fun2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/02 11:50:16 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:57:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,23 @@ int	open_file(char *filename, int mode)
 	else
 		return (-1);
 	return (fd);
+}
+
+char	**handle_exp_for_camond(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (is_couple(cmd[i]))
+		{
+			cmd[i] = exp_for_herdoc(cmd[i]);
+		}
+		else if (!is_has_quote(cmd[i]))
+			cmd[i] = exp_for_herdoc(cmd[i]);
+		cmd[i] = skip_quote(cmd[i]);
+		i++;
+	}
+	return (cmd);
 }

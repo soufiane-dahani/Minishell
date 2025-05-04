@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/03 17:25:05 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:00:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_export_store
 	char			**vars;
 }					t_export_store;
 
-
+extern int	the_exit;
 
 typedef struct s_cmd
 {
@@ -121,6 +121,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int					is_has_quote(char *s);
 int					is_single(char *s);
 int					is_couple(char *s);
 char				*before_quote(char *c);
@@ -190,6 +191,11 @@ int					help_clcule(char **env, int *j, char *s, int *i);
 int					is_token_nor(t_type s);
 char				*for_herdoc(char *s);
 char				*my_getenv(char *s, char **copy);
+t_token				*handele_herdoc(t_token *tk);
+char				*exp_for_herdoc(char *s);
+void				creat_the_cmd(t_ast **node, t_token **tk);
+char				*random_str(void);
+char				**handle_exp_for_camond(char **cmd);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);

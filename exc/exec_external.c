@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/01 16:01:08 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:54:44 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,31 @@ static int	handle_root_errors(char *cmd, char *str, pid_t pid)
 	return (0);
 }
 
-int	exec_external(t_ast *node, char **envp)
+int exec_external(t_ast *node, char **envp)
 {
 	pid_t	pid;
 	int		status;
 	char	*str;
 	int		result;
 
-	status = 0;
-	pid = fork();
-	reset_signals();
+	(1) && (status = 0), (pid = fork());
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
+	{
+		reset_signals();
 		child_process(node, envp);
-	signal(SIGINT, SIG_IGN);
+		exit(1);
+	}
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
 	result = handle_root_errors(node->cmd[0], str, pid);
 	if (result)
 		return (result);
+	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
-	signal(SIGINT, handler_interactive);
+	if (WTERMSIG(status) == SIGQUIT)
+		write(2, "Quit (core dumped)\n", 19);
+	else if (WTERMSIG(status) == SIGINT)
+		write(1, "\n", 1);
 	return (exit_status(status));
 }

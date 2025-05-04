@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 21:33:58 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:53:04 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ int	my_export(char **args, char ***envp_ptr, t_export_store *store)
 		handle_export_arg(args[i], envp_ptr, store);
 		i++;
 	}
+	my_getenv(NULL, *envp_ptr);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_ast.c                                            :+:      :+:    :+:   */
+/*   start_building_ast.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:42:19 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 09:59:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 11:35:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ void	store_typ_no_red(t_token **tmp, t_token **redir, t_token **new)
 		{
 			add_token(redir, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
 			(*tmp) = (*tmp)->next;
-			if ((*tmp) && (*tmp)->type == TYP_WORD)
+			if ((*tmp) && ((*tmp)->type == TYP_WORD
+					|| (*tmp)->type == TYP_DQUOTE
+					|| (*tmp)->type == TYP_SQOUTE))
 				add_token(redir, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
+			else
+				add_token(new, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
 		}
 		else
 			add_token(new, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);

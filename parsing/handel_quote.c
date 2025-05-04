@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 15:43:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:40:34 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,27 @@ t_token	*handle_exp_quote(t_token *tk)
 		s = s->next;
 	}
 	return (tk);
+}
+
+int	handle_quote(t_cmd *data, int i)
+{
+	char	quote;
+	int		start;
+
+	while (data->s[i] && data->s[i] != '\'' && data->s[i] != '"')
+		i++;
+	start = i;
+	while (start > 0 && !is_space(data->s[start - 1])
+		&& !is_special_char(data->s[start - 1]))
+		start--;
+	quote = data->s[i];
+	i++;
+	while (data->s[i] && data->s[i] != quote)
+		i++;
+	if (data->s[i] == quote)
+		i++;
+	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i])
+		&& data->s[i] != '"' && data->s[i] != '\'')
+		i++;
+	return (i - start);
 }

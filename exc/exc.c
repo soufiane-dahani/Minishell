@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/02 16:29:40 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:54:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 int execute_ast(t_ast *node, char ***envp, t_export_store *store)
 {
     int ret;
-    
+
     if (!node)
         return (1);
-        
+	node->cmd = handle_exp_for_camond(node->cmd);
     if (node->type == TYP_WORD)
     {
         if (node->redir)
@@ -70,6 +70,6 @@ int execute_ast(t_ast *node, char ***envp, t_export_store *store)
         return (exec_or(node, envp, store));
     else if (node->type == TYP_LPAR)
         return (exec_subshell(node, envp, store));
-    
+
     return (1);
 }

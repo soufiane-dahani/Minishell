@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/02 16:32:48 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:56:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void close_fd(int fd)
 int get_in_out_file(t_token *redir, int *in_file, int *out_file)
 {
     int fd;
-    
+
     while (redir)
     {
+		redir->next->value = exp_for_herdoc(redir->next->value);
+		redir->next->value = exp_for_herdoc(redir->next->value);
         fd = open_file(redir->next->value, redir->type);
         if (fd == -1)
         {
@@ -82,7 +84,7 @@ int apply_redirections(t_ast *node, char ***envp, t_export_store *store)
     pid = fork();
     if (pid == -1)
         return (perror("fork"), -1);
-        
+
     if (pid == 0)
     {
         reset_signals();

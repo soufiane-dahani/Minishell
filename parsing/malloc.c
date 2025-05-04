@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:33:12 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 09:59:20 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:03:48 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_question(char *s, int *i)
 
 	if (s[*i] == '?')
 	{
-		num = 0; //ft_itoa(g_ast->exit_status);
+		num = ft_itoa(the_exit);
 		len = ft_strlen(num);
 		(*i)++;
 		return (len);

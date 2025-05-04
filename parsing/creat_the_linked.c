@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_linked.c                                        :+:      :+:    :+:   */
+/*   creat_the_linked.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/01 18:45:15 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 11:07:57 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ t_token	*tokenize(char **cmd)
 
 t_token	*fixing(t_token *tk)
 {
-	tk = handle_wildcard(tk);
-	// tk = handle_exp_quote(tk);
+	check_the_exp(&tk);
+	tk = fix_the_case(tk);
+	tk = handele_herdoc(tk);
+	if (!tk)
+		return (NULL);
 	return (tk);
 }

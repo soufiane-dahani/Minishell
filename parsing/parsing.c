@@ -6,11 +6,24 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/26 14:41:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:40:25 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_has_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != '\'' && s[i] != '"'
+		&& !is_space(s[i]) && !is_token(s[i]))
+		i++;
+	if (!s[i] || is_space(s[i]) || is_token(s[i]))
+		return (0);
+	return (1);
+}
 
 void	split_the_cmd(t_cmd *data)
 {
@@ -26,7 +39,7 @@ void	split_the_cmd(t_cmd *data)
 		if (!data->s[spl.i])
 			break ;
 		spl.start = &data->s[spl.i];
-		if (data->s[spl.i] == '"' || data->s[spl.i] == '\'')
+		if (is_has_quote(data->s + spl.i))
 			spl.offset = handle_quote(data, spl.i);
 		else
 			spl.offset = handle_token(data, &spl);
@@ -112,24 +125,4 @@ int	ft_handle_token(t_cmd *data, t_spl *spl, int *i)
 	else if (data->s[*i] == '&')
 		return (data->cmd[spl->token_count++] = ft_strndup("&", 1), 1);
 	return (0);
-}
-
-int	handle_quote(t_cmd *data, int i)
-{
-	char	quote;
-	int		start;
-
-	start = i;
-	while (start > 0 && !is_space(data->s[start - 1])
-		&& !is_special_char(data->s[start - 1]))
-		start--;
-	quote = data->s[i];
-	i++;
-	while (data->s[i] && data->s[i] != quote)
-		i++;
-	if (data->s[i] == quote)
-		i++;
-	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i]))
-		i++;
-	return (i - start);
 }

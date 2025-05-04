@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 10:08:18 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 15:48:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:40:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handler_interactive(int sig)
 {
 	if (sig == SIGINT)
 	{
+		the_exit = 130;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -23,24 +24,10 @@ void	handler_interactive(int sig)
 	}
 }
 
-void	handler_execution(int sig)
-{
-	if (sig == SIGINT)
-	{
-		sig = 1;
-		write(1, "\n", 1);
-	}
-	else if (sig == SIGQUIT)
-	{
-		write(2, "Quit (core dumped)\n", 19);
-		sig = 1;
-	}
-}
-
 void	reset_signals(void)
 {
-	signal(SIGINT, handler_execution);
-	signal(SIGQUIT, handler_execution);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	setup_interactive_signals(void)

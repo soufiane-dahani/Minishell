@@ -6,55 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/01 15:56:59 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/04 16:02:18 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	more_expand(char **new, int *i, char *s, int *a)
-{
-	int		j;
-	char	*store;
-	char	*env;
-
-	j = 0;
-	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
-	(*i)++;
-	while (s[(*i)] && ft_isalnum(s[(*i)]))
-		store[j++] = s[(*i)++];
-	store[j] = '\0';
-	env = my_getenv(store, NULL);
-	if (env)
-	{
-		j = 0;
-		while (env[j])
-			(*new)[(*a)++] = env[j++];
-	}
-}
-
-char	*exp_for_herdoc(char *s)
-{
-	int		i;
-	int		a;
-	char	*env;
-	char	*new;
-
-	i = 0;
-	env = ft_malloc(ft_strlen(s) + 1, FT_ALLOC);
-	a = calculate_s(s, env);
-	new = ft_malloc(a * sizeof(char) + 1, FT_ALLOC);
-	a = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-			more_expand(&new, &i, s, &a);
-		else
-			new[a++] = s[i++];
-	}
-	new[a] = '\0';
-	return (new);
-}
 
 int	get_next_line(char **line)
 {

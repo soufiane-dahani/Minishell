@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/02 15:52:36 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:59:43 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// t_ast	*g_ast;
+int	the_exit;
 
 void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store, t_ast **node)
 {
 	if (!parsing(data, node))
 		return ;
-	(*node)->exit_status = execute_ast(*node, env, store);
+	the_exit = execute_ast(*node, env, store);
 }
 
 int	main(int ac, char **av, char **env)
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 	if (env[0] == NULL)
 		env = add_new_env_if_not_found();
 	node = ft_malloc(sizeof(t_ast), FT_ALLOC);
-	node->exit_status = 0;
+	the_exit = 0;
 	env_copy = copy_env(env);
 	add_shlvl(&env_copy);
 	data = ft_malloc(sizeof(t_cmd), FT_ALLOC);
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **env)
 	store->vars = NULL;
 	while (1)
 	{
-		node->env = env_copy;
+		my_getenv(NULL, env_copy);
 		setup_interactive_signals();
 		data->s = readline("minishell$> ");
 		add_history(data->s);
