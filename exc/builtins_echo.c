@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/21 21:48:28 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:48:32 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,24 @@ int	my_echo(char **cmd)
 	if (flag == 0)
 		printf("\n");
 	return (0);
+}
+
+int	count_entries(void)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+	int				count;
+
+	count = 0;
+	dir = opendir(".");
+	if (!dir)
+		return (0);
+	entry = readdir(dir);
+	while (entry)
+	{
+		count++;
+		entry = readdir(dir);
+	}
+	closedir(dir);
+	return (count);
 }

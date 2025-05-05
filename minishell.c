@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-int	the_exit;
+int		the_exit;
 
-void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store, t_ast **node)
+void	ft_clear_work(t_cmd *data, char ***env, t_export_store *store,
+		t_ast **node)
 {
 	if (!parsing(data, node))
 		return ;

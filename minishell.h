@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 09:47:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:48:40 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_export_store
 	char			**vars;
 }					t_export_store;
 
-extern int	the_exit;
+extern int			the_exit;
 
 typedef struct s_cmd
 {
@@ -198,7 +198,7 @@ char				*random_str(void);
 char				**handle_exp_for_camond(char **cmd);
 char				**handle_wildcards_for_string(char **s);
 int					match_pattern(const char *pattern, const char *str);
-
+void				reset_signal_for_herdoc(int sig);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);
@@ -223,7 +223,7 @@ char				*ft_strdup_custom(const char *s);
 int					print_sorted_env(char **envp, t_export_store *store);
 int					env_var_index(char *name, char **env);
 int					exec_external(t_ast *node, char **envp);
-int						exec_pipe(t_ast *node, char ***envp, t_export_store *store);
+int					exec_pipe(t_ast *node, char ***envp, t_export_store *store);
 int					exec_builtin(t_ast *node, char ***envp_ptr,
 						t_export_store *store);
 int					exec_redirection(t_ast *node, char ***envp,
@@ -280,7 +280,9 @@ size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					exit_status(int status);
 char				*check_command_in_paths(char *cmd, char **paths);
 int					is_root(char *s, char *str);
-int	apply_redirections(t_ast *node, char ***envp, t_export_store *store);
-char	*random_str(void);
+int					apply_redirections(t_ast *node, char ***envp,
+						t_export_store *store);
+char				*random_str(void);
+int					count_entries(void);
 
 #endif
