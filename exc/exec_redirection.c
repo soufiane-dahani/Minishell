@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 07:30:50 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:54:49 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
 	redir = handle_wildcard(redir);
 	while (redir)
 	{
+		redir->next->value = exp_for_herdoc(redir->next->value);
 		fd = open_file(redir->next->value, redir->type);
 		if (fd == -1)
 		{
