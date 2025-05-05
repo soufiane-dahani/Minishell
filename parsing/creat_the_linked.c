@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_the_linked.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 14:38:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:40:47 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,11 @@ t_token	*fixing(t_token *tk)
 {
 	check_the_exp(&tk);
 	tk = fix_the_case(tk);
+	if (!calcul_herdoc(tk))
+	{
+		printf("the number of herdoc is too much\n");
+		exit(1);
+	}
 	tk = handele_herdoc(tk);
-	if (!tk)
-		exit(2);
 	return (tk);
 }

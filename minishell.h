@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 14:48:40 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:16:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_export_store
 	char			**vars;
 }					t_export_store;
 
-extern int			the_exit;
+extern int			g_exit;
 
 typedef struct s_cmd
 {
@@ -198,7 +198,8 @@ char				*random_str(void);
 char				**handle_exp_for_camond(char **cmd);
 char				**handle_wildcards_for_string(char **s);
 int					match_pattern(const char *pattern, const char *str);
-void				reset_signal_for_herdoc(int sig);
+void				handle_signal_for_herdoc(int sig);
+int					calcul_herdoc(t_token *tk);
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);

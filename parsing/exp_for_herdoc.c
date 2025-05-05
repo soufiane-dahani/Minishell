@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 09:09:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:16:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	handle_exit_and_number(char **new, int *i, char *s, int *a)
 	j = 0;
 	if (s[(*i)] == '?')
 	{
-		store = ft_itoa(the_exit);
+		store = ft_itoa(g_exit);
 		while (store[j])
 			(*new)[(*a)++] = store[j++];
 		(*i)++;
