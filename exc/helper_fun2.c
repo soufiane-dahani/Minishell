@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/04 17:13:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:03:49 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ char	**handle_exp_for_camond(char **cmd)
 		cmd[i] = skip_quote(cmd[i]);
 		i++;
 	}
+	cmd = handle_wildcards_for_string(cmd);
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 10:40:25 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 07:46:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	handle_token(t_cmd *data, t_spl *spl)
 {
 	int (i), (start), (a);
 	i = spl->i;
+	if (!data->s[i])
+		return (0);
 	if (data->s[i] == '|' && data->s[i + 1] == '|')
 	{
 		data->cmd[spl->token_count++] = ft_strndup("||", 2);

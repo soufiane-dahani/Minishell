@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 16:44:15 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 10:03:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,64 @@ char	*before_quote(char *str)
 	}
 	new[q.i] = '\0';
 	return (new);
+}
+
+char **handle_wildcards_for_string(char **s)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char **new;
+    int i = 0;
+    int entry_count = 0;
+    dir = opendir(".");
+    if (!dir)
+        return s;
+    entry = readdir(dir);
+    while (entry)
+    {
+        entry_count++;
+        entry = readdir(dir);
+    }
+    closedir(dir);
+    new = ft_malloc(sizeof(char *) * (entry_count + 1), FT_ALLOC);
+    if (!new)
+        return s;
+    i = 0;
+    int matches = 0;
+    while (s[i])
+    {
+        int has_wildcard = 0;
+        int j = 0;
+        while (s[i][j])
+        {
+            if (s[i][j] == '*')
+            {
+                has_wildcard = 1;
+                break;
+            }
+            j++;
+        }
+        if (has_wildcard)
+        {
+            dir = opendir(".");
+            if (!dir)
+            {
+                i++;
+                continue;
+			}
+            entry = readdir(dir);
+            while (entry)
+            {
+                if (match_pattern(s[i], entry->d_name))
+                    new[matches++] = ft_strdup(entry->d_name);
+                entry = readdir(dir);
+            }
+            closedir(dir);
+        }
+        else
+            new[matches++] = ft_strdup(s[i]);
+        i++;
+    }
+    new[matches] = NULL;
+    return new;
 }

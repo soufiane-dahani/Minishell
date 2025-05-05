@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 11:07:57 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 09:38:52 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ t_token	*fixing(t_token *tk)
 	tk = fix_the_case(tk);
 	tk = handele_herdoc(tk);
 	if (!tk)
-		return (NULL);
+		exit(2);
 	return (tk);
 }

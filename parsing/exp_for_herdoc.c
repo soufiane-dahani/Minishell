@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 17:10:55 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 09:09:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ static int	handle_exit_and_number(char **new, int *i, char *s, int *a)
 	if (s[(*i)] >= '0' && s[(*i)] <= '9')
 	{
 		(*i)++;
+		return (1);
+	}
+	if (!s[(*i)])
+	{
+		(*new)[(*a++)] = '$';
 		return (1);
 	}
 	return (0);

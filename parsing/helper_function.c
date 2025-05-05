@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_cmd.c                                         :+:      :+:    :+:   */
+/*   helper_function.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/30 13:30:24 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 09:47:02 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	match_pattern(const char *pattern, const char *str)
+int	match_pattern(const char *pattern, const char *str)
 {
 	if (*pattern == '\0' && *str == '\0')
 		return (1);

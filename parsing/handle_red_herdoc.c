@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:21:20 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 14:20:01 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 09:59:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,26 @@ static void	change_herdoc_to_red(t_token **new, t_token **tmp, int a)
 		*tmp = (*tmp)->next;
 }
 
+int	calcul_herdoc(t_token *tk)
+{
+	t_token	*tmp;
+	int		a;
+
+	tmp = tk;
+	a = 0;
+	while (tmp)
+	{
+		if (tmp->type == TYP_REDHERE)
+			a++;
+		if (tmp->type == TYP_PIPE)
+			a = 0;
+		tmp = tmp->next;
+	}
+	if (a > 16)
+		return (0);
+	return (1);
+}
+
 t_token	*handele_herdoc(t_token *tk)
 {
 	t_token			*tmp;
@@ -89,15 +109,9 @@ t_token	*handele_herdoc(t_token *tk)
 	static int		a;
 
 	(1) && (new = NULL), (tmp = tk);
-	while (tmp)
-	{
-		if (tmp->type == TYP_REDHERE)
-			a++;
-		tmp = tmp->next;
-	}
-	if (a > 15)
-		return (NULL);
-	(1) && (a = 0), (tmp = tk);
+	if (!calcul_herdoc(tk))
+		return (printf("the number of herdoc is too much\n"), NULL);
+	a = 0;
 	while (tmp)
 	{
 		if (tmp->type == TYP_REDHERE)

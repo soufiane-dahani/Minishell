@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 16:00:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 09:47:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,9 @@ char				*exp_for_herdoc(char *s);
 void				creat_the_cmd(t_ast **node, t_token **tk);
 char				*random_str(void);
 char				**handle_exp_for_camond(char **cmd);
+char				**handle_wildcards_for_string(char **s);
+int					match_pattern(const char *pattern, const char *str);
+
 
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);

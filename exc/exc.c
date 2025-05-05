@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/04 17:55:14 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 07:57:57 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 	if (!node)
 		return (1);
 	node->cmd = handle_exp_for_camond(node->cmd);
-	if (node->type == TYP_WORD)
+	if (!is_token_sep(node->type) && node->type != TYP_LPAR)
 	{
 		if (node->redir)
 			return (apply_redirections(node, envp, store));
