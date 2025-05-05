@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:16:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:06:35 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,33 @@
 
 int	the_quote_are_even(char *s)
 {
-	int	i;
-	int	single;
-	int	doubl;
+	int		i;
+	char	q;
 
 	i = 0;
-	single = 0;
-	doubl = 0;
 	while (s[i])
 	{
-		if (s[i] == '"')
-			doubl++;
-		if (s[i] == '\'')
-			single++;
+		if (s[i] == '"' || s[i] == '\'')
+		{
+			q = s[i];
+			i++;
+			while (s[i] && s[i] != q)
+				i++;
+			if (!s[i])
+			{
+				printf("invalid syntax\n");
+				return (0);
+			}
+		}
 		i++;
-	}
-	if ((single % 2) || (doubl % 2))
-	{
-		printf("invalid syntax\n");
-		return (0);
 	}
 	return (1);
 }
 
 int	parsing(t_cmd *data, t_ast **node)
 {
-	int		i;
 	t_token	*tk;
 
-	i = 0;
 	if (data->s == NULL)
 	{
 		printf("exit\n");

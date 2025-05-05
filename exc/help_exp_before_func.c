@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 14:48:16 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:02:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ char	*before_quote(char *str)
 	char	*env;
 	char	*new;
 
-	env = ft_malloc(ft_strlen(str) * sizeof(char) + 1, FT_ALLOC);
+	env = ft_malloc((ft_strlen(str) + 1) * sizeof(char), FT_ALLOC);
 	q.a = calculate_s(str, env);
 	q.j = 0;
 	q.i = 0;
-	new = ft_malloc(((sizeof(char)) * q.a) + 1, FT_ALLOC);
+	new = ft_malloc(((sizeof(char)) * (q.a + 1)), FT_ALLOC);
 	while (str[q.j])
 	{
 		if (str[q.j] && (str[q.j] == '"' || str[q.j] == '\''))

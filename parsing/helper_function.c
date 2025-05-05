@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 09:47:02 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:48:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*skip_quote(char *s)
 	(1) && (q.i = 0), (q.j = 0), (q.a = 0);
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	help_skiping(&new, &q, s);
-	if (!s[q.i])
+	if (q.i >= ft_strlen(s))
 		return (s);
 	q.ch = s[q.i++];
 	while (s[q.i])
