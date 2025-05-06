@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/06 16:02:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:44:03 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	child_process(t_ast *node, char ***envp, t_export_store *store)
 	exit_status = 0;
 	if (node->cmd && is_builtin(node->cmd))
 		exit_status = exec_builtin(node, envp, store);
-	else if(node->cmd && node->cmd[0])
+	else if (node->cmd && node->cmd[0])
 		exit_status = exec_external(node, *envp);
 	close_fd(in_fd);
 	close_fd(out_fd);

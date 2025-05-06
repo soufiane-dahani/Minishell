@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/06 15:23:30 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:48:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ void	execute(char **cmd, char **envp)
 	exit(1);
 }
 
-static void	child_process(t_ast *node, char **envp)
-{
-	execute(node->cmd, envp);
-	ft_malloc(0, FT_CLEAR);
-	exit(1);
-}
-
 static int	handle_root_errors(char *cmd, char *str, pid_t pid)
 {
 	int	status;
@@ -80,23 +73,12 @@ static int	handle_root_errors(char *cmd, char *str, pid_t pid)
 	return (0);
 }
 
-int	exec_external(t_ast *node, char **envp)
+static int	handle_parent_process(t_ast *node, pid_t pid)
 {
-	pid_t	pid;
 	int		status;
 	char	*str;
 	int		result;
 
-	(1) && (status = 0), (pid = fork());
-	if (pid == -1)
-		return (perror("fork"), 1);
-	if (pid == 0)
-	{
-		reset_signals();
-		child_process(node, envp);
-		ft_malloc(0, FT_CLEAR);
-		exit(1);
-	}
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
 	result = handle_root_errors(node->cmd[0], str, pid);
 	if (result)
@@ -108,4 +90,21 @@ int	exec_external(t_ast *node, char **envp)
 	else if (WTERMSIG(status) == SIGINT)
 		write(1, "\n", 1);
 	return (exit_status(status));
+}
+
+int	exec_external(t_ast *node, char **envp)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		return (perror("fork"), 1);
+	if (pid == 0)
+	{
+		reset_signals();
+		child_process(node, envp);
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
+	return (handle_parent_process(node, pid));
 }

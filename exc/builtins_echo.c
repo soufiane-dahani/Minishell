@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 17:12:23 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:47:14 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ int	count_entries(void)
 	}
 	closedir(dir);
 	return (count);
+}
+
+void	child_process(t_ast *node, char **envp)
+{
+	execute(node->cmd, envp);
+	ft_malloc(0, FT_CLEAR);
+	exit(1);
 }
