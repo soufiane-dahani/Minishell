@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:52:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/04 17:05:06 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 09:28:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	creat_the_cmd(t_ast **node, t_token **tk)
 		(*tk) = (*tk)->next;
 	while ((*tk))
 	{
-		add_token(&(*node)->redir, (*tk)->value, (*tk)->type, (*tk)->is_exp);
+		if ((*tk) && (*tk)->type != TYP_RPAR)
+			add_token(&(*node)->redir, (*tk)->value, (*tk)->type, (*tk)->is_exp);
 		(*tk) = (*tk)->next;
 	}
 }

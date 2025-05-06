@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 15:40:47 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:05:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_token	*fixing(t_token *tk)
 	if (!calcul_herdoc(tk))
 	{
 		printf("the number of herdoc is too much\n");
-		exit(1);
+		exit(2);
 	}
 	tk = handele_herdoc(tk);
 	return (tk);

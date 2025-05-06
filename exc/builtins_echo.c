@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 14:48:32 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:12:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	my_echo(char **cmd)
 	}
 	while (cmd[i] != NULL)
 	{
-		printf("%s", cmd[i]);
+		printf("%s ", cmd[i]);
 		i++;
 	}
 	if (flag == 0)
