@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 09:27:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:08:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	rediraction_to_linked_list(t_token *tk, t_token **node)
 	while (tmp)
 	{
 		if (tmp->type != TYP_RPAR)
-		{
-			printf("%s\n", tmp->value);
 			add_token(node, tmp->value, tmp->type, tmp->is_exp);
-		}
 		tmp = tmp->next;
 	}
 }

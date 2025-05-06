@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:16:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:01:36 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,7 @@ void				add_shlvl(char ***env);
 void	store_export_only_var(const char *key,
 							t_export_store *store);
 void				remove_export_only_var(char **env, t_export_store *store);
-
+t_token				*skip_par(t_token *tk);
 void				update_env_plus(char *var, char ***envp_ptr);
 char				*ft_strdup_custom2(const char *s);
 char				*remove_plus(char *arg);

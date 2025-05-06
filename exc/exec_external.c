@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 07:56:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:23:30 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	exec_external(t_ast *node, char **envp)
 	{
 		reset_signals();
 		child_process(node, envp);
+		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
