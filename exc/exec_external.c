@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/06 18:48:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:51:15 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	exec_external(t_ast *node, char **envp)
 	if (pid == 0)
 	{
 		reset_signals();
-		child_process(node, envp);
+		child_process2(node, envp);
 		ft_malloc(0, FT_CLEAR);
 		exit(1);
 	}
