@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:35:42 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:00:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,23 @@ void	add_matches(char **new, char *pattern, int *matches)
 {
 	DIR				*dir;
 	struct dirent	*entry;
+	int				show_hidden;
+	int				is_dir;
 
+	show_hidden = (pattern[0] == '.');
+	is_dir = 0;
+	if (ft_strchr(pattern, '/'))
+		is_dir = 1;
 	dir = opendir(".");
 	if (!dir)
 		return ;
 	entry = readdir(dir);
 	while (entry)
 	{
+		if (!show_hidden && entry->d_name[0] == '.')
+			entry = readdir(dir);
+		if (is_dir && entry->d_type != DT_DIR)
+			entry = readdir(dir);
 		if (match_pattern(pattern, entry->d_name))
 			new[(*matches)++] = ft_strdup(entry->d_name);
 		entry = readdir(dir);
@@ -90,20 +100,27 @@ char	**handle_wildcards_for_string(char **s)
 {
 	char	**new;
 	int		i;
+	int		j;
 	int		matches;
+	int		has_wildcard;
 
 	new = ft_malloc(sizeof(char *) * (count_entries() + 1), FT_ALLOC);
 	if (!new)
 		return (s);
-	i = 0;
-	matches = 0;
+	(1) && (i = 0), (matches = 0);
 	while (s[i])
 	{
-		process_string(new, s[i], &matches);
+		(1) && (has_wildcard = 0), (j = 0);
+		while (s[i][j])
+			if (s[i][j++] == '*')
+				has_wildcard = 1;
+		if (has_wildcard)
+			add_matches(new, s[i], &matches);
+		else
+			new[matches++] = ft_strdup(s[i]);
 		i++;
 	}
-	if (!matches || new[0])
+	if (!matches || !new[0])
 		return (s);
-	new[matches] = NULL;
-	return (new);
+	return (new[matches] = NULL, new);
 }
