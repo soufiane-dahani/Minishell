@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:21:20 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 17:05:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:27:06 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ int	calcul_herdoc(t_token *tk)
 			a++;
 		if (tmp->type == TYP_PIPE)
 			a = 0;
+		if (ft_strlen(tmp->value) > 15000)
+		{
+			g_exit = 1;
+			return (1337);
+		}
 		tmp = tmp->next;
 	}
 	if (a > 16)

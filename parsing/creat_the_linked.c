@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 17:45:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:27:32 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ t_token	*handle_invalid_syntax_for_hardoc(t_token *tk)
 	return (new);
 }
 
-
 t_token	*fixing(t_token *tk)
 {
 	check_the_exp(&tk);
@@ -121,6 +120,11 @@ t_token	*fixing(t_token *tk)
 		printf("the number of herdoc is too much\n");
 		ft_malloc(0, FT_CLEAR);
 		exit(2);
+	}
+	if (calcul_herdoc(tk) == 1337)
+	{
+		printf("the len of the arg is too tall\n");
+		return (NULL);
 	}
 	tk = handele_herdoc(tk);
 	return (tk);

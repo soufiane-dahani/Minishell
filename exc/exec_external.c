@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/06 18:51:15 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:24:25 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	execute(char **cmd, char **envp)
 {
 	char	*path;
 
+	if (!cmd || !cmd[0])
+		return ;
 	if (ft_strchr(cmd[0], '/'))
 	{
 		if (access(cmd[0], F_OK | X_OK) == -1)

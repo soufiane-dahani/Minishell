@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 17:02:10 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:24:49 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,7 @@ char	**handle_wildcards_for_string(char **s)
 			new[matches++] = ft_strdup(s[i]);
 		i++;
 	}
+	if (!matches || new[0])
+		return (s);
 	return (new[matches] = NULL, new);
 }
