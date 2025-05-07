@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   creat_the_linked.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 14:27:32 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:28:11 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_token	*create_token(char *value, t_type type, int exp)
-{
-	t_token	*new_token;
-
-	new_token = ft_malloc(sizeof(t_token), FT_ALLOC);
-	if (!new_token)
-		return (NULL);
-	new_token->value = ft_strdup(value);
-	new_token->type = type;
-	new_token->is_exp = exp;
-	new_token->next = NULL;
-	return (new_token);
-}
 
 void	add_token(t_token **head, char *value, t_type type, int exp)
 {
@@ -99,7 +85,9 @@ t_token	*handle_invalid_syntax_for_hardoc(t_token *tk)
 	new = NULL;
 	while (tmp)
 	{
-		if (tmp->type == TYP_REDHERE && (!tmp->next || is_token_nor(tmp->next->type) || is_token_sep(tmp->next->type)))
+		if (tmp->type == TYP_REDHERE && (!tmp->next
+				|| is_token_nor(tmp->next->type)
+				|| is_token_sep(tmp->next->type)))
 		{
 			printf("invalid syntax near `<<'\n");
 			break ;

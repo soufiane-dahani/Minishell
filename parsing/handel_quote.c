@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:10:15 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:23:10 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	store_new(char **new, int *i, char *s, int *old)
 	if (is_exit(new, i, s, old))
 		return ;
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
-		store [j++] = s[(*i)++];
+		store[j++] = s[(*i)++];
 	store[j] = '\0';
 	env = my_getenv(store, NULL);
 	if (env)

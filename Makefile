@@ -6,7 +6,7 @@
 #    By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
-#    Updated: 2025/05/04 17:53:40 by sodahani         ###   ########.fr        #
+#    Updated: 2025/05/07 15:24:21 by sodahani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c l
 	exc/builtins_export_help2.c exc/builtins_export_help3.c libft_exc/ft_isdigit.c \
 	libft_exc/ft_itoa.c libft_exc/ft_isalpha.c libft_exc/ft_memcpy.c libft_exc/ft_putchar_fd.c \
 	libft_exc/ft_putstr_fd.c libft_exc/ft_split.c libft_exc/ft_strchr.c libft_exc/ft_strlcat.c libft_exc/ft_strnstr.c\
-	libft_exc/ft_strlcpy.c
+	libft_exc/ft_strlcpy.c exc/help_exp_before_func2.c parsing/help.c
 
 OBJ = $(SRC:.c=.o)
 

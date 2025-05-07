@@ -14,8 +14,8 @@
 
 int	is_token_nor(t_type s)
 {
-	return (s == TYP_REDAPP || s == TYP_REDIN
-		|| s == TYP_REDOUT || s == TYP_REDHERE);
+	return (s == TYP_REDAPP || s == TYP_REDIN || s == TYP_REDOUT
+		|| s == TYP_REDHERE);
 }
 
 void	store_typ_no_red(t_token **tmp, t_token **redir, t_token **new)

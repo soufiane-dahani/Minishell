@@ -110,8 +110,8 @@ void	more_extra(char **new, t_quote *quote, char *s)
 
 char	*extra_work(char *s)
 {
-	t_quote		q;
-	char		*new;
+	t_quote	q;
+	char	*new;
 
 	q.a = 0;
 	q.i = 0;

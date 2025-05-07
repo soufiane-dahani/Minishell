@@ -76,7 +76,8 @@ void	expand_to_directories(char *s, t_token **new)
 
 int	help_clcule(char **env, int *j, char *s, int *i)
 {
-	int	total;
+	int		total;
+	char	*env_value;
 
 	total = 0;
 	while (s[(*i)] && (ft_isalnum(s[(*i)])))
@@ -84,7 +85,7 @@ int	help_clcule(char **env, int *j, char *s, int *i)
 	(*env)[(*j)] = '\0';
 	if ((*j) > 0)
 	{
-		char *env_value = my_getenv(*env, NULL);
+		env_value = my_getenv(*env, NULL);
 		if (env_value)
 			total += ft_strlen(env_value);
 		else

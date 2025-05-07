@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:09:05 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:23:36 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	is_has_quote(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != '\'' && s[i] != '"'
-		&& !is_space(s[i]) && !is_token(s[i]))
+	while (s[i] && s[i] != '\'' && s[i] != '"' && !is_space(s[i])
+		&& !is_token(s[i]))
 		i++;
 	if (!s[i] || is_token(s[i]))
 		return (0);

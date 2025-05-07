@@ -17,8 +17,8 @@ int	match_pattern(const char *pattern, const char *str)
 	if (*pattern == '\0' && *str == '\0')
 		return (1);
 	if (*pattern == '*')
-		return (match_pattern(pattern + 1, str)
-			|| (*str && match_pattern(pattern, str + 1)));
+		return (match_pattern(pattern + 1, str) || (*str
+				&& match_pattern(pattern, str + 1)));
 	if (*pattern == *str)
 		return (match_pattern(pattern + 1, str + 1));
 	return (0);
@@ -26,8 +26,8 @@ int	match_pattern(const char *pattern, const char *str)
 
 char	*skip_quote(char *s)
 {
-	t_quote		q;
-	char		*new;
+	t_quote	q;
+	char	*new;
 
 	(1) && (q.i = 0), (q.j = 0), (q.a = 0);
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 14:24:49 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:35:42 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*before_quote(char *str)
 	return (new);
 }
 
-static void	add_matches(char **new, char *pattern, int *matches)
+void	add_matches(char **new, char *pattern, int *matches)
 {
 	DIR				*dir;
 	struct dirent	*entry;
@@ -90,9 +90,7 @@ char	**handle_wildcards_for_string(char **s)
 {
 	char	**new;
 	int		i;
-	int		j;
 	int		matches;
-	int		has_wildcard;
 
 	new = ft_malloc(sizeof(char *) * (count_entries() + 1), FT_ALLOC);
 	if (!new)
@@ -101,18 +99,11 @@ char	**handle_wildcards_for_string(char **s)
 	matches = 0;
 	while (s[i])
 	{
-		has_wildcard = 0;
-		j = 0;
-		while (s[i][j])
-			if (s[i][j++] == '*')
-				has_wildcard = 1;
-		if (has_wildcard)
-			add_matches(new, s[i], &matches);
-		else
-			new[matches++] = ft_strdup(s[i]);
+		process_string(new, s[i], &matches);
 		i++;
 	}
 	if (!matches || new[0])
 		return (s);
-	return (new[matches] = NULL, new);
+	new[matches] = NULL;
+	return (new);
 }

@@ -23,16 +23,16 @@ int	check_the_first(t_token *tk)
 
 int	invalid_syntax(t_token *tk)
 {
-	if (tk->type == TYP_OR || tk->type == TYP_RPAR
-		|| tk->type == TYP_AND || tk->type == TYP_PIPE)
+	if (tk->type == TYP_OR || tk->type == TYP_RPAR || tk->type == TYP_AND
+		|| tk->type == TYP_PIPE)
 	{
 		printf("invalid syntax near '%s'\n", tk->value);
 		return (1);
 	}
 	while (tk->next)
 		tk = tk->next;
-	if (tk->type != TYP_WORD && tk->type != TYP_DQUOTE
-		&& tk->type != TYP_SQOUTE && tk->type != TYP_RPAR)
+	if (tk->type != TYP_WORD && tk->type != TYP_DQUOTE && tk->type != TYP_SQOUTE
+		&& tk->type != TYP_RPAR)
 	{
 		printf("invalid syntax near '%s'\n", tk->value);
 		return (1);
@@ -49,9 +49,9 @@ int	is_hide(char *s)
 
 t_token	*handle_wildcard(t_token *tk)
 {
-	t_token		*s;
-	t_token		*new;
-	t_token		*tokens;
+	t_token	*s;
+	t_token	*new;
+	t_token	*tokens;
 
 	s = tk;
 	new = NULL;

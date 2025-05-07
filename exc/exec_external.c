@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/07 14:24:25 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:17:18 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,8 @@ void	execute(char **cmd, char **envp)
 		return ;
 	if (ft_strchr(cmd[0], '/'))
 	{
-		if (access(cmd[0], F_OK | X_OK) == -1)
-		{
-			ft_malloc(0, FT_CLEAR);
-			perror("command not found");
-		}
-		else if (execve(cmd[0], cmd, envp) == -1)
-			perror("error ");
-		ft_malloc(0, FT_CLEAR);
-		exit(127);
+		execute_with_path(cmd, envp);
+		return ;
 	}
 	path = find_path(cmd[0], envp);
 	if (!path)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_function_for_tree.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:52:21 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 17:02:37 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:27:24 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	creat_the_cmd(t_ast **node, t_token **tk)
 	while ((*tk))
 	{
 		if ((*tk) && (*tk)->type != TYP_RPAR)
-			add_token(&(*node)->redir, (*tk)->value, (*tk)->type, (*tk)->is_exp);
+			add_token(&(*node)->redir, (*tk)->value, (*tk)->type,
+				(*tk)->is_exp);
 		(*tk) = (*tk)->next;
 	}
 }

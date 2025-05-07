@@ -24,19 +24,16 @@ int	is_token_sep(t_type s)
 
 int	is_token(char c)
 {
-	return (c == '|' || c == '&'
-		|| c == '>' || c == '<'
-		|| is_space(c));
+	return (c == '|' || c == '&' || c == '>' || c == '<' || is_space(c));
 }
 
 int	is_special_char(char c)
 {
-	return (c == '|' || c == '&' || c == '<' || c == '>'
-		|| c == '(' || c == ')');
+	return (c == '|' || c == '&' || c == '<' || c == '>' || c == '('
+		|| c == ')');
 }
 
 int	ft_isalnum(int c)
 {
-	return ((c >= 'A' && c <= 'Z')
-		|| (c >= 'a' && c <= 'z'));
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }

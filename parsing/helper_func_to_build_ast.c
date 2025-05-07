@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_func_to_build_ast.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:08:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 17:01:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:27:06 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,37 +78,20 @@ void	help_start(t_token *op, t_token **tk, t_ast **node)
 
 t_token	*skip_par(t_token *tk)
 {
-	t_token	*start = tk;
+	t_token	*start;
 	t_token	*end;
-	t_token	*new = NULL;
-	t_token	*tmp;
-	int		count = 0;
+	t_token	*new;
 
 	if (!tk || !tk->next)
-		return tk;
+		return (tk);
+	start = tk;
 	end = tk;
 	while (end->next)
 		end = end->next;
-	if (start->type != TYP_LPAR || end->type != TYP_RPAR)
-		return tk;
-	tmp = start;
-	while (tmp != end)
-	{
-		if (tmp->type == TYP_LPAR)
-			count++;
-		else if (tmp->type == TYP_RPAR)
-			count--;
-		if (count == 0 && tmp != end)
-			return tk;
-		tmp = tmp->next;
-	}
-	tmp = start->next;
-	while (tmp != end)
-	{
-		add_token(&new, tmp->value, tmp->type, tmp->is_exp);
-		tmp = tmp->next;
-	}
-	return skip_par(new);
+	if (!is_valid_enclosure(start, end))
+		return (tk);
+	new = create_inner_tokens(start, end);
+	return (skip_par(new));
 }
 
 int	lowest(t_token **tk, t_type h, t_token **op)

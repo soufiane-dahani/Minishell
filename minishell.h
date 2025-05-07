@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 18:52:25 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:37:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,8 +252,8 @@ int					ft_strchr2(char *cmd, char c);
 int					my_echo(char **cmd);
 char				**add_new_env_if_not_found(void);
 void				add_shlvl(char ***env);
-void	store_export_only_var(const char *key,
-							t_export_store *store);
+void				store_export_only_var(const char *key,
+						t_export_store *store);
 void				remove_export_only_var(char **env, t_export_store *store);
 t_token				*skip_par(t_token *tk);
 void				update_env_plus(char *var, char ***envp_ptr);
@@ -287,4 +287,20 @@ char				*random_str(void);
 int					count_entries(void);
 void				child_process2(t_ast *node, char **envp);
 void				execute(char **cmd, char **envp);
+void				execute_with_path(char **cmd, char **envp);
+int					has_wildcard_char(char *str);
+
+void				process_string(char **new, char *str, int *matches);
+int					is_valid_enclosure(t_token *start, t_token *end);
+t_token				*create_inner_tokens(t_token *start, t_token *end);
+char				*process_heredoc_content(char *content, char *name,
+						t_token *tmp);
+void				create_heredoc_tokens(t_token **new, char *name);
+
+int					process_token(t_token **new, t_token **tmp, int a);
+void				*setup_signals(void);
+void				restore_signals(void);
+void				change_herdoc_to_red(t_token **new, t_token **tmp, int a);
+void				add_matches(char **new, char *pattern, int *matches);
+
 #endif

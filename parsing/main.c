@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 17:50:21 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:32:43 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,6 @@ int	the_quote_are_even(char *s)
 	}
 	return (1);
 }
-static void	print_indent(int level)
-{
-	for (int i = 0; i < level; i++)
-		printf("   ");
-}
-
-static void	print_ast(t_ast *node, int level)
-{
-	if (!node)
-		return;
-	print_ast(node->r, level + 8);
-	print_indent(level);
-	if (node->cmd && node->cmd[0])
-	{
-		printf("%s - %d - %d", node->cmd[0], node->exp, node->type);
-		for (int i = 1; node->cmd[i]; i++)
-			printf(" --> %s", node->cmd[i]);
-		printf("\n");
-	}
-	else
-		printf("(NULL CMD)\n");
-	if (node->redir)
-	{
-		print_indent(level);
-		printf("Redirections: ");
-		t_token *cur = node->redir;
-		while (cur)
-		{
-			printf("%s - %d - %d", cur->value, cur->type, cur->is_exp);
-			if (cur->next)
-				printf(" --> ");
-			cur = cur->next;
-		}
-		printf("\n");
-	}
-	print_ast(node->l, level + 8);
-}
 
 int	parsing(t_cmd *data, t_ast **node)
 {
@@ -94,6 +57,32 @@ int	parsing(t_cmd *data, t_ast **node)
 	tk = tokenize(data->cmd);
 	if (!is_cmd_valid(tk, node))
 		return (g_exit = 1, 0);
-	print_ast(*node, 5);
 	return (1);
+}
+
+int	process_token(t_token **new, t_token **tmp, int a)
+{
+	if ((*tmp)->type == TYP_REDHERE)
+	{
+		change_herdoc_to_red(new, tmp, a);
+		if (!(*new))
+			return (0);
+	}
+	else
+		add_token(new, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
+	return (1);
+}
+
+void	*setup_signals(void)
+{
+	void	(*prev_handler)(int);
+
+	prev_handler = signal(SIGINT, handle_signal_for_herdoc);
+	return (prev_handler);
+}
+
+void	restore_signals(void)
+{
+	signal(SIGINT, handler_interactive);
+	open("/dev/tty", O_RDONLY);
 }
