@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_function.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:48:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:32:01 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*skip_quote(char *s)
 	(1) && (q.i = 0), (q.j = 0), (q.a = 0);
 	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	help_skiping(&new, &q, s);
-	if (q.i >= ft_strlen(s))
+	if (q.i >= (int)ft_strlen(s))
 		return (s);
 	q.ch = s[q.i++];
 	while (s[q.i])
