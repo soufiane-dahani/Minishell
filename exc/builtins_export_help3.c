@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_help3.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 15:28:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:15:08 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	print_env_variables(char **variables)
+static void	print_env_variables(char **vars)
 {
 	int	i;
 
 	i = 0;
-	if (!variables || !*variables)
+	if (!vars)
 		return ;
-	while (variables && variables[i])
+	while (vars[i])
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(variables[i], 1);
-		ft_putchar_fd('\n', 1);
+		print_env_line(vars[i]);
 		i++;
 	}
 }

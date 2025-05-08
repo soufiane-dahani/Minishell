@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_subshell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 17:55:28 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:13:03 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,27 @@ int	exec_subshell(t_ast *node, char ***envp, t_export_store *store)
 	}
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
+}
+
+void	print_env_line(char *var)
+{
+	char	*equal;
+	int		key_len;
+
+	equal = ft_strchr(var, '=');
+	if (equal)
+	{
+		key_len = equal - var;
+		write(1, "declare -x ", 11);
+		write(1, var, key_len);
+		write(1, "=\"", 2);
+		ft_putstr_fd(equal + 1, 1);
+		write(1, "\"\n", 2);
+	}
+	else
+	{
+		write(1, "declare -x ", 11);
+		ft_putstr_fd(var, 1);
+		write(1, "\n", 1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:37:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:13:17 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,5 +302,6 @@ void				*setup_signals(void);
 void				restore_signals(void);
 void				change_herdoc_to_red(t_token **new, t_token **tmp, int a);
 void				add_matches(char **new, char *pattern, int *matches);
+void				print_env_line(char *var);
 
 #endif
