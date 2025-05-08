@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/07 15:17:18 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:56:07 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute(char **cmd, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		write(2, "command not found\n", 19);
+		printf("%s: command not found\n", cmd[0]);
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
