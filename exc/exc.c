@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/05 15:47:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:45:25 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 	if (!ft_strcmp(node->cmd[0], "cd"))
 		return (my_cd(node->cmd, envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "pwd"))
-		return (my_pwd());
+		return (my_pwd(*envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "echo"))
 		return (my_echo(node->cmd));
 	if (!ft_strcmp(node->cmd[0], "env"))

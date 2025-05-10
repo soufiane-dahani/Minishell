@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 20:10:32 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:58:43 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ int	my_unset(char **args, char ***envp_ptr)
 			idx = env_var_index(args[i], *envp_ptr);
 			if (idx != -1)
 				remove_env_var(idx, envp_ptr);
-		}
-		else
-		{
-			ft_putstr_fd("unset: `", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("`: not a valid identifier\n", 2);
 		}
 		i++;
 	}

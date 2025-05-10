@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 13:32:22 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:52:18 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ int					execute_ast(t_ast *node, char ***envp,
 int					is_builtin(char **cmd);
 int					ft_strcmp(const char *s1, const char *s2);
 int					my_cd(char **cmd, char ***envp);
-int					my_pwd(void);
+int					my_pwd(char **env);
 int					my_echo(char **cmd);
 int					my_env(char **cmd, char **envp);
 int					my_export(char **args, char ***envp_ptr,

@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/07 15:21:27 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:56:29 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int	my_export(char **args, char ***envp_ptr, t_export_store *store)
 		return (print_sorted_env(*envp_ptr, store));
 	while (args[i])
 	{
-		handle_export_arg(args[i], envp_ptr, store);
+		if (handle_export_arg(args[i], envp_ptr, store) == 1)
+			return (1);
 		i++;
 	}
 	my_getenv(NULL, *envp_ptr);

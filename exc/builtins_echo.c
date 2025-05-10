@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/10 09:44:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:41:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
 
 int	my_echo(char **cmd)
 {
@@ -31,7 +32,9 @@ int	my_echo(char **cmd)
 	}
 	while (cmd[i] != NULL)
 	{
-		printf("%s ", cmd[i]);
+		printf("%s", cmd[i]);
+		if (cmd[i + 1] != NULL)
+			printf(" ");
 		i++;
 	}
 	if (flag == 0)

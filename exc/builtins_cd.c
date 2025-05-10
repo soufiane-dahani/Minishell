@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/27 20:09:51 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:04:25 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	my_cd(char **cmd, char ***envp)
 	char	*target;
 	char	*oldpwd;
 
+	if (cmd[2])
+		return(ft_putstr_fd(" too many arguments\n", 2), 1);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 	{
