@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 17:00:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:03:00 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**handle_wildcards_for_string(char **s)
 	int		matches;
 	int		has_wildcard;
 
-	new = ft_malloc(sizeof(char *) * (count_entries() + 1), FT_ALLOC);
+	new = ft_malloc(sizeof(char *) * (count_entries() + 2), FT_ALLOC);
 	if (!new)
 		return (s);
 	(1) && (i = 0), (matches = 0);
