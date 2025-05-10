@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 16:05:32 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:45:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	parsing(t_cmd *data, t_ast **node)
 	}
 	if (!the_quote_are_even(data->s))
 	{
-		g_exit = 1;
+		g_exit = 2;
 		return (0);
 	}
 	split_the_cmd(data);
 	tk = tokenize(data->cmd);
 	if (!is_cmd_valid(tk, node))
-		return (g_exit = 1, 0);
+		return (g_exit = 2, 0);
 	return (1);
 }
 

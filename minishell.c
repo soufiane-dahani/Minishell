@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 17:46:14 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:40:25 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:01:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	shell_loop(t_cmd *data, char **env_copy,
 	{
 		my_getenv(NULL, env_copy);
 		setup_interactive_signals();
-		data->s = readline("minishell$> ");
+		data->s = readline("$ ");
 		add_history(data->s);
 		ft_clear_work(data, &env_copy, store, node);
 	}

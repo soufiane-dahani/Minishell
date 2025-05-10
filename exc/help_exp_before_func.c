@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 13:03:00 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:01:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,29 +98,29 @@ void	add_matches(char **new, char *pattern, int *matches)
 
 char	**handle_wildcards_for_string(char **s)
 {
-	char	**new;
-	int		i;
-	int		j;
-	int		matches;
-	int		has_wildcard;
+	t_init	wild;
 
-	new = ft_malloc(sizeof(char *) * (count_entries() + 2), FT_ALLOC);
-	if (!new)
-		return (s);
-	(1) && (i = 0), (matches = 0);
-	while (s[i])
+	wild.s_count = 0;
+	while (s[wild.s_count])
+		wild.s_count++;
+	wild.entries = count_entries();
+	if (wild.entries < wild.s_count)
+		wild.entries = wild.s_count;
+	wild.new = ft_malloc(sizeof(char *) * (wild.entries + 1), FT_ALLOC);
+	(1) && (wild.i = 0), (wild.matches = 0);
+	while (s[wild.i])
 	{
-		(1) && (has_wildcard = 0), (j = 0);
-		while (s[i][j])
-			if (s[i][j++] == '*')
-				has_wildcard = 1;
-		if (has_wildcard)
-			add_matches(new, s[i], &matches);
+		(1) && (wild.has_wildcard = 0), (wild.j = 0);
+		while (s[wild.i][wild.j])
+			if (s[wild.i][wild.j++] == '*')
+				wild.has_wildcard = 1;
+		if (wild.has_wildcard)
+			add_matches(wild.new, s[wild.i], &wild.matches);
 		else
-			new[matches++] = ft_strdup(s[i]);
-		i++;
+			wild.new[wild.matches++] = ft_strdup(s[wild.i]);
+		wild.i++;
 	}
-	if (!matches || !new[0])
+	if (!wild.matches || !wild.new[0])
 		return (s);
-	return (new[matches] = NULL, new);
+	return (wild.new[wild.matches] = NULL, wild.new);
 }

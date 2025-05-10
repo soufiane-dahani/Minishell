@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_red_herdoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:21:20 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:35:09 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/10 11:23:41 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ static char	*read_the_herdoc(char *delimiter)
 		if (result < 0)
 			return (NULL);
 		if (result == 0 || ft_strcmp(buffer, delimiter) == 0)
+		{
+			if (result == 0)
+				printf("\nthe herdoc exit with EOF wanted '%s'\n", delimiter);
 			break ;
+		}
 		total = ft_strjoin(total, buffer);
 		total = ft_strjoin(total, "\n");
 	}

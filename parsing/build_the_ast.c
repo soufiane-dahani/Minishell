@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/06 16:08:31 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:53:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_ast	*start_for_ast(t_token *tk)
 	if (!tk)
 		return (NULL);
 	op = NULL;
+	tk = skip_par(tk);
 	the_best_sep(tk, &op);
 	if (op && (is_token_sep(op->type) || op->type == TYP_LPAR))
 	{

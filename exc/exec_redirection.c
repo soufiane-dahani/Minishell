@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/06 18:44:03 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/09 08:58:50 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
 	while (redir)
 	{
 		redir->next->value = exp_for_herdoc(redir->next->value);
+		if (!(redir->next->value[0]))
+			return (printf("ambiguous redirect\n"), 1);
 		fd = open_file(redir->next->value, redir->type);
 		if (fd == -1)
-		{
-			perror("error");
-			return (1);
-		}
+			return (perror("error"), 1);
 		if (redir->type == TYP_REDIN)
 		{
 			close_fd(*in_file);

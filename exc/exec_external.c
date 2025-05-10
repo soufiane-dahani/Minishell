@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/08 20:56:07 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/08 20:27:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute(char **cmd, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		printf("%s: command not found\n", cmd[0]);
+		printf("command not found : %s\n", cmd[0]);
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}

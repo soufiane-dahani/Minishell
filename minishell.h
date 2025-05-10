@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/08 20:13:17 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:32:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -121,6 +120,17 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct s_init
+{
+	char	**new;
+	int		i;
+	int		j;
+	int		matches;
+	int		has_wildcard;
+	int		s_count;
+	int		entries;
+}			t_init;
+
 int					is_has_quote(char *s);
 int					is_single(char *s);
 int					is_couple(char *s);
@@ -200,10 +210,8 @@ char				**handle_wildcards_for_string(char **s);
 int					match_pattern(const char *pattern, const char *str);
 void				handle_signal_for_herdoc(int sig);
 int					calcul_herdoc(t_token *tk);
-
 int					execute_ast(t_ast *node, char ***envp,
 						t_export_store *store);
-
 int					is_builtin(char **cmd);
 int					ft_strcmp(const char *s1, const char *s2);
 int					my_cd(char **cmd, char ***envp);
@@ -227,15 +235,7 @@ int					exec_external(t_ast *node, char **envp);
 int					exec_pipe(t_ast *node, char ***envp, t_export_store *store);
 int					exec_builtin(t_ast *node, char ***envp_ptr,
 						t_export_store *store);
-int					exec_redirection(t_ast *node, char ***envp,
-						t_export_store *store);
 int					open_file(char *argv, int i);
-int					typ_redin_fun(t_ast *node, char ***envp,
-						t_export_store *store);
-int					typ_redapp_fun(t_ast *node, char ***envp,
-						t_export_store *store);
-int					typ_redhere_fun(t_ast *node, char ***envp,
-						t_export_store *store);
 int					exec_and(t_ast *node, char ***envp, t_export_store *store);
 int					exec_or(t_ast *node, char ***envp, t_export_store *store);
 int					exec_subshell(t_ast *node, char ***envp,
@@ -245,7 +245,6 @@ int					find_env_index(char **envp, const char *name);
 char				*expand_tilde(char *path, char **envp);
 int					update_existing_env(char *key, char *value, char ***envp);
 int					count_env_entries(char ***envp);
-void				free_old_env(char **old_env);
 int					create_and_copy_env(char ***envp, char ***new_env,
 						int count);
 int					ft_strchr2(char *cmd, char c);
@@ -263,7 +262,6 @@ void				append_env_var(char *new_var, char ***envp_ptr);
 void				add_or_update_env(char *arg, char ***envp_ptr);
 int					ft_env_size(char **envp);
 void				sort_env(char **env);
-
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -289,19 +287,18 @@ void				child_process2(t_ast *node, char **envp);
 void				execute(char **cmd, char **envp);
 void				execute_with_path(char **cmd, char **envp);
 int					has_wildcard_char(char *str);
-
 void				process_string(char **new, char *str, int *matches);
 int					is_valid_enclosure(t_token *start, t_token *end);
 t_token				*create_inner_tokens(t_token *start, t_token *end);
 char				*process_heredoc_content(char *content, char *name,
 						t_token *tmp);
 void				create_heredoc_tokens(t_token **new, char *name);
-
 int					process_token(t_token **new, t_token **tmp, int a);
 void				*setup_signals(void);
 void				restore_signals(void);
 void				change_herdoc_to_red(t_token **new, t_token **tmp, int a);
 void				add_matches(char **new, char *pattern, int *matches);
+char				**split_the_no_quoted(char **cmd, int *i);
 void				print_env_line(char *var);
 
 #endif

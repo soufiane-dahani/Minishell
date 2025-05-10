@@ -1,8 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/03 12:11:50 by yaait-am          #+#    #+#              #
+#    Updated: 2025/05/10 10:23:11 by yaait-am         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline -L -lft
 
-NAME = minishell
+TARGET = minishell
 SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c libft_used/ft_strjoin.c libft_used/ft_strlen.c \
 	libft_used/ft_lstadd_back.c libft_used/ft_lstclear.c libft_used/ft_lstnew.c parsing/malloc.c libft_used/ft_strncmp.c \
 	parsing/parsing.c parsing/is_function.c parsing/start_building_ast.c parsing/is_the_cmd_valid.c parsing/first_word_error.c \
@@ -20,22 +32,21 @@ SRC = minishell.c parsing/main.c parsing/handle_signal.c libft_used/ft_split.c l
 
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+all: $(TARGET)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+$(TARGET): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(TARGET) $(LDFLAGS)
 
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(TARGET)
 
 re: fclean all
 
-.PHONY: all clean fclean re
-.SECONDARY:
+.PHONY: all clean fclean re banner bye
