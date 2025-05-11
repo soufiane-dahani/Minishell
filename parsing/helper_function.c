@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 09:55:04 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:36:40 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,24 @@ char	*skip_quote(char *s)
 
 	if (!s || !s[0])
 		return (s);
-	(1) && (q.i = 0), (q.j = 0), (q.a = 0);
-	new = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
-	help_skiping(&new, &q, s);
-	if (q.i >= (int)ft_strlen(s))
-		return (s);
-	q.ch = s[q.i++];
+	q.i = 0;
+	q.j = 0;
+	new = ft_malloc(ft_strlen(s) + 1, FT_ALLOC);
 	while (s[q.i])
 	{
-		if (s[q.i] == q.ch)
+		if (s[q.i] == '\'' || s[q.i] == '"')
 		{
-			q.a++;
-			q.i++;
-			if (!s[q.i])
-				break ;
+			q.ch = s[q.i++];
+			while (s[q.i] && s[q.i] != q.ch)
+				new[q.j++] = s[q.i++];
+			if (s[q.i] == q.ch)
+				q.i++;
 		}
 		else
 			new[q.j++] = s[q.i++];
 	}
-	if (!(q.a % 2))
-		return (NULL);
-	return (new[q.j] = '\0', new);
+	new[q.j] = '\0';
+	return (new);
 }
 
 t_token	*change_the_cards(char *pattern)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:23:10 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 13:34:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ int	handle_quote(t_cmd *data, int i)
 		i++;
 	if (data->s[i] && data->s[i] == quote)
 		i++;
-	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i])
-		&& data->s[i] != '"' && data->s[i] != '\'')
+	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i]))
 		i++;
 	return (i - start);
 }

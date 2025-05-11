@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 17:01:41 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:37:20 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ int	is_cmd_valid(t_token *tk, t_ast **node)
 		return (0);
 	*node = tmp;
 	return (1);
-}
-
-void	help_skiping(char **new, t_quote *q, char *s)
-{
-	while (s[q->i] && s[q->i] != '\'' && s[q->i] != '"')
-		(*new)[q->j++] = s[q->i++];
 }
 
 void	help_wildcard(t_token *tokens, t_token **new, t_token *s)

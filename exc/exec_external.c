@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 12:08:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:45:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	execute(char **cmd, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		printf("%s: command not found\n", cmd[0]);
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(": command not found\n",2);
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 09:51:38 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 14:33:41 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	handle_exit_and_number(char **new, int *i, char *s, int *a)
 	if (!ft_isalnum(s[(*i)]))
 	{
 		(*new)[(*a++)] = '$';
+		(*new)[(*a++)] = s[(*i++)];
 		return (1);
 	}
 	return (0);
@@ -48,7 +49,8 @@ static void	more_expand(char **new, int *i, char *s, int *a)
 	j = 0;
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
-	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '\'')
+	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '\''
+		|| (!ft_isalnum(s[(*i)]) && s[(*i)] != '?'))
 	{
 		(*new)[(*a)++] = '$';
 		return ;
@@ -67,6 +69,24 @@ static void	more_expand(char **new, int *i, char *s, int *a)
 	}
 }
 
+int	its_not_between_single(char *s, int i)
+{
+	int	a;
+	int	b;
+
+	a = 0;
+	b = 0;
+	while (s[a] && a < i)
+	{
+		if (s[a] == '\'')
+			b++;
+		a++;
+	}
+	if ((b % 2) && a == i)
+		return (0);
+	return (1);
+}
+
 char	*exp_for_herdoc(char *s)
 {
 	int		i;
@@ -81,7 +101,7 @@ char	*exp_for_herdoc(char *s)
 	a = 0;
 	while (s[i])
 	{
-		if (s[i] == '$')
+		if (s[i] == '$' && its_not_between_single(s, i))
 			more_expand(&new, &i, s, &a);
 		else
 			new[a++] = s[i++];

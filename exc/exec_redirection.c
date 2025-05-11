@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 11:53:48 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:20:03 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
 			return (printf("ambiguous redirect\n"), 1);
 		fd = open_file(redir->next->value, redir->type);
 		if (fd == -1)
-			return (perror("error"), 1);
+			return (perror(redir->next->value), 1);
 		if (redir->type == TYP_REDIN)
 		{
 			close_fd(*in_file);
