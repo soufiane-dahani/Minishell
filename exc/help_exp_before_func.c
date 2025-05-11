@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 09:29:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:24:31 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,7 @@ char	**handle_wildcards_for_string(char **s)
 {
 	t_init	wild;
 
-	wild.s_count = 0;
-	while (s[wild.s_count])
-		wild.s_count++;
-	wild.entries = count_entries();
-	if (wild.entries < wild.s_count)
-		wild.entries = wild.s_count;
-	wild.new = ft_malloc(sizeof(char *) * (wild.entries + 1), FT_ALLOC);
+	init_var_for_wlidcards(&wild, s);
 	(1) && (wild.i = 0), (wild.matches = 0);
 	while (s[wild.i])
 	{

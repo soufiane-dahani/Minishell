@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/10 18:51:52 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:19:50 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	my_pwd(char **env)
 {
-	int	i = 0;
+	int		i;
 	char	cwd[1024];
 
+	i = 0;
 	while (env[i])
 	{
 		if (strncmp(env[i], "PWD=", 4) == 0)

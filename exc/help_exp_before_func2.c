@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/09 14:36:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:25:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,22 @@ char	**split_the_no_quoted(char **cmd, int *i)
 	while (cmd[j])
 		new[a++] = ft_strdup(cmd[j++]);
 	return (new[a] = NULL, new);
+}
+
+void	exit_for_child(void)
+{
+	perror("execve");
+	ft_malloc(0, FT_CLEAR);
+	exit(1);
+}
+
+void	init_var_for_wlidcards(t_init *wild, char **s)
+{
+	wild->s_count = 0;
+	while (s[wild->s_count])
+		wild->s_count++;
+	wild->entries = count_entries();
+	if (wild->entries < wild->s_count)
+		wild->entries = wild->s_count;
+	wild->new = ft_malloc(sizeof(char *) * (wild->entries + 1), FT_ALLOC);
 }

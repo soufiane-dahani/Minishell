@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 18:52:18 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:25:21 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_init
 	int		entries;
 }			t_init;
 
+void				init_var_for_wlidcards(t_init *wild, char **s);
 int					is_has_quote(char *s);
 int					is_single(char *s);
 int					is_couple(char *s);
@@ -278,7 +279,6 @@ int					ft_isalnum(int c);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					exit_status(int status);
 char				*check_command_in_paths(char *cmd, char **paths);
-int					is_root(char *s, char *str);
 int					apply_redirections(t_ast *node, char ***envp,
 						t_export_store *store);
 char				*random_str(void);
@@ -300,5 +300,6 @@ void				change_herdoc_to_red(t_token **new, t_token **tmp, int a);
 void				add_matches(char **new, char *pattern, int *matches);
 char				**split_the_no_quoted(char **cmd, int *i);
 void				print_env_line(char *var);
+void				exit_for_child(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 14:45:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:20:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	execute(char **cmd, char **envp)
 
 	if (!cmd || !cmd[0])
 		return ;
-	if (cmd[0][0] == '\0' && !cmd[1][0])
+	if (cmd[0][0] == '\0' && !cmd[1])
 		return ;
 	if (cmd[0][0] == '\0' && cmd[1][0])
 		cmd++;
@@ -48,7 +48,7 @@ void	execute(char **cmd, char **envp)
 	if (!path)
 	{
 		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": command not found\n",2);
+		ft_putstr_fd(": command not found\n", 2);
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
@@ -64,7 +64,7 @@ static int	handle_parent_process(t_ast *node, pid_t pid)
 	char	*str;
 
 	if (node->cmd[0][0] == '\0' && !node->cmd[1])
-		return 0;
+		return (0);
 	if (node->cmd[0][0] == '\0' && node->cmd[1][0])
 		node->cmd++;
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 14:40:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:18:50 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	child_process2(t_ast *node, char **envp)
 
 void	execute_with_path(char **cmd, char **envp)
 {
-	struct stat sb;
+	struct stat	sb;
 
 	if (stat(cmd[0], &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
@@ -92,11 +92,7 @@ void	execute_with_path(char **cmd, char **envp)
 		exit(126);
 	}
 	else if (execve(cmd[0], cmd, envp) == -1)
-	{
-		perror("execve");
-		ft_malloc(0, FT_CLEAR);
-		exit(1);
-	}
+		exit_for_child();
 }
 
 int	has_wildcard_char(char *str)
