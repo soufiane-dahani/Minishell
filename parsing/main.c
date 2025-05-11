@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/09 14:45:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:22:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,6 @@ int	process_token(t_token **new, t_token **tmp, int a)
 	else
 		add_token(new, (*tmp)->value, (*tmp)->type, (*tmp)->is_exp);
 	return (1);
-}
-
-void	*setup_signals(void)
-{
-	void	(*prev_handler)(int);
-
-	prev_handler = signal(SIGINT, handle_signal_for_herdoc);
-	return (prev_handler);
 }
 
 void	restore_signals(void)

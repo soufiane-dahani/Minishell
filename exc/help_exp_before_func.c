@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 10:01:10 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:29:13 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,12 @@ char	**handle_wildcards_for_string(char **s)
 	(1) && (wild.i = 0), (wild.matches = 0);
 	while (s[wild.i])
 	{
+		if (is_has_quote(s[wild.i]))
+		{
+			wild.new[wild.matches++] = ft_strdup(s[wild.i]);
+			wild.i++;
+			continue ;
+		}
 		(1) && (wild.has_wildcard = 0), (wild.j = 0);
 		while (s[wild.i][wild.j])
 			if (s[wild.i][wild.j++] == '*')

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/10 10:32:47 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:25:58 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	**handle_exp_for_camond(char **cmd)
 	int	i;
 
 	i = 0;
+	cmd = handle_wildcards_for_string(cmd);
 	while (cmd[i])
 	{
 		if (is_couple(cmd[i]))
@@ -86,6 +87,5 @@ char	**handle_exp_for_camond(char **cmd)
 		cmd[i] = skip_quote(cmd[i]);
 		i++;
 	}
-	cmd = handle_wildcards_for_string(cmd);
 	return (cmd);
 }

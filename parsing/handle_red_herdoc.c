@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:21:20 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 11:23:41 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:22:20 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_token	*handele_herdoc(t_token *tk)
 	t_token		*new;
 	static int	a;
 
-	setup_signals();
+	signal(SIGINT, handle_signal_for_herdoc);
 	new = NULL;
 	tmp = tk;
 	a = 0;

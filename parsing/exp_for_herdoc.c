@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 10:31:30 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:51:38 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	handle_exit_and_number(char **new, int *i, char *s, int *a)
 		(*i)++;
 		return (1);
 	}
-	if (!s[(*i)])
+	if (!ft_isalnum(s[(*i)]))
 	{
 		(*new)[(*a++)] = '$';
 		return (1);
@@ -48,13 +48,13 @@ static void	more_expand(char **new, int *i, char *s, int *a)
 	j = 0;
 	store = ft_malloc((ft_strlen(s) * sizeof(char)) + 1, FT_ALLOC);
 	(*i)++;
-	if (handle_exit_and_number(new, i, s, a))
-		return ;
-	if (!ft_isalnum(s[(*i)]))
+	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '\'')
 	{
 		(*new)[(*a)++] = '$';
 		return ;
 	}
+	if (handle_exit_and_number(new, i, s, a))
+		return ;
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
 		store[j++] = s[(*i)++];
 	store[j] = '\0';
