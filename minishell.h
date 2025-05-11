@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 16:40:46 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:13:10 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_init
 	int		entries;
 }			t_init;
 
+void				help_the_spleter(int size, char **new);
 char				**fix_the_issuse_with_echo(char **cmd);
 void				init_var_for_wlidcards(t_init *wild, char **s);
 int					is_has_quote(char *s);

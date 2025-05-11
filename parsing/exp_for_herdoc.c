@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 14:33:41 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:14:27 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,20 @@ int	its_not_between_single(char *s, int i)
 {
 	int	a;
 	int	b;
+	int	d;
 
 	a = 0;
 	b = 0;
+	d = 0;
 	while (s[a] && a < i)
 	{
-		if (s[a] == '\'')
+		if (s[a] == '"' && (b % 2 == 0))
+			d++;
+		if (s[a] == '\'' && (d % 2 == 0))
 			b++;
 		a++;
 	}
-	if ((b % 2) && a == i)
+	if ((b % 2) && (d % 2 == 0))
 		return (0);
 	return (1);
 }

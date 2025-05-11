@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 15:25:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:13:45 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ char	**split_the_no_quoted(char **cmd, int *i)
 	char	**spl;
 	int		a;
 
-	j = 0;
-	a = 0;
+	(1) && (j = 0), (a = 0);
 	if (!cmd || !cmd[0] || !cmd[0][0])
 		return (cmd);
 	size = calcule_total_len(cmd, *i);
 	new = ft_malloc((size + 1) * sizeof(char *), FT_ALLOC);
+	help_the_spleter(size, new);
 	while (cmd[j] && j < *i)
 		new[a++] = ft_strdup(cmd[j++]);
 	size = 0;

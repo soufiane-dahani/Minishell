@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:33:12 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/05 16:16:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:12:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ int	is_question(char *s, int *i)
 	}
 	else
 		return (1);
+}
+
+void	help_the_spleter(int size, char **new)
+{
+	int	k;
+
+	k = 0;
+	while (k <= size)
+		new[k++] = NULL;
 }

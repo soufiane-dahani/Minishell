@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/07 16:05:23 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 18:03:56 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	my_exit(char **cmd)
 {
 	int	ex;
 
-	ft_putstr_fd("exit\n", STDERR_FILENO);
+	//ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (cmd[1])
 	{
 		if (!is_numeric(cmd[1]))
