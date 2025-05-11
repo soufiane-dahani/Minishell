@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/01 16:00:45 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:08:15 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,6 @@ int	exit_status(int status)
 	else if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
 	return (128 + WSTOPSIG(status));
-}
-
-int	is_root(char *s, char *str)
-{
-	int	i;
-
-	i = 0;
-	if (access(str, F_OK | X_OK) == -1 && access(s, F_OK | X_OK) == -1)
-		return (127);
-	if (s[i] == '.' && s[i + 1] == '\0')
-		return (126);
-	while (s[i] && s[i] == '/')
-		i++;
-	if (!s[i])
-		return (126);
-	return (0);
 }
 
 char	*check_command_in_paths(char *cmd, char **paths)

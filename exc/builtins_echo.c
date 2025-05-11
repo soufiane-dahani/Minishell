@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 10:51:52 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:00:00 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	execute_with_path(char **cmd, char **envp)
 	{
 		ft_malloc(0, FT_CLEAR);
 		perror(cmd[0]);
+		perror("error");
 		exit(127);
 	}
 	else if (access(cmd[0], X_OK) == -1)

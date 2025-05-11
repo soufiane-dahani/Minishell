@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 11:22:08 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 11:54:37 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,40 @@ int	the_quote_are_even(char *s)
 }
 
 
-static void	print_indent(int level)
-{
-	for (int i = 0; i < level; i++)
-		printf("  ");
-}
+// static void	print_indent(int level)
+// {
+// 	for (int i = 0; i < level; i++)
+// 		printf("  ");
+// }
 
-static void	print_ast(t_ast *node, int level)
-{
-	if (!node)
-		return ;
-	print_ast(node->r, level + 8);
-	print_indent(level);
-	if (node->cmd && node->cmd[0])
-	{
-		printf("%s - %d - %d", node->cmd[0],
-			node->exp, node->type);
-		for (int i = 1; node->cmd[i]; i++)
-			printf(" --> %s", node->cmd[i]);
-		printf("\n");
-	}
-	else
-		printf("(NULL CMD)\n");
-	print_ast(node->l, level + 8);
-}
+// static void	print_ast(t_ast *node, int level)
+// {
+// 	if (!node)
+// 		return ;
+// 	print_ast(node->r, level + 8);
+// 	print_indent(level);
+// 	if (node->cmd && node->cmd[0])
+// 	{
+// 		printf("%s - %d - %d", node->cmd[0],
+// 			node->exp, node->type);
+// 		for (int i = 1; node->cmd[i]; i++)
+// 			printf(" --> %s", node->cmd[i]);
+// 		t_token *cur = node->redir;
+// 		{
+// 			printf("\n");
+// 			while (cur)
+// 			{
+// 				print_indent(level);
+// 				printf("red : %s", cur->value);
+// 				cur = cur->next;
+// 			}
+// 		}
+// 		printf("\n");
+// 	}
+// 	else
+// 		printf("(NULL CMD)\n");
+// 	print_ast(node->l, level + 8);
+// }
 
 int	parsing(t_cmd *data, t_ast **node)
 {
@@ -88,7 +98,7 @@ int	parsing(t_cmd *data, t_ast **node)
 	tk = tokenize(data->cmd);
 	if (!is_cmd_valid(tk, node))
 		return (g_exit = 2, 0);
-	print_ast(*node, 5);
+	//print_ast(*node, 5);
 	return (1);
 }
 

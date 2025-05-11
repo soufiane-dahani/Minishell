@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 11:07:02 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:08:11 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,16 @@ void	execute(char **cmd, char **envp)
 	exit(1);
 }
 
-static int	handle_root_errors(char *cmd, char *str, pid_t pid)
-{
-	int	status;
-	int	root_status;
-
-	root_status = is_root(cmd, str);
-	if (root_status == 127 || root_status == 126)
-	{
-		waitpid(pid, &status, 0);
-		signal(SIGINT, handler_interactive);
-		return (root_status);
-	}
-	return (0);
-}
-
 static int	handle_parent_process(t_ast *node, pid_t pid)
 {
 	int		status;
 	char	*str;
-	int		result;
 
 	if (node->cmd[0][0] == '\0' && !node->cmd[1])
 		return 0;
 	if (node->cmd[0][0] == '\0' && node->cmd[1][0])
 		node->cmd++;
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
-	result = handle_root_errors(node->cmd[0], str, pid);
-	if (result)
-		return (result);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	if (WTERMSIG(status) == SIGQUIT)
