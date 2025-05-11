@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/08 20:27:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:11:17 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	execute(char **cmd, char **envp)
 
 	if (!cmd || !cmd[0])
 		return ;
+	if (cmd[0][0] == '\0' && cmd[1][0])
+		cmd++;
 	if (ft_strchr(cmd[0], '/'))
 	{
 		execute_with_path(cmd, envp);
@@ -74,6 +76,8 @@ static int	handle_parent_process(t_ast *node, pid_t pid)
 	char	*str;
 	int		result;
 
+	if (node->cmd[0][0] == '\0' && node->cmd[1][0])
+		node->cmd++;
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
 	result = handle_root_errors(node->cmd[0], str, pid);
 	if (result)
