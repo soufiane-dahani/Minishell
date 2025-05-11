@@ -6,7 +6,7 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/10 18:56:29 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:46:17 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,15 @@ void	append_env_var(char *new_var, char ***envp_ptr)
 static int	handle_export_arg(char *arg, char ***envp_ptr,
 		t_export_store *store)
 {
-	if (!is_valid_env_assignment(arg) && !is_valid_identifier(arg))
+	char	*name;
+	int		name_len;
+
+	name_len = 0;
+	while (arg[name_len] && arg[name_len] != '=' && !(arg[name_len] == '+'
+			&& arg[name_len + 1] == '='))
+		name_len++;
+	name = ft_substr(arg, 0, name_len);
+	if (!is_valid_identifier(name))
 	{
 		ft_putstr_fd("export: `", 2);
 		ft_putstr_fd(arg, 2);

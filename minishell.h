@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 19:13:10 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:41:57 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,5 +303,6 @@ void				add_matches(char **new, char *pattern, int *matches);
 char				**split_the_no_quoted(char **cmd, int *i);
 void				print_env_line(char *var);
 void				exit_for_child(void);
+char				*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

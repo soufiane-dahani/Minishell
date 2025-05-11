@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 18:25:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:52:55 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <string.h>
 
 int	is_valid_identifier(char *name)
 {
@@ -82,5 +83,6 @@ int	my_unset(char **args, char ***envp_ptr)
 		}
 		i++;
 	}
+	my_getenv(NULL, *envp_ptr);
 	return (0);
 }
