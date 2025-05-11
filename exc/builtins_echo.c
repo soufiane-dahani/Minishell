@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 10:04:23 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:51:52 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,32 @@ void	child_process2(t_ast *node, char **envp)
 
 void	execute_with_path(char **cmd, char **envp)
 {
-	if (access(cmd[0], F_OK | X_OK) == -1)
+	struct stat sb;
+
+	if (stat(cmd[0], &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		ft_malloc(0, FT_CLEAR);
-		perror("command not found");
+		ft_putstr_fd(": Is a directory\n", 2);
+		exit(126);
+	}
+	else if (access(cmd[0], F_OK) == -1)
+	{
+		ft_malloc(0, FT_CLEAR);
+		perror(cmd[0]);
+		exit(127);
+	}
+	else if (access(cmd[0], X_OK) == -1)
+	{
+		ft_malloc(0, FT_CLEAR);
+		perror(cmd[0]);
+		exit(126);
 	}
 	else if (execve(cmd[0], cmd, envp) == -1)
-		perror("error ");
-	ft_malloc(0, FT_CLEAR);
-	exit(127);
+	{
+		perror("execve");
+		ft_malloc(0, FT_CLEAR);
+		exit(1);
+	}
 }
 
 int	has_wildcard_char(char *str)

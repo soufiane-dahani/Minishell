@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_external.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 10:11:17 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 11:07:02 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	execute(char **cmd, char **envp)
 
 	if (!cmd || !cmd[0])
 		return ;
+	if (cmd[0][0] == '\0' && !cmd[1][0])
+		return ;
 	if (cmd[0][0] == '\0' && cmd[1][0])
 		cmd++;
 	if (ft_strchr(cmd[0], '/'))
@@ -45,7 +47,7 @@ void	execute(char **cmd, char **envp)
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{
-		printf("command not found : %s\n", cmd[0]);
+		printf("%s: command not found\n", cmd[0]);
 		ft_malloc(0, FT_CLEAR);
 		exit(127);
 	}
@@ -76,6 +78,8 @@ static int	handle_parent_process(t_ast *node, pid_t pid)
 	char	*str;
 	int		result;
 
+	if (node->cmd[0][0] == '\0' && !node->cmd[1])
+		return 0;
 	if (node->cmd[0][0] == '\0' && node->cmd[1][0])
 		node->cmd++;
 	str = ft_strjoin("/usr/bin/", node->cmd[0]);
