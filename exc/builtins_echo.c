@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 16:40:19 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:48:23 by sodahani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	my_echo(char **cmd)
 	flag = 0;
 	i = 1;
 	if (cmd[1] == NULL)
-	{
-		printf("\n");
-		return (0);
-	}
+		return (printf("\n"), 0);
 	cmd = fix_the_issuse_with_echo(cmd);
 	if (cmd[1][0] == '-' && cmd[1][1] == 'n' && cmd[1][2] == '\0')
 	{

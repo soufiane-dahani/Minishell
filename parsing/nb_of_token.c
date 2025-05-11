@@ -93,7 +93,7 @@ char	**fix_the_issuse_with_echo(char **cmd)
 
 	a = 0;
 	i = 0;
-	new = ft_malloc((calcule_the_cmd(cmd) + 1)* sizeof(char *), FT_ALLOC);
+	new = ft_malloc((calcule_the_cmd(cmd) + 1) * sizeof(char *), FT_ALLOC);
 	new[a++] = cmd[i++];
 	if (is_only_flg(cmd[i]))
 		new[a++] = ft_strdup("-n");
