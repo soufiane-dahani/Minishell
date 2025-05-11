@@ -6,12 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 15:18:50 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:40:19 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
 int	my_echo(char **cmd)
 {
@@ -25,6 +24,7 @@ int	my_echo(char **cmd)
 		printf("\n");
 		return (0);
 	}
+	cmd = fix_the_issuse_with_echo(cmd);
 	if (cmd[1][0] == '-' && cmd[1][1] == 'n' && cmd[1][2] == '\0')
 	{
 		flag = 1;
