@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 14:24:37 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 11:22:21 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:20:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	is_exit(char **new, int *i, char *s, int *old)
 	char	*helper;
 	int		j;
 
+	if (s[(*i)] == '\'' || s[(*i)] == '"')
+		return 1;
 	if (!s[(*i)] || s[(*i)] == '"' || s[(*i)] == '?' || !ft_isalnum(s[(*i)]))
 	{
 		if (s[(*i)] == '?')
