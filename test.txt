@@ -98,3 +98,126 @@ const tests = [
 "export a=hi && echo '"$a"'"$a"",
 "export a=hi && echo "'$a'"'$a'",
 ];
+
+
+const builtinTests = [
+// echo with different quotes
+"echo hello",
+"echo 'hello'",
+"echo "hello"",
+"echo hello world",
+"echo 'hello world'",
+"echo "hello world"",
+"echo $USER",
+"echo '$USER'",
+"echo "$USER"",
+"echo $USER'$USER'$USER",
+"echo '$USER'$USER",
+"echo "$USER"'$USER'",
+"echo '$USER'"$USER"",
+"echo "mix '$USER' and $USER"",
+"echo 'quote "inside" quote'",
+"echo "quote 'inside' quote"",
+"echo ''",
+"echo """,
+"echo ''""''",
+"echo ""''""",
+
+// export with variations
+"export VAR=hello",
+"export VAR='hello world'",
+"export VAR="hello world"",
+"export VAR=hello && echo $VAR",
+"export VAR='hello' && echo "$VAR"",
+"export VAR="hello" && echo '$VAR'",
+"export VAR=one VAR2=two && echo $VAR $VAR2",
+"export VAR=hi && export VAR=bye && echo $VAR",
+"export X="abc" Y="def" && echo $X$Y",
+"export A=42 && export B='$A' && echo $B",
+
+// unset tests
+"export A=test && unset A && echo $A",
+"unset UNDEFINED && echo OK",
+"unset A B C && echo Done",
+"export A=1 && export B=2 && unset A B && echo $A$B",
+"unset A && export A=hi && echo $A",
+
+// env
+"env",
+"env | grep USER",
+"export A=123 && env | grep A",
+"export A=123 && unset A && env | grep A",
+"export B='a b c' && env | grep B",
+
+// pwd
+"pwd",
+"cd . && pwd",
+"cd .. && pwd",
+"cd / && pwd",
+"cd "$HOME" && pwd",
+"cd '$HOME' && pwd",
+"cd "$HOME" && cd .. && pwd",
+
+// cd
+"cd",
+"cd $HOME",
+"cd "$HOME"",
+"cd '$HOME'",
+"cd /tmp && pwd",
+"cd / && echo here && cd - && pwd",
+"cd .. && cd .. && pwd",
+"cd ./.././ && pwd",
+"cd "" && pwd",
+
+// exit
+"exit",
+"exit 0",
+"exit 1",
+"exit 42",
+"exit "0"",
+"exit '1'",
+"exit 256",
+"exit -1",
+"exit 9223372036854775807",
+"exit 9223372036854775808",
+
+// echo and exit combined
+"echo before && exit 1",
+"echo 'before' && exit 2",
+"exit 3 && echo after",
+
+// export with quotes and value expansion
+"export A=hi && export B="$A world" && echo $B",
+"export A=hi && export B='$A world' && echo $B",
+"export A='hello world' && echo "$A"",
+"export A="hello" && export B='$A' && echo $B",
+"export A="hello" && export B="$A" && echo $B",
+
+// unset with quoted names (no effect but valid input test)
+"unset 'A'",
+"unset "B"",
+"export X=1 && unset "X" && echo $X",
+
+// cd with quotes and variable
+"export DIR=/tmp && cd $DIR && pwd",
+"export DIR=/tmp && cd "$DIR" && pwd",
+"export DIR=/tmp && cd '$DIR' && pwd",
+"cd /tmp && echo 'now in /tmp'",
+"cd /tmp && pwd && cd - && pwd",
+
+// echo mixed quotes
+"echo "'$USER'"",
+"echo '"$USER"'",
+"echo '"user"'"test"",
+"echo "'$USER$USER'"",
+"echo "\"quoted\""",
+
+// export and unset multiple
+"export A=1 B=2 C=3 && echo $A$B$C",
+"unset A B C && echo $A$B$C",
+"export A=1 && export A=2 && echo $A",
+"export A=one && unset A && export A=two && echo $A",
+"export A='1 2 3' && echo "$A"",
+"export A="1 2 3" && echo '$A'",
+];
+
