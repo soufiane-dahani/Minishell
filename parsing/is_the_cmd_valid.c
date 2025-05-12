@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 18:35:56 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:47:58 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	is_cmd_valid(t_token *tk, t_ast **node)
 		return (0);
 	tmp = build_the_tree(tk);
 	if (!tmp)
+		return (0);
+	if (is_invalid_syntax(tmp))
 		return (0);
 	*node = tmp;
 	return (1);

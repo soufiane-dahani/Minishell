@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 09:43:13 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:21:58 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_init
 	int		entries;
 }			t_init;
 
+int					is_invalid_syntax(t_ast *node);
 int					is_not_inside_quote(char *s, int i);
 int					its_not_between_single(char *s, int i);
 void				help_the_spleter(int size, char **new);
