@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/12 16:55:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:58:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	has_space(char *s)
 	int	i;
 
 	i = 0;
-	if (is_couple(s))
+	if (is_couple(s) || is_single(s))
 		return (0);
 	while (s[i] && !is_space(s[i]))
 		i++;
