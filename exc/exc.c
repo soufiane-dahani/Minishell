@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 18:43:44 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:42:15 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	execute_ast_by_type(t_ast *node, char ***envp,
 
 int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 {
-	if (!node)
+	if (!node || !node->cmd[0])
 		return (1);
 	node->cmd = handle_exp_for_camond(node->cmd);
 	if (!is_token_sep(node->type) && node->type != TYP_LPAR)
