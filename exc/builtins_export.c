@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 22:46:17 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:36:42 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,18 @@ static int	handle_export_arg(char *arg, char ***envp_ptr,
 int	my_export(char **args, char ***envp_ptr, t_export_store *store)
 {
 	int	i;
+	int	r;
 
+	r = 0;
 	i = 1;
 	if (!args[1])
 		return (print_sorted_env(*envp_ptr, store));
 	while (args[i])
 	{
 		if (handle_export_arg(args[i], envp_ptr, store) == 1)
-			return (1);
+			r = 1;
 		i++;
 	}
 	my_getenv(NULL, *envp_ptr);
-	return (0);
+	return (r);
 }
