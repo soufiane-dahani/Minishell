@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/10 11:20:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:17:16 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ t_token	*handle_invalid_syntax_for_hardoc(t_token *tk)
 {
 	t_token	*tmp;
 	t_token	*new;
+	int		a;
 
 	tmp = tk;
 	new = NULL;
+	a = 0;
 	while (tmp)
 	{
 		if (tmp->type == TYP_REDHERE && (!tmp->next
@@ -90,11 +92,14 @@ t_token	*handle_invalid_syntax_for_hardoc(t_token *tk)
 				|| is_token_sep(tmp->next->type)))
 		{
 			printf("invalid syntax near `<<'\n");
+			a = 1;
 			break ;
 		}
 		add_token(&new, tmp->value, tmp->type, tmp->is_exp);
 		tmp = tmp->next;
 	}
+	if (!new->next && a)
+		return (NULL);
 	return (new);
 }
 
