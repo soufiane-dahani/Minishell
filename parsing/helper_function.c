@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 07:34:29 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 08:10:35 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,7 @@ char	*skip_quote(char *s)
 	while (s[q.i])
 	{
 		if (s[q.i] == '\'' || s[q.i] == '"')
-		{
-			q.ch = s[q.i++];
-			while (s[q.i] && s[q.i] != q.ch)
-				new[q.j++] = s[q.i++];
-			if (s[q.i] == q.ch)
-				q.i++;
-		}
+			find_close_quote(&q, s, &new);
 		else
 			new[q.j++] = s[q.i++];
 	}

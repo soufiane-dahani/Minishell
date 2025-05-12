@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 13:51:26 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 11:41:00 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 08:10:54 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,22 @@ t_ast	*start_for_ast(t_token *tk)
 	}
 	creat_the_cmd(&node, &tk);
 	return (node);
+}
+
+void	find_close_quote(t_quote *q, char *s, char **new)
+{
+	int	found_close;
+
+	q->ch = s[q->i];
+	found_close = 0;
+	q->i++;
+	while (s[q->i] && s[q->i] != q->ch)
+		(*new)[q->j++] = s[q->i++];
+	if (s[q->i] == q->ch)
+	{
+		q->i++;
+		found_close = 1;
+	}
+	if (!found_close)
+		(*new)[q->j++] = q->ch;
 }
