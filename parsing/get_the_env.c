@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 13:22:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:28:39 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	is_invalid_syntax(t_ast *node)
 {
 	if (!node)
 		return (0);
-	if ((node->type == TYP_PIPE || node->type == TYP_AND ||
-		node->type == TYP_OR) && !node->r)
+	if ((node->type == TYP_PIPE || node->type == TYP_AND
+			|| node->type == TYP_OR) && !node->r)
 	{
 		printf("invalid syntax near `%s'\n", node->cmd[0]);
 		return (1);
