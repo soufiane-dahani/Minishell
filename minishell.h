@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 22:41:57 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/12 08:01:59 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ typedef struct s_init
 	int		entries;
 }			t_init;
 
+int					is_not_inside_quote(char *s, int i);
+int					its_not_between_single(char *s, int i);
 void				help_the_spleter(int size, char **new);
 char				**fix_the_issuse_with_echo(char **cmd);
 void				init_var_for_wlidcards(t_init *wild, char **s);
@@ -187,7 +189,6 @@ char				*skip_quote(char *s);
 char				*new_with_exp(char *s);
 int					calculate_s(char *s, char *env);
 void				store_new(char **new, int *i, char *s, int *old);
-void				help_skiping(char **new, t_quote *q, char *s);
 void				setup_interactive_signals(void);
 void				reset_signals(void);
 void				handler_interactive(int sig);
@@ -202,7 +203,6 @@ void				expand_to_directories(char *s, t_token **new);
 int					is_hide(char *s);
 int					help_clcule(char **env, int *j, char *s, int *i);
 int					is_token_nor(t_type s);
-char				*for_herdoc(char *s);
 char				*my_getenv(char *s, char **copy);
 t_token				*handele_herdoc(t_token *tk);
 char				*exp_for_herdoc(char *s);
@@ -296,13 +296,14 @@ char				*process_heredoc_content(char *content, char *name,
 						t_token *tmp);
 void				create_heredoc_tokens(t_token **new, char *name);
 int					process_token(t_token **new, t_token **tmp, int a);
-void				*setup_signals(void);
 void				restore_signals(void);
 void				change_herdoc_to_red(t_token **new, t_token **tmp, int a);
-void				add_matches(char **new, char *pattern, int *matches);
+void				add_matches(char **new, char *patr, int *match, int *found);
 char				**split_the_no_quoted(char **cmd, int *i);
 void				print_env_line(char *var);
 void				exit_for_child(void);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+int					help_add_match(struct dirent *e, char **n, char *p, int *m);
+int					more_help_for_add_match(int c, char **n, int *mat, char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 15:24:31 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 08:00:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,59 +68,44 @@ char	*before_quote(char *str)
 	return (new);
 }
 
-void	add_matches(char **new, char *pattern, int *matches)
+int	help_add_match(struct dirent *entry, char **new, char *s, int *mat)
 {
-	DIR				*dir;
-	struct dirent	*entry;
-	int				show_hidden;
-	int				is_dir;
+	int	count;
 
-	show_hidden = (pattern[0] == '.');
-	is_dir = 0;
-	if (ft_strchr(pattern, '/'))
-		is_dir = 1;
-	dir = opendir(".");
-	if (!dir)
-		return ;
-	entry = readdir(dir);
-	while (entry)
+	count = 0;
+	if (match_pattern(s, entry->d_name))
 	{
-		if (!show_hidden && entry->d_name[0] == '.')
-			entry = readdir(dir);
-		if (is_dir && entry->d_type != DT_DIR)
-			entry = readdir(dir);
-		if (match_pattern(pattern, entry->d_name))
-			new[(*matches)++] = ft_strdup(entry->d_name);
-		entry = readdir(dir);
+		new[(*mat)++] = ft_strdup(entry->d_name);
+		count++;
 	}
-	closedir(dir);
+	return (count);
 }
 
 char	**handle_wildcards_for_string(char **s)
 {
 	t_init	wild;
+	int		found_match;
 
+	found_match = 0;
 	init_var_for_wlidcards(&wild, s);
-	(1) && (wild.i = 0), (wild.matches = 0);
+	wild.i = 0;
+	wild.matches = 0;
 	while (s[wild.i])
 	{
-		if (is_has_quote(s[wild.i]))
-		{
-			wild.new[wild.matches++] = ft_strdup(s[wild.i]);
-			wild.i++;
-			continue ;
-		}
-		(1) && (wild.has_wildcard = 0), (wild.j = 0);
+		wild.has_wildcard = 0;
+		wild.j = 0;
 		while (s[wild.i][wild.j])
-			if (s[wild.i][wild.j++] == '*')
+			if (s[wild.i][wild.j++] == '*'
+				&& is_not_inside_quote(s[wild.i], wild.j - 1))
 				wild.has_wildcard = 1;
 		if (wild.has_wildcard)
-			add_matches(wild.new, s[wild.i], &wild.matches);
+			add_matches(wild.new, s[wild.i], &wild.matches, &found_match);
 		else
 			wild.new[wild.matches++] = ft_strdup(s[wild.i]);
 		wild.i++;
 	}
 	if (!wild.matches || !wild.new[0])
 		return (s);
-	return (wild.new[wild.matches] = NULL, wild.new);
+	wild.new[wild.matches] = NULL;
+	return (wild.new);
 }

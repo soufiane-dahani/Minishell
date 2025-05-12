@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 19:13:45 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 07:30:33 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	process_string(char **new, char *str, int *matches)
 {
 	if (has_wildcard_char(str))
-		add_matches(new, str, matches);
+		add_matches(new, str, matches, 0);
 	else
 		new[(*matches)++] = ft_strdup(str);
 }

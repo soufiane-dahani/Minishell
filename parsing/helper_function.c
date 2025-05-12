@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:41:09 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 14:36:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 07:34:29 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,19 @@ int	match_pattern(const char *pattern, const char *str)
 	if (*pattern == '\0' && *str == '\0')
 		return (1);
 	if (*pattern == '*')
-		return (match_pattern(pattern + 1, str) || (*str
-				&& match_pattern(pattern, str + 1)));
+	{
+		while (*pattern == '*')
+			pattern++;
+		if (*pattern == '\0')
+			return (1);
+		while (*str)
+		{
+			if (match_pattern(pattern, str))
+				return (1);
+			str++;
+		}
+		return (0);
+	}
 	if (*pattern == *str)
 		return (match_pattern(pattern + 1, str + 1));
 	return (0);

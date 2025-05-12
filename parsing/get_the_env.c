@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_the_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/07 15:54:01 by sodahani         ###   ########.fr       */
+/*   Updated: 2025/05/12 08:01:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,45 @@ char	*my_getenv(char *s, char **copy)
 		i++;
 	}
 	return (NULL);
+}
+
+int	more_help_for_add_match(int count, char **new, int *matches, char *s)
+{
+	int	found;
+
+	found = 0;
+	if (count == 0)
+		new[(*matches)++] = ft_strdup(s);
+	else
+		found = 1;
+	return (found);
+}
+
+void	add_matches(char **new, char *s, int *mat, int *found_match)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+	int				is_hide;
+	int				is_dir;
+	int				count;
+
+	(1) && (count = 0), (is_hide = (s[0] == '.'));
+	is_dir = (ft_strchr(s, '/') != NULL);
+	dir = opendir(".");
+	if (!dir)
+		return ;
+	entry = readdir(dir);
+	while (entry)
+	{
+		if ((!is_hide && entry->d_name[0] == '.')
+			|| (is_dir && entry->d_type != DT_DIR))
+		{
+			entry = readdir(dir);
+			continue ;
+		}
+		count += help_add_match(entry, new, s, mat);
+		entry = readdir(dir);
+	}
+	closedir(dir);
+	*found_match = more_help_for_add_match(count, new, mat, s);
 }

@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:26:49 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 19:14:27 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 07:18:11 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,26 @@ char	*exp_for_herdoc(char *s)
 	}
 	new[a] = '\0';
 	return (new);
+}
+
+int	is_not_inside_quote(char *s, int i)
+{
+	int	a;
+	int	b;
+	int	d;
+
+	a = 0;
+	b = 0;
+	d = 0;
+	while (s[a] && a < i)
+	{
+		if (s[a] == '"')
+			d++;
+		if (s[a] == '\'')
+			b++;
+		a++;
+	}
+	if ((b % 2) || (d % 2))
+		return (0);
+	return (1);
 }
