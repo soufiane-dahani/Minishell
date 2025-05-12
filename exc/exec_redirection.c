@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 12:20:03 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:31:08 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
 	int	fd;
 
 	redir = handle_wildcard(redir);
+	if (redir->next->value[0] == '$')
+			return (printf("ambiguous redirect\n"), 1);
 	while (redir)
 	{
 		redir->next->value = exp_for_herdoc(redir->next->value);
 		redir->next->value = skip_quote(redir->next->value);
-		if (!(redir->next->value[0]))
-			return (printf("ambiguous redirect\n"), 1);
 		fd = open_file(redir->next->value, redir->type);
 		if (fd == -1)
 			return (perror(redir->next->value), 1);

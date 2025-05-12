@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 07:30:33 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:34:46 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**split_the_no_quoted(char **cmd, int *i)
 	size = 0;
 	if (cmd[j])
 	{
-		spl = ft_split(cmd[j], ' ');
+		spl = ft_split2(cmd[j], " \t\n");
 		while (spl[size])
 			new[a++] = ft_strdup(spl[size++]);
 		j++;
