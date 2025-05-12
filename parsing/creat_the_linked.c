@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:13:54 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 16:17:16 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:32:23 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_token	*handle_invalid_syntax_for_hardoc(t_token *tk)
 		add_token(&new, tmp->value, tmp->type, tmp->is_exp);
 		tmp = tmp->next;
 	}
-	if (!new->next && a)
+	if (new && !new->next && a)
 		return (NULL);
 	return (new);
 }
