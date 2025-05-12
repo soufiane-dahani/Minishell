@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/11 18:34:11 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:51:55 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,14 @@ int	handle_quote(t_cmd *data, int i)
 	if (data->s[i] && data->s[i] == quote)
 		i++;
 	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i]))
+	{
+		if (data->s[i] == '\'' || data->s[i] == '"')
+		{
+			quote = data->s[i++];
+			while (data->s[i] && data->s[i] != quote)
+				i++;
+		}
 		i++;
+	}
 	return (i - start);
 }
