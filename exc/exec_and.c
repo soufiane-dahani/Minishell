@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/11 18:24:07 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:10:22 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,16 @@ int	exec_or(t_ast *node, char ***envp, t_export_store *store)
 	if (left_status != 0)
 		return (execute_ast(node->r, envp, store));
 	return (left_status);
+}
+
+int	has_space(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && !is_space(s[i]))
+		i++;
+	if (s[i])
+		return (1);
+	return (0);
 }

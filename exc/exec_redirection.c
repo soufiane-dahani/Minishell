@@ -6,12 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/12 12:34:40 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:09:21 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <stdio.h>
 
 void	close_fd(int fd)
 {
@@ -24,11 +23,11 @@ int	get_in_out_file(t_token *redir, int *in_file, int *out_file)
 	int	fd;
 
 	redir = handle_wildcard(redir);
-	if (redir->next->value[0] == '$')
-		return (printf("ambiguous redirect\n"), 1);
 	while (redir)
 	{
 		redir->next->value = exp_for_herdoc(redir->next->value);
+		if (redir->next->value[0] == '\0' || has_space(redir->next->value))
+			return (printf("ambiguous redirect\n"), 1);
 		redir->next->value = skip_quote(redir->next->value);
 		fd = open_file(redir->next->value, redir->type);
 		if (fd == -1)

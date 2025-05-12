@@ -6,7 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 14:31:53 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:10:43 by yaait-am         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,5 +307,6 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					help_add_match(struct dirent *e, char **n, char *p, int *m);
 int					more_help_for_add_match(int c, char **n, int *mat, char *s);
 int					find_close_quote(int i, char *s);
+int					has_space(char *s);
 
 #endif
