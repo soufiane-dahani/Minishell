@@ -6,7 +6,11 @@
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:43:37 by sodahani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/11 22:42:36 by sodahani         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/26 17:30:52 by sodahani         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +22,7 @@ int	ft_isalpha(int c)
 		return (1);
 	return (0);
 }
+<<<<<<< HEAD
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -47,3 +52,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ft_strlcpy(new, s + start, finish + 1);
 	return (new);
 }
+=======
+>>>>>>> dahani

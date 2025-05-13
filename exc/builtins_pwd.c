@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/11 15:19:50 by yaait-am         ###   ########.fr       */
+=======
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/26 18:33:27 by sodahani         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+<<<<<<< HEAD
 int	my_pwd(char **env)
 {
 	int		i;
@@ -27,6 +35,12 @@ int	my_pwd(char **env)
 		}
 		i++;
 	}
+=======
+int	my_pwd(void)
+{
+	char	cwd[1024];
+
+>>>>>>> dahani
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("pwd");

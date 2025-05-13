@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/12 16:05:54 by yaait-am         ###   ########.fr       */
+=======
+/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/28 21:33:58 by sodahani         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +69,7 @@ void	append_env_var(char *new_var, char ***envp_ptr)
 static int	handle_export_arg(char *arg, char ***envp_ptr,
 		t_export_store *store)
 {
+<<<<<<< HEAD
 	char	*name;
 	int		name_len;
 
@@ -71,6 +79,9 @@ static int	handle_export_arg(char *arg, char ***envp_ptr,
 		name_len++;
 	name = ft_substr(arg, 0, name_len);
 	if (!is_valid_identifier(name))
+=======
+	if (!is_valid_env_assignment(arg) && !is_valid_identifier(arg))
+>>>>>>> dahani
 	{
 		ft_putstr_fd("export: `", 2);
 		ft_putstr_fd(arg, 2);
@@ -90,18 +101,29 @@ static int	handle_export_arg(char *arg, char ***envp_ptr,
 int	my_export(char **args, char ***envp_ptr, t_export_store *store)
 {
 	int	i;
+<<<<<<< HEAD
 	int	r;
 
 	r = 0;
+=======
+
+>>>>>>> dahani
 	i = 1;
 	if (!args[1])
 		return (print_sorted_env(*envp_ptr, store));
 	while (args[i])
 	{
+<<<<<<< HEAD
 		if (handle_export_arg(args[i], envp_ptr, store) == 1)
 			r = 1;
 		i++;
 	}
 	my_getenv(NULL, *envp_ptr);
 	return (r);
+=======
+		handle_export_arg(args[i], envp_ptr, store);
+		i++;
+	}
+	return (0);
+>>>>>>> dahani
 }

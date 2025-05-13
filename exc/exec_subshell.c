@@ -6,7 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/12 12:41:09 by yaait-am         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/27 19:03:02 by yaait-am         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +24,10 @@ int	exec_subshell(t_ast *node, char ***envp, t_export_store *store)
 
 	pid = fork();
 	reset_signals();
+<<<<<<< HEAD
+=======
+	setup_execution_signals();
+>>>>>>> dahani
 	if (pid == -1)
 		return (perror("fork"), 1);
 	if (pid == 0)
@@ -31,6 +39,7 @@ int	exec_subshell(t_ast *node, char ***envp, t_export_store *store)
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }
+<<<<<<< HEAD
 
 void	print_env_line(char *var)
 {
@@ -54,3 +63,5 @@ void	print_env_line(char *var)
 		write(1, "\n", 1);
 	}
 }
+=======
+>>>>>>> dahani

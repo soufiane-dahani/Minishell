@@ -6,12 +6,26 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/12 14:51:55 by yaait-am         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/27 15:14:11 by yaait-am         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+<<<<<<< HEAD
+=======
+int	ft_isalnum(int c)
+{
+	return ((c >= 'A' && c <= 'Z')
+		|| (c >= 'a' && c <= 'z')
+		|| (c >= '0' && c <= '9'));
+}
+
+>>>>>>> dahani
 void	store_new(char **new, int *i, char *s, int *old)
 {
 	int		j;
@@ -24,9 +38,15 @@ void	store_new(char **new, int *i, char *s, int *old)
 	if (is_exit(new, i, s, old))
 		return ;
 	while (s[(*i)] && ft_isalnum(s[(*i)]))
+<<<<<<< HEAD
 		store[j++] = s[(*i)++];
 	store[j] = '\0';
 	env = my_getenv(store, NULL);
+=======
+		store [j++] = s[(*i)++];
+	store[j] = '\0';
+	env = getenv(store);
+>>>>>>> dahani
 	if (env)
 	{
 		j = 0;
@@ -114,6 +134,7 @@ t_token	*handle_exp_quote(t_token *tk)
 	}
 	return (tk);
 }
+<<<<<<< HEAD
 
 int	handle_quote(t_cmd *data, int i)
 {
@@ -141,3 +162,5 @@ int	handle_quote(t_cmd *data, int i)
 	}
 	return (i - start);
 }
+=======
+>>>>>>> dahani

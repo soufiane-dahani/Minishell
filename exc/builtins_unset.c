@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_unset.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/11 21:52:55 by sodahani         ###   ########.fr       */
+=======
+/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
+/*   Updated: 2025/04/27 20:10:32 by yaait-am         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+<<<<<<< HEAD
 #include <string.h>
+=======
+>>>>>>> dahani
 
 int	is_valid_identifier(char *name)
 {
@@ -81,8 +91,19 @@ int	my_unset(char **args, char ***envp_ptr)
 			if (idx != -1)
 				remove_env_var(idx, envp_ptr);
 		}
+<<<<<<< HEAD
 		i++;
 	}
 	my_getenv(NULL, *envp_ptr);
+=======
+		else
+		{
+			ft_putstr_fd("unset: `", 2);
+			ft_putstr_fd(args[i], 2);
+			ft_putstr_fd("`: not a valid identifier\n", 2);
+		}
+		i++;
+	}
+>>>>>>> dahani
 	return (0);
 }

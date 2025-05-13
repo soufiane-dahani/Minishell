@@ -6,7 +6,11 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:33:12 by yaait-am          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/11 19:12:55 by yaait-am         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/27 12:09:52 by yaait-am         ###   ########.fr       */
+>>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +63,11 @@ int	is_question(char *s, int *i)
 
 	if (s[*i] == '?')
 	{
+<<<<<<< HEAD
 		num = ft_itoa(g_exit);
+=======
+		num = ft_itoa(g_ast->exit_status);
+>>>>>>> dahani
 		len = ft_strlen(num);
 		(*i)++;
 		return (len);
@@ -67,6 +75,7 @@ int	is_question(char *s, int *i)
 	else
 		return (1);
 }
+<<<<<<< HEAD
 
 void	help_the_spleter(int size, char **new)
 {
@@ -76,3 +85,5 @@ void	help_the_spleter(int size, char **new)
 	while (k <= size)
 		new[k++] = NULL;
 }
+=======
+>>>>>>> dahani
