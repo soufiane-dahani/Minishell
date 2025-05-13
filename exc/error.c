@@ -6,11 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/05/11 12:08:15 by yaait-am         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/28 18:40:39 by yaait-am         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +63,6 @@ void	add_shlvl(char ***env)
 int	exit_status(int status)
 {
 	if (WIFEXITED(status))
-<<<<<<< HEAD
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
@@ -90,12 +85,4 @@ char	*check_command_in_paths(char *cmd, char **paths)
 		i++;
 	}
 	return (NULL);
-=======
-		g_ast->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		g_ast->exit_status = 128 + WTERMSIG(status);
-	else if (WIFSTOPPED(status))
-		g_ast->exit_status = 128 + WSTOPSIG(status);
-	return (g_ast->exit_status);
->>>>>>> dahani
 }

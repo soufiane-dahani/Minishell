@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_and.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/12 16:58:39 by yaait-am         ###   ########.fr       */
-=======
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/24 14:56:11 by sodahani         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +35,6 @@ int	exec_or(t_ast *node, char ***envp, t_export_store *store)
 		return (execute_ast(node->r, envp, store));
 	return (left_status);
 }
-<<<<<<< HEAD
 
 int	has_space(char *s)
 {
@@ -57,5 +49,3 @@ int	has_space(char *s)
 		return (1);
 	return (0);
 }
-=======
->>>>>>> dahani

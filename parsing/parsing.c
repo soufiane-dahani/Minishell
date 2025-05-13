@@ -3,23 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
 /*   Updated: 2025/05/07 15:23:36 by sodahani         ###   ########.fr       */
-=======
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 10:09:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/04/26 14:41:00 by yaait-am         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-<<<<<<< HEAD
 int	is_has_quote(char *s)
 {
 	int	i;
@@ -33,8 +25,6 @@ int	is_has_quote(char *s)
 	return (1);
 }
 
-=======
->>>>>>> dahani
 void	split_the_cmd(t_cmd *data)
 {
 	t_spl	spl;
@@ -49,11 +39,7 @@ void	split_the_cmd(t_cmd *data)
 		if (!data->s[spl.i])
 			break ;
 		spl.start = &data->s[spl.i];
-<<<<<<< HEAD
 		if (is_has_quote(data->s + spl.i))
-=======
-		if (data->s[spl.i] == '"' || data->s[spl.i] == '\'')
->>>>>>> dahani
 			spl.offset = handle_quote(data, spl.i);
 		else
 			spl.offset = handle_token(data, &spl);
@@ -69,11 +55,8 @@ int	handle_token(t_cmd *data, t_spl *spl)
 {
 	int (i), (start), (a);
 	i = spl->i;
-<<<<<<< HEAD
 	if (!data->s[i])
 		return (0);
-=======
->>>>>>> dahani
 	if (data->s[i] == '|' && data->s[i + 1] == '|')
 	{
 		data->cmd[spl->token_count++] = ft_strndup("||", 2);
@@ -145,26 +128,3 @@ int	ft_handle_token(t_cmd *data, t_spl *spl, int *i)
 		return (data->cmd[spl->token_count++] = ft_strndup("&", 1), 1);
 	return (0);
 }
-<<<<<<< HEAD
-=======
-
-int	handle_quote(t_cmd *data, int i)
-{
-	char	quote;
-	int		start;
-
-	start = i;
-	while (start > 0 && !is_space(data->s[start - 1])
-		&& !is_special_char(data->s[start - 1]))
-		start--;
-	quote = data->s[i];
-	i++;
-	while (data->s[i] && data->s[i] != quote)
-		i++;
-	if (data->s[i] == quote)
-		i++;
-	while (data->s[i] && !is_space(data->s[i]) && !is_special_char(data->s[i]))
-		i++;
-	return (i - start);
-}
->>>>>>> dahani

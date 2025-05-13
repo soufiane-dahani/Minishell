@@ -6,11 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/05/12 15:10:43 by yaait-am         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/28 19:03:19 by yaait-am         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +23,6 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-<<<<<<< HEAD
-=======
-# include <string.h>
->>>>>>> dahani
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -62,27 +54,6 @@ typedef enum e_type
 	TYP_PAR_BLOCK
 }					t_type;
 
-<<<<<<< HEAD
-=======
-typedef struct s_ast
-{
-	char			**cmd;
-	t_type			type;
-	int				nor;
-	int				exp;
-	int				exit_status;
-	struct s_ast	*r;
-	struct s_ast	*l;
-}					t_ast;
-
-typedef struct s_export_store
-{
-	char			**vars;
-}					t_export_store;
-
-extern t_ast		*g_ast;
-
->>>>>>> dahani
 typedef struct s_token
 {
 	char			*value;
@@ -92,7 +63,6 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-<<<<<<< HEAD
 typedef struct s_ast
 {
 	char			**cmd;
@@ -115,8 +85,6 @@ typedef struct s_export_store
 
 extern int			g_exit;
 
-=======
->>>>>>> dahani
 typedef struct s_cmd
 {
 	int				fd;
@@ -152,7 +120,6 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-<<<<<<< HEAD
 typedef struct s_init
 {
 	char	**new;
@@ -171,8 +138,6 @@ void				help_the_spleter(int size, char **new);
 char				**fix_the_issuse_with_echo(char **cmd);
 void				init_var_for_wlidcards(t_init *wild, char **s);
 int					is_has_quote(char *s);
-=======
->>>>>>> dahani
 int					is_single(char *s);
 int					is_couple(char *s);
 char				*before_quote(char *c);
@@ -195,20 +160,12 @@ int					handle_token(t_cmd *data, t_spl *spl);
 int					is_special_char(char c);
 int					ft_handle_token(t_cmd *data, t_spl *spl, int *i);
 int					check_the_first(t_token *tk);
-<<<<<<< HEAD
 int					is_cmd_valid(t_token *tk, t_ast **node);
-=======
-int					is_cmd_valid(t_token *tk);
->>>>>>> dahani
 char				*ft_strcpy(char *dest, char const *src);
 void				*ft_memset(void *s, int c, size_t n);
 t_token				*tokenize(char **cmd);
 int					nb_tok(char *str);
-<<<<<<< HEAD
 int					check_the_exp(t_token **tk);
-=======
-int					check_the_exp(t_token *tk);
->>>>>>> dahani
 int					invalid_syntax(t_token *tk);
 t_ast				*build_the_tree(t_token *tk);
 int					dup_the_token(t_cmd *data, t_spl *spl);
@@ -224,11 +181,7 @@ t_token				*create_token(char *value, t_type type, int exp);
 void				the_best_sep(t_token *tk, t_token **op);
 int					lowest(t_token **tk, t_type h, t_token **op);
 void				help_start(t_token *op, t_token **tk, t_ast **node);
-<<<<<<< HEAD
 int					parsing(t_cmd *data, t_ast **node);
-=======
-int					parsing(t_cmd *data);
->>>>>>> dahani
 t_token				*fix_the_case(t_token *tk);
 t_token				*fixing(t_token *tk);
 t_token				*handle_wildcard(t_token *tk);
@@ -237,16 +190,8 @@ char				*skip_quote(char *s);
 char				*new_with_exp(char *s);
 int					calculate_s(char *s, char *env);
 void				store_new(char **new, int *i, char *s, int *old);
-<<<<<<< HEAD
 void				setup_interactive_signals(void);
 void				reset_signals(void);
-=======
-void				help_skiping(char **new, t_quote *q, char *s);
-void				setup_interactive_signals(void);
-void				reset_signals(void);
-void				setup_execution_signals(void);
-void				handler_execution(int sig);
->>>>>>> dahani
 void				handler_interactive(int sig);
 char				*extra_work(char *s);
 int					is_token(char c);
@@ -259,7 +204,6 @@ void				expand_to_directories(char *s, t_token **new);
 int					is_hide(char *s);
 int					help_clcule(char **env, int *j, char *s, int *i);
 int					is_token_nor(t_type s);
-<<<<<<< HEAD
 char				*my_getenv(char *s, char **copy);
 t_token				*handele_herdoc(t_token *tk);
 char				*exp_for_herdoc(char *s);
@@ -276,17 +220,6 @@ int					is_builtin(char **cmd);
 int					ft_strcmp(const char *s1, const char *s2);
 int					my_cd(char **cmd, char ***envp);
 int					my_pwd(char **env);
-=======
-char				*for_herdoc(char *s);
-
-int					execute_ast(t_ast *node, char ***envp,
-						t_export_store *store);
-
-int					is_builtin(char **cmd);
-int					ft_strcmp(const char *s1, const char *s2);
-int					my_cd(char **cmd, char ***envp);
-int					my_pwd(void);
->>>>>>> dahani
 int					my_echo(char **cmd);
 int					my_env(char **cmd, char **envp);
 int					my_export(char **args, char ***envp_ptr,
@@ -306,19 +239,7 @@ int					exec_external(t_ast *node, char **envp);
 int					exec_pipe(t_ast *node, char ***envp, t_export_store *store);
 int					exec_builtin(t_ast *node, char ***envp_ptr,
 						t_export_store *store);
-<<<<<<< HEAD
 int					open_file(char *argv, int i);
-=======
-int					exec_redirection(t_ast *node, char ***envp,
-						t_export_store *store);
-int					open_file(char *argv, int i);
-int					typ_redin_fun(t_ast *node, char ***envp,
-						t_export_store *store);
-int					typ_redapp_fun(t_ast *node, char ***envp,
-						t_export_store *store);
-int					typ_redhere_fun(t_ast *node, char ***envp,
-						t_export_store *store);
->>>>>>> dahani
 int					exec_and(t_ast *node, char ***envp, t_export_store *store);
 int					exec_or(t_ast *node, char ***envp, t_export_store *store);
 int					exec_subshell(t_ast *node, char ***envp,
@@ -328,27 +249,16 @@ int					find_env_index(char **envp, const char *name);
 char				*expand_tilde(char *path, char **envp);
 int					update_existing_env(char *key, char *value, char ***envp);
 int					count_env_entries(char ***envp);
-<<<<<<< HEAD
-=======
-void				free_old_env(char **old_env);
->>>>>>> dahani
 int					create_and_copy_env(char ***envp, char ***new_env,
 						int count);
 int					ft_strchr2(char *cmd, char c);
 int					my_echo(char **cmd);
 char				**add_new_env_if_not_found(void);
 void				add_shlvl(char ***env);
-<<<<<<< HEAD
 void				store_export_only_var(const char *key,
 						t_export_store *store);
 void				remove_export_only_var(char **env, t_export_store *store);
 t_token				*skip_par(t_token *tk);
-=======
-void	store_export_only_var(const char *key,
-							t_export_store *store);
-void				remove_export_only_var(char **env, t_export_store *store);
-
->>>>>>> dahani
 void				update_env_plus(char *var, char ***envp_ptr);
 char				*ft_strdup_custom2(const char *s);
 char				*remove_plus(char *arg);
@@ -356,10 +266,6 @@ void				append_env_var(char *new_var, char ***envp_ptr);
 void				add_or_update_env(char *arg, char ***envp_ptr);
 int					ft_env_size(char **envp);
 void				sort_env(char **env);
-<<<<<<< HEAD
-=======
-
->>>>>>> dahani
 int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -375,7 +281,6 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 int					ft_isalnum(int c);
 size_t				ft_strlcpy(char *dest, const char *src, size_t size);
 int					exit_status(int status);
-<<<<<<< HEAD
 char				*check_command_in_paths(char *cmd, char **paths);
 int					apply_redirections(t_ast *node, char ***envp,
 						t_export_store *store);
@@ -403,7 +308,5 @@ int					help_add_match(struct dirent *e, char **n, char *p, int *m);
 int					more_help_for_add_match(int c, char **n, int *mat, char *s);
 int					find_close_quote(int i, char *s);
 int					has_space(char *s);
-=======
->>>>>>> dahani
 
 #endif

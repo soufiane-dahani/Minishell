@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_fun2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/12 07:15:59 by yaait-am         ###   ########.fr       */
-=======
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/26 14:39:42 by sodahani         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +56,16 @@ int	open_file(char *filename, int mode)
 {
 	int	fd;
 
-<<<<<<< HEAD
 	if (mode == TYP_REDAPP)
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (mode == TYP_REDOUT)
 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (mode == TYP_REDIN)
-=======
-	if (mode == 0)
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (mode == 1)
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (mode == 2)
->>>>>>> dahani
 		fd = open(filename, O_RDONLY);
 	else
 		return (-1);
 	return (fd);
 }
-<<<<<<< HEAD
 
 char	**handle_exp_for_camond(char **cmd)
 {
@@ -105,5 +89,3 @@ char	**handle_exp_for_camond(char **cmd)
 	}
 	return (cmd);
 }
-=======
->>>>>>> dahani

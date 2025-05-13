@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exc.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
 /*   Updated: 2025/05/12 12:42:15 by yaait-am         ###   ########.fr       */
-=======
-/*   By: sodahani <sodahani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/04/28 21:33:38 by sodahani         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +29,7 @@ int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 	if (!ft_strcmp(node->cmd[0], "cd"))
 		return (my_cd(node->cmd, envp_ptr));
 	if (!ft_strcmp(node->cmd[0], "pwd"))
-<<<<<<< HEAD
 		return (my_pwd(*envp_ptr));
-=======
-		return (my_pwd());
->>>>>>> dahani
 	if (!ft_strcmp(node->cmd[0], "echo"))
 		return (my_echo(node->cmd));
 	if (!ft_strcmp(node->cmd[0], "env"))
@@ -54,30 +43,11 @@ int	exec_builtin(t_ast *node, char ***envp_ptr, t_export_store *store)
 	return (1);
 }
 
-<<<<<<< HEAD
 static int	execute_ast_by_type(t_ast *node, char ***envp,
 		t_export_store *store)
 {
 	if (node->type == TYP_PIPE)
 		return (exec_pipe(node, envp, store));
-=======
-int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
-{
-	if (!node)
-		return (1);
-	if (node->type == TYP_WORD)
-	{
-		if (is_builtin(node->cmd))
-			return (exec_builtin(node, envp, store));
-		else
-			return (exec_external(node, *envp));
-	}
-	else if (node->type == TYP_PIPE)
-		return (exec_pipe(node, envp, store));
-	else if (node->type == TYP_REDOUT || node->type == TYP_REDAPP
-		|| node->type == TYP_REDIN || node->type == TYP_REDHERE)
-		return (exec_redirection(node, envp, store));
->>>>>>> dahani
 	else if (node->type == TYP_AND)
 		return (exec_and(node, envp, store));
 	else if (node->type == TYP_OR)
@@ -86,7 +56,6 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 		return (exec_subshell(node, envp, store));
 	return (1);
 }
-<<<<<<< HEAD
 
 int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 {
@@ -104,5 +73,3 @@ int	execute_ast(t_ast *node, char ***envp, t_export_store *store)
 	}
 	return (execute_ast_by_type(node, envp, store));
 }
-=======
->>>>>>> dahani

@@ -6,11 +6,7 @@
 /*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/05/12 13:27:06 by yaait-am         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/27 20:09:51 by yaait-am         ###   ########.fr       */
->>>>>>> dahani
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +72,6 @@ int	my_cd(char **cmd, char ***envp)
 	char	*target;
 	char	*oldpwd;
 
-<<<<<<< HEAD
 	if (cmd[2])
 		return (ft_putstr_fd(" too many arguments\n", 2), 1);
 	if (cmd[1] && cmd[1][0] == '\0')
@@ -84,14 +79,6 @@ int	my_cd(char **cmd, char ***envp)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (perror("cd: getcwd"), 1);
-=======
-	oldpwd = getcwd(NULL, 0);
-	if (!oldpwd)
-	{
-		perror("cd: getcwd");
-		return (1);
-	}
->>>>>>> dahani
 	target = get_cd_target(cmd, envp);
 	if (!target)
 	{
