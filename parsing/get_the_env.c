@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_the_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:21:32 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 13:28:39 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:50:20 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	add_matches(char **new, char *s, int *mat, int *found_match)
 	int				is_dir;
 	int				count;
 
-	(1) && (count = 0), (is_hide = (s[0] == '.'));
+	count = 0;
+	is_hide = (s[0] == '.');
 	is_dir = (ft_strchr(s, '/') != NULL);
 	dir = opendir(".");
 	if (!dir)

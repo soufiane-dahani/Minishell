@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_the_cmd_valid.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:23:23 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 12:47:58 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:48:39 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	is_cmd_valid(t_token *tk, t_ast **node)
 {
-	t_token	*s;
 	t_ast	*tmp;
 
-	s = tk;
 	if (!check_the_first(tk))
 		return (0);
 	tmp = build_the_tree(tk);

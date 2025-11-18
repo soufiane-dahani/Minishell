@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handel_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 14:40:55 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 14:51:55 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:49:42 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void	store_new(char **new, int *i, char *s, int *old)
 int	calculate_s(char *s, char *env)
 {
 	int (i), (total), (j);
-	(1) && (i = 0), (j = 0), (total = 0);
+	
+	i = 0;
+	total = 0;
 	while (s[i])
 	{
 		j = 0;
@@ -65,13 +67,11 @@ char	*new_with_exp(char *s)
 {
 	int		i;
 	char	*new;
-	int		a;
 	int		j;
 	char	*env;
 
 	if (!s)
 		return (NULL);
-	a = 0;
 	env = ft_malloc(ft_strlen(s) * sizeof(char) + 1, FT_ALLOC);
 	j = 0;
 	i = calculate_s(s, env);

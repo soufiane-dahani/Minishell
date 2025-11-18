@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:26:37 by sodahani          #+#    #+#             */
-/*   Updated: 2025/05/12 13:27:06 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:50:59 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	int		count;
 	char	*new_entry;
 	char	**new_env;
-	char	**old_env;
 
 	count = count_env_entries(envp);
 	if (!create_and_copy_env(envp, &new_env, count))
@@ -29,7 +28,6 @@ static int	add_new_env(char *key, char *value, char ***envp)
 	}
 	new_env[count] = new_entry;
 	new_env[count + 1] = NULL;
-	old_env = *envp;
 	*envp = new_env;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_exp_before_func2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:26:07 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 09:34:46 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:52:22 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ char	**split_the_no_quoted(char **cmd, int *i)
 	char	**spl;
 	int		a;
 
-	(1) && (j = 0), (a = 0);
+	j = 0;
+	a = 0;
 	if (!cmd || !cmd[0] || !cmd[0][0])
 		return (cmd);
 	size = calcule_total_len(cmd, *i);

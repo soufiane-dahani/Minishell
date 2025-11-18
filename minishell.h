@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaait-am <yaait-am@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassir <yassir@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:07:10 by yaait-am          #+#    #+#             */
-/*   Updated: 2025/05/12 15:10:43 by yaait-am         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:46:31 by yassir           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # include <termios.h>
 # include <unistd.h>
 
-# define ANSI_COLOR_RED "\x1b[33m"
-# define ANSI_RESET_ALL "\x1b[0m"
 # define INITIAL_SIZE 10
 # define FT_ALLOC 1
 # define FT_CLEAR 0
